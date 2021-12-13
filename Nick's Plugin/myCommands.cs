@@ -5,7 +5,10 @@ using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
+using Nick_s_Plugin.InputRetrievers;
+using Nick_s_Plugin.Tests;
 using System;
+using System.Text;
 
 // This line is not mandatory, but improves loading performances
 [assembly: CommandClass(typeof(Nick_s_Plugin.MyCommands))]
@@ -18,6 +21,8 @@ namespace Nick_s_Plugin
     // is implicitly per-document!
     public class MyCommands
     {
+
+        #region given commands
         // The CommandMethod attribute can be applied to any public  member 
         // function of any public class.
         // The function should take no arguments and return nothing.
@@ -78,6 +83,31 @@ namespace Nick_s_Plugin
         //    // Return a value to the AutoCAD Lisp Interpreter
         //    return 1;
         //}
+        #endregion
+
+        [CommandMethod("MyGroup", "MyJoists", CommandFlags.Modal)]
+        public static void JoistLayer() // This method can have any name
+        {
+            Joists test = new Joists();
+            
+        }
+
+        [CommandMethod("TestGroup", "InputTests", CommandFlags.Modal)]
+        public static void InputTests() // This method can have any name
+        {
+            StringBuilder testResults = new StringBuilder();
+            ICADTest testobj = new CADDoubleInputRetrieverTest();
+            if(testobj.run() == false)
+            {
+                testResults.AppendFormat("\n %s", testobj.getFailedTests());
+                Active.WriteMessage(testResults.ToString());
+            }
+            else
+            {
+                Active.WriteMessage("\nAll tests passed!");
+            }
+
+        }
 
     }
 
