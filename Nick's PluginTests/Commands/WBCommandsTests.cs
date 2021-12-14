@@ -1,28 +1,37 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Nick_s_Plugin;
+using WBPlugin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WBPluginTests.Fakes;
 
-namespace Nick_s_Plugin.Tests
+namespace WBPlugin.Tests
 {
     [TestClass()]
-    public class MyCommandsTests
+    public class WBCommandsTests
     {
         [TestMethod()]
-        public void JoistLayerTest()
+        public void JoistLayerCommandTest()
         {
             try
             {
-                MyCommands.JoistLayer();
+                WBCommands.JoistLayer();
             }
             catch
             {
                 Assert.Fail();
             }
             
+        }
+
+        [TestMethod()]
+        public void InputTestCommandTest()
+        {
+            
+            WBTestCommand.InputTests(new fakeDoubleInputRetriverTest());
+
         }
     }
 }

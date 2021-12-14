@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Nick_s_Plugin.Tests
+namespace WBPlugin.Tests
 {
-    interface ICADTest
+    public interface ICADTest
     {
         bool run();
 

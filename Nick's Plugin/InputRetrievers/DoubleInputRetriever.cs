@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Autodesk.AutoCAD.EditorInput;
 
-namespace Nick_s_Plugin.InputRetrievers
+namespace WBPlugin
 {
     public class DoubleInputRetriever : IUserInputRetriever<Double>
     {

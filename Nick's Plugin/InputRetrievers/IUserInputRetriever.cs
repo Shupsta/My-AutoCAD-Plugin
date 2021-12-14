@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Nick_s_Plugin
+namespace WBPlugin
 {
     public interface IUserInputRetriever<T>
     {

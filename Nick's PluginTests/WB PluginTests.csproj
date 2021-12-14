@@ -7,9 +7,9 @@
     <ProjectGuid>{40DCC771-1F72-4AD1-A4AE-0C92DD7750BE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Nick_s_PluginTests</RootNamespace>
-    <AssemblyName>Nick%27s PluginTests</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <RootNamespace>WBPluginTests</RootNamespace>
+    <AssemblyName>WBPluginTests</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -56,8 +56,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Commands\MyCommandsTests.cs" />
-    <Compile Include="InputRetrievers\DoubleInputRetrieverTests.cs" />
+    <Compile Include="Commands\WBCommandsTests.cs" />
+    <Compile Include="Fakes\fakeDoubleInputRetriverTest.cs" />
     <Compile Include="Joist Tool\JoistsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -65,9 +65,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Nick%27s Plugin\Nick%27s Plugin.csproj">
+    <ProjectReference Include="..\Nick%27s Plugin\WB Plugin.csproj">
       <Project>{7170EBC1-2F0F-4771-8246-E0F31DABD70E}</Project>
-      <Name>Nick%27s Plugin</Name>
+      <Name>WB Plugin</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

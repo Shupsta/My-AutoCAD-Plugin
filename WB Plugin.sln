@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31829.152
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nick's Plugin", "Nick's Plugin\Nick's Plugin.csproj", "{7170EBC1-2F0F-4771-8246-E0F31DABD70E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WB Plugin", "Nick's Plugin\WB Plugin.csproj", "{7170EBC1-2F0F-4771-8246-E0F31DABD70E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nick's PluginTests", "Nick's PluginTests\Nick's PluginTests.csproj", "{40DCC771-1F72-4AD1-A4AE-0C92DD7750BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WB PluginTests", "Nick's PluginTests\WB PluginTests.csproj", "{40DCC771-1F72-4AD1-A4AE-0C92DD7750BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

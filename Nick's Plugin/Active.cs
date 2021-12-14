@@ -7,7 +7,7 @@ using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 
-namespace Nick_s_Plugin
+namespace WBPlugin
 {
     public static class Active
     {

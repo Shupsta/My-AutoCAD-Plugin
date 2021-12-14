@@ -5,21 +5,20 @@ using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
-using Nick_s_Plugin.InputRetrievers;
-using Nick_s_Plugin.Tests;
+using WBPlugin.Tests;
 using System;
 using System.Text;
 
 // This line is not mandatory, but improves loading performances
-[assembly: CommandClass(typeof(Nick_s_Plugin.MyCommands))]
+[assembly: CommandClass(typeof(WBPlugin.CADCommands))]
 
-namespace Nick_s_Plugin
+namespace WBPlugin
 {
     // This class is instantiated by AutoCAD for each document when
     // a command is called by the user the first time in the context
     // of a given document. In other words, non static data in this class
     // is implicitly per-document!
-    public class MyCommands
+    public class CADCommands
     {
 
         #region given commands
@@ -88,25 +87,17 @@ namespace Nick_s_Plugin
         [CommandMethod("MyGroup", "MyJoists", CommandFlags.Modal)]
         public static void JoistLayer() // This method can have any name
         {
-            Joists test = new Joists();
+            WBCommands.JoistLayer();
             
         }
 
         [CommandMethod("TestGroup", "InputTests", CommandFlags.Modal)]
         public static void InputTests() // This method can have any name
         {
-            StringBuilder testResults = new StringBuilder();
             ICADTest testobj = new CADDoubleInputRetrieverTest();
-            if(testobj.run() == false)
-            {
-                testResults.AppendFormat("\n %s", testobj.getFailedTests());
-                Active.WriteMessage(testResults.ToString());
-            }
-            else
-            {
-                Active.WriteMessage("\nAll tests passed!");
-            }
-
+            
+            Active.WriteMessage(WBTestCommand.InputTests(testobj));
+        
         }
 
     }

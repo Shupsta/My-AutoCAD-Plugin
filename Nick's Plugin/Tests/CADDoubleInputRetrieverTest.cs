@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Nick_s_Plugin.InputRetrievers;
 
-namespace Nick_s_Plugin.Tests
+namespace WBPlugin.Tests
 {
-    class CADDoubleInputRetrieverTest : ICADTest
+    public class CADDoubleInputRetrieverTest : ICADTest
     {
         private string _failedTests;
 
@@ -21,7 +20,7 @@ namespace Nick_s_Plugin.Tests
             return _failedTests;
         }
 
-        public bool run()
+        virtual public bool run()
         {
             bool allPassed = true;
             allPassed = BasicDoubleInputTest();
