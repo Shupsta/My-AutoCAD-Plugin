@@ -5,7 +5,6 @@ using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
-using WBPlugin.Tests;
 using System;
 using System.Text;
 
@@ -84,22 +83,14 @@ namespace WBPlugin
         //}
         #endregion
 
-        [CommandMethod("MyGroup", "MyJoists", CommandFlags.Modal)]
-        public static void JoistLayer() // This method can have any name
+        [CommandMethod("MyGroup", "WBJoist", CommandFlags.Modal)]
+        public static void WBJoist() // This method can have any name
         {
-            WBCommands.JoistLayer();
+            Joists joistObj = new Joists();
             
         }
 
-        [CommandMethod("TestGroup", "InputTests", CommandFlags.Modal)]
-        public static void InputTests() // This method can have any name
-        {
-            ICADTest testobj = new CADDoubleInputRetrieverTest();
-            
-            Active.WriteMessage(WBTestCommand.InputTests(testobj));
         
-        }
-
     }
 
 }

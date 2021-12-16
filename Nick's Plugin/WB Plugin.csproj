@@ -106,21 +106,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Active.cs" />
-    <Compile Include="Commands\WBCommands.cs" />
-    <Compile Include="Commands\WBTestCommand.cs" />
+    <Compile Include="Container Objects\WBLayerTableRecord.cs" />
+    <Compile Include="Container Objects\WBObjectIdCollection.cs" />
+    <Compile Include="Container Objects\WBPoint3d.cs" />
+    <Compile Include="InputRetrievers\AngleInputRetriever.cs" />
+    <Compile Include="InputRetrievers\BoundaryInputRetriever.cs" />
     <Compile Include="InputRetrievers\DoubleInputRetriever.cs" />
     <Compile Include="InputRetrievers\IUserInputRetriever.cs" />
+    <Compile Include="InputRetrievers\PointInputRetriever.cs" />
+    <Compile Include="Joist Tool\JoistGenerator.cs" />
     <Compile Include="Joist Tool\Joists.cs" />
     <Compile Include="Commands\CADCommands.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CADCommands.resx</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\LayerGenerator.cs" />
     <Compile Include="WBPlugin.cs" />
     <Compile Include="Commands\CADCommands.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tests\CADDoubleInputRetrieverTest.cs" />
-    <Compile Include="Tests\ICADTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Commands\CADCommands.resx">

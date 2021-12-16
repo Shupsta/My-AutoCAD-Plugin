@@ -8,6 +8,6 @@ namespace WBPlugin
 {
     public interface IUserInputRetriever<T>
     {
-        T getUserInput(String prompt, T defaultValue);
+        T getUserInput(String prompt);
     }
 }

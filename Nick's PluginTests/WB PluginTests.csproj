@@ -56,8 +56,10 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Commands\WBCommandsTests.cs" />
-    <Compile Include="Fakes\fakeDoubleInputRetriverTest.cs" />
+    <Compile Include="Fakes\FakeAngleInputRetriever.cs" />
+    <Compile Include="Fakes\FakeBoundaryInputRetriever.cs" />
+    <Compile Include="Fakes\FakeDoubleInputRetriever.cs" />
+    <Compile Include="Fakes\FakePointInputRetriever.cs" />
     <Compile Include="Joist Tool\JoistsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -70,6 +72,7 @@
       <Name>WB Plugin</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
