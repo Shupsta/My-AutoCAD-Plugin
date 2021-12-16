@@ -7,7 +7,7 @@ using Autodesk.AutoCAD.EditorInput;
 
 namespace WBPlugin
 {
-    public class PointInputRetriever : IUserInputRetriever<WBPoint3d>
+    public class PointInputRetriever : IPointInputRetriever
     {
         public WBPoint3d getUserInput(string prompt)
         {
@@ -27,5 +27,12 @@ namespace WBPlugin
             else
                 return new WBPoint3d(ppr.Value);
         }
+
+        #region Not Implemented
+        public WBPoint3d getUserInput(string prompt, WBPoint3d defaultValue)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 }

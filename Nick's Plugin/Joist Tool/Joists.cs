@@ -15,10 +15,10 @@ namespace WBPlugin
         private WBObjectIdCollection _outerBoundary;
         private List<WBObjectIdCollection> _interiorBoundaries;
         private const string _joistLayerName = "B_Joists";
-        private DoubleInputRetriever _doubleRetriever;
-        private PointInputRetriever _pointRetriever;
-        private AngleInputRetriever _angleRetriever;
-        private BoundaryInputRetriever _boundaryInputRetriever;
+        private IDoubleInputRetriever _doubleRetriever;
+        private IPointInputRetriever _pointRetriever;
+        private IAngleInputRetriever _angleRetriever;
+        private IBoundaryInputRetriever _boundaryInputRetriever;
 
         public Joists()
         {
@@ -33,7 +33,7 @@ namespace WBPlugin
             RunJoists();
         }
 
-        public Joists(DoubleInputRetriever spacingRetriever, PointInputRetriever startPointRetriever, AngleInputRetriever angleRetriever, BoundaryInputRetriever boundaryRetriever)
+        public Joists(IDoubleInputRetriever spacingRetriever, IPointInputRetriever startPointRetriever, IAngleInputRetriever angleRetriever, IBoundaryInputRetriever boundaryRetriever)
         {
             _joistSpacing = 16;
             _doubleRetriever = spacingRetriever;
@@ -41,9 +41,9 @@ namespace WBPlugin
             _angleRetriever = angleRetriever;
             _boundaryInputRetriever = boundaryRetriever;
             this.GetUserInput();
-            //WBLayerTableRecord joistLayer = GetOrCreateLayer();
-            //if (joistLayer == null) return;
-            //RunJoists();
+            WBLayerTableRecord joistLayer = GetOrCreateLayer();
+            if (joistLayer == null) return;
+            RunJoists();
         }
 
         #region getters
@@ -98,25 +98,22 @@ namespace WBPlugin
 
         private double GetJoistAngleInput(WBPoint3d startpoint)
         {
-            AngleInputRetriever userInput = _angleRetriever;
-            return userInput.getUserInput("\nPick direction of first joist: ", startpoint);
+            return _angleRetriever.getUserInput("\nPick direction of first joist: ", startpoint);
         }
 
         private WBObjectIdCollection GetOuterBoundaryInput()
         {
-            BoundaryInputRetriever userInput = _boundaryInputRetriever;
-            return userInput.getUserInput("Select Outer Hatch Boundary: ");
+            return _boundaryInputRetriever.getUserInput("Select Outer Hatch Boundary: ");
         }
 
         private List<WBObjectIdCollection> GetInteriorBoundaries()
         {
             List<WBObjectIdCollection> returnList = new List<WBObjectIdCollection>();
-            BoundaryInputRetriever userInput = _boundaryInputRetriever;
 
             int numberOfBoundaries = 1;
             while (true)
             {
-                var interiorBoundary = userInput.getUserInput("Select Interior Hatch Boundary " +
+                var interiorBoundary = _boundaryInputRetriever.getUserInput("Select Interior Hatch Boundary " +
                                                  numberOfBoundaries.ToString() +
                                                  " (or ENTER): ");
 

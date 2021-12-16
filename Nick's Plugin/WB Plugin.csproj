@@ -112,7 +112,10 @@
     <Compile Include="InputRetrievers\AngleInputRetriever.cs" />
     <Compile Include="InputRetrievers\BoundaryInputRetriever.cs" />
     <Compile Include="InputRetrievers\DoubleInputRetriever.cs" />
-    <Compile Include="InputRetrievers\IUserInputRetriever.cs" />
+    <Compile Include="Interfaces\InputRetrievers\IBoundaryInputRetriever.cs" />
+    <Compile Include="Interfaces\InputRetrievers\IAngleInputRetriever.cs" />
+    <Compile Include="Interfaces\InputRetrievers\IPointInputRetriever.cs" />
+    <Compile Include="Interfaces\InputRetrievers\IDoubleInputRetriever.cs" />
     <Compile Include="InputRetrievers\PointInputRetriever.cs" />
     <Compile Include="Joist Tool\JoistGenerator.cs" />
     <Compile Include="Joist Tool\Joists.cs" />

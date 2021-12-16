@@ -10,7 +10,7 @@ using WBPlugin;
 
 namespace WBPlugin
 {
-    public class BoundaryInputRetriever : IUserInputRetriever<WBObjectIdCollection>
+    public class BoundaryInputRetriever : IBoundaryInputRetriever
     {
         public virtual WBObjectIdCollection getUserInput(string prompt)
         {
@@ -26,18 +26,18 @@ namespace WBPlugin
                     if (psr.Status != PromptStatus.OK)
                     {
                         ed.WriteMessage("\nNothing selected.");
-                        
+
                         return new WBObjectIdCollection(new ObjectIdCollection());
                     }
 
                     ObjectIdCollection idCollection = ProcessObjectIds(psr.Value);
 
-                    
+
                     return new WBObjectIdCollection(idCollection);
                 }
                 catch (Autodesk.AutoCAD.Runtime.Exception ex)
                 {
-                    
+
                     ed.WriteMessage("\nProblem occured in BoundaryInputRetriever because " + ex.Message.ToString());
                     return new WBObjectIdCollection(new ObjectIdCollection());
                 }
@@ -49,10 +49,10 @@ namespace WBPlugin
             TypedValue[] values = { new TypedValue((int)DxfCode.Start, "ARC,LINE,LWPOLYLINE,CIRCLE") };
             SelectionFilter sFilter = new SelectionFilter(values);
 
-            PromptSelectionOptions pso = new PromptSelectionOptions() { MessageForAdding = prompt, SingleOnly = false};
+            PromptSelectionOptions pso = new PromptSelectionOptions() { MessageForAdding = prompt, SingleOnly = false };
 
             return ed.GetSelection(pso, sFilter);
-            
+
         }
 
         private ObjectIdCollection ProcessObjectIds(SelectionSet input)

@@ -8,13 +8,13 @@ using WBPlugin;
 
 namespace WBPlugin
 {
-    public class AngleInputRetriever : IUserInputRetriever<Double>
-    {        
+    public class AngleInputRetriever : IAngleInputRetriever
+    {
         public double getUserInput()
         {
             return getUserInput("\nPick direction :");
         }
-        
+
         public double getUserInput(string prompt)
         {
             return getUserInput(prompt, new WBPoint3d());

@@ -7,11 +7,11 @@ using Autodesk.AutoCAD.EditorInput;
 
 namespace WBPlugin
 {
-    public class DoubleInputRetriever : IUserInputRetriever<Double>
+    public class DoubleInputRetriever : IDoubleInputRetriever
     {
         public double getUserInput(string prompt)
         {
-           return getUserInput(prompt, 16);
+            return getUserInput(prompt, 16);
         }
 
         public virtual double getUserInput(String prompt, Double defaultValue)
@@ -38,6 +38,6 @@ namespace WBPlugin
             return pdr.Value;
         }
 
-        
+
     }
 }
