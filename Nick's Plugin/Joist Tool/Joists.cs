@@ -28,7 +28,7 @@ namespace WBPlugin
             _pointRetriever = startPointRetriever;
             _angleRetriever = angleRetriever;
             _boundaryInputRetriever = boundaryRetriever;
-            this.GetUserInput();
+            if (this.GetUserInput() == false) return;
             _success = joistGenerator.RunJoists(this);
         }
 
@@ -41,19 +41,19 @@ namespace WBPlugin
         #endregion
 
         #region UserInput
-        public void GetUserInput()
+        public bool GetUserInput()
         {
             double joistSpacing = GetJoistSpacingInput();
-            if (joistSpacing == 0) return;
+            if (joistSpacing == 0) return false;
             
             WBPoint3d startPoint = GetStartPointInput();
-            if (startPoint.isNull()) return;
+            if (startPoint.isNull()) return false;
 
             double joistAngle = GetJoistAngleInput(startPoint);
-            if (joistAngle == -9999) return;
+            if (joistAngle == -9999) return false;
 
             WBObjectIdCollection outerBoundary = GetOuterBoundaryInput();
-            if (outerBoundary.IsNull()) return;
+            if (outerBoundary.IsNull()) return false;
                                     
             
             _joistSpacing = joistSpacing;
@@ -62,7 +62,7 @@ namespace WBPlugin
             _outerBoundary = outerBoundary;
             _interiorBoundaries = GetInteriorBoundaries();
 
-
+            return true;
         }               
 
         private double GetJoistSpacingInput()

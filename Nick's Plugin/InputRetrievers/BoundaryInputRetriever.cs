@@ -7,6 +7,7 @@ using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using WBPlugin;
+using WBPlugin.Utilities;
 
 namespace WBPlugin
 {
@@ -27,19 +28,20 @@ namespace WBPlugin
                     {
                         ed.WriteMessage("\nNothing selected.");
 
-                        return new WBObjectIdCollection(new ObjectIdCollection());
+                        return new WBObjectIdCollection(new List<long>());
                     }
 
                     ObjectIdCollection idCollection = ProcessObjectIds(psr.Value);
 
+                    
 
-                    return new WBObjectIdCollection(idCollection);
+                    return new WBObjectIdCollection(ObjectIdTranslator.Encode(idCollection));
                 }
                 catch (Autodesk.AutoCAD.Runtime.Exception ex)
                 {
 
                     ed.WriteMessage("\nProblem occured in BoundaryInputRetriever because " + ex.Message.ToString());
-                    return new WBObjectIdCollection(new ObjectIdCollection());
+                    return new WBObjectIdCollection(new List<long>());
                 }
             }
         }

@@ -81,7 +81,7 @@ namespace WBPlugin
         {
             try
             {
-                hatch.AppendLoop(HatchLoopTypes.Outermost, _joists.OuterBoundary.IdCollection);
+                hatch.AppendLoop(HatchLoopTypes.Outermost, ObjectIdTranslator.Decode(_joists.OuterBoundary.IdCollection));
                 return true;
             }
             catch (Autodesk.AutoCAD.Runtime.Exception ex)
@@ -96,13 +96,14 @@ namespace WBPlugin
 
         private bool AddInteriorBoundaries(Hatch hatch)
         {
-            foreach (ObjectIdCollection interiorBndy in _joists.InteriorBoundaries)
+            foreach (WBObjectIdCollection interiorBndy in _joists.InteriorBoundaries)
             {
+                ObjectIdCollection interiorIds = ObjectIdTranslator.Decode(interiorBndy.IdCollection);
                 try
                 {
                     if (interiorBndy != null)
                     {
-                        hatch.AppendLoop(HatchLoopTypes.Default, interiorBndy);
+                        hatch.AppendLoop(HatchLoopTypes.Default, interiorIds);
                     }
                 }
                 catch (Autodesk.AutoCAD.Runtime.Exception ex)

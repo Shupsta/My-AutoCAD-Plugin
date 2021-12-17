@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Autodesk.AutoCAD.DatabaseServices;
 
 namespace WBPlugin
 {
     public class WBObjectIdCollection
     {
-        private readonly ObjectIdCollection _idCollection;
+        private readonly List<long> _idCollection;
 
         public WBObjectIdCollection()
         {
             _idCollection = null;
         }
 
-        public WBObjectIdCollection(ObjectIdCollection incomingCollection)
+        public WBObjectIdCollection(List<long> incomingCollection)
         {
             _idCollection = incomingCollection;
         }
@@ -29,8 +28,6 @@ namespace WBPlugin
                 return true;
         }
 
-        public ObjectIdCollection IdCollection { get => _idCollection; }
-
-        public static implicit operator ObjectIdCollection(WBObjectIdCollection obj) => obj.IdCollection;
+        public List<long> IdCollection { get => _idCollection; }
     }
 }
