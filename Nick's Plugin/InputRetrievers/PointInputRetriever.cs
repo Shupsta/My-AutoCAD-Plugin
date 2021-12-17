@@ -25,14 +25,7 @@ namespace WBPlugin
             if (ppr.Status != PromptStatus.OK)
                 return new WBPoint3d();
             else
-                return new WBPoint3d(ppr.Value);
+                return new WBPoint3d(ppr.Value.X, ppr.Value.Y);
         }
-
-        #region Not Implemented
-        public WBPoint3d getUserInput(string prompt, WBPoint3d defaultValue)
-        {
-            throw new NotImplementedException();
-        }
-        #endregion
     }
 }

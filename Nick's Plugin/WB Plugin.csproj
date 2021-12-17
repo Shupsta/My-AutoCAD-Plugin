@@ -106,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Active.cs" />
+    <Compile Include="Interfaces\ContainerObjects\IWBLayerTableRecord.cs" />
     <Compile Include="Container Objects\WBLayerTableRecord.cs" />
     <Compile Include="Container Objects\WBObjectIdCollection.cs" />
     <Compile Include="Container Objects\WBPoint3d.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Interfaces\InputRetrievers\IPointInputRetriever.cs" />
     <Compile Include="Interfaces\InputRetrievers\IDoubleInputRetriever.cs" />
     <Compile Include="InputRetrievers\PointInputRetriever.cs" />
+    <Compile Include="Joist Tool\IJoistGenerator.cs" />
     <Compile Include="Joist Tool\JoistGenerator.cs" />
     <Compile Include="Joist Tool\Joists.cs" />
     <Compile Include="Commands\CADCommands.Designer.cs">
@@ -124,7 +126,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CADCommands.resx</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\LayerGenerator.cs" />
+    <Compile Include="Utilities\Generators\LayerGenerator.cs" />
+    <Compile Include="Utilities\Generators\PointGenerator.cs" />
     <Compile Include="WBPlugin.cs" />
     <Compile Include="Commands\CADCommands.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

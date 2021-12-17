@@ -7,13 +7,18 @@ using Autodesk.AutoCAD.DatabaseServices;
 
 namespace WBPlugin
 {
-    public class WBLayerTableRecord
+    public class WBLayerTableRecord : IWBLayerTableRecord
     {
         private readonly LayerTableRecord _layerTableRecord;
 
         public WBLayerTableRecord(LayerTableRecord ltr)
         {
             _layerTableRecord = ltr;
+        }
+
+        public bool isNull()
+        {
+            return _layerTableRecord == null ? true : false;
         }
     }
 }

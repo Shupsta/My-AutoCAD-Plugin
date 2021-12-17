@@ -14,26 +14,14 @@ namespace WBPlugin
         private double _angle;
         private WBObjectIdCollection _outerBoundary;
         private List<WBObjectIdCollection> _interiorBoundaries;
-        private const string _joistLayerName = "B_Joists";
         private IDoubleInputRetriever _doubleRetriever;
         private IPointInputRetriever _pointRetriever;
         private IAngleInputRetriever _angleRetriever;
         private IBoundaryInputRetriever _boundaryInputRetriever;
+        private bool _success;
 
-        public Joists()
-        {
-            _joistSpacing = 16;
-            _doubleRetriever = new DoubleInputRetriever();
-            _pointRetriever = new PointInputRetriever();
-            _angleRetriever = new AngleInputRetriever();
-            _boundaryInputRetriever = new BoundaryInputRetriever();
-            this.GetUserInput();
-            WBLayerTableRecord joistLayer = GetOrCreateLayer();
-            if (joistLayer == null) return;
-            RunJoists();
-        }
-
-        public Joists(IDoubleInputRetriever spacingRetriever, IPointInputRetriever startPointRetriever, IAngleInputRetriever angleRetriever, IBoundaryInputRetriever boundaryRetriever)
+        
+        public Joists(IDoubleInputRetriever spacingRetriever, IPointInputRetriever startPointRetriever, IAngleInputRetriever angleRetriever, IBoundaryInputRetriever boundaryRetriever, IJoistGenerator joistGenerator)
         {
             _joistSpacing = 16;
             _doubleRetriever = spacingRetriever;
@@ -41,9 +29,7 @@ namespace WBPlugin
             _angleRetriever = angleRetriever;
             _boundaryInputRetriever = boundaryRetriever;
             this.GetUserInput();
-            WBLayerTableRecord joistLayer = GetOrCreateLayer();
-            if (joistLayer == null) return;
-            RunJoists();
+            _success = joistGenerator.RunJoists(this);
         }
 
         #region getters
@@ -52,13 +38,6 @@ namespace WBPlugin
         public double Angle { get => _angle;}
         public WBObjectIdCollection OuterBoundary { get => _outerBoundary;}
         public List<WBObjectIdCollection> InteriorBoundaries { get => _interiorBoundaries; }
-        public string JoistLayer { get => _joistLayerName; }
-        #endregion
-        #region setters
-        public DoubleInputRetriever SpacingRetriever { set => _doubleRetriever = value; }
-        public PointInputRetriever StartPointRetriever { set => _pointRetriever = value; }
-        public AngleInputRetriever AngleRetriever { set => _angleRetriever = value; }
-        public BoundaryInputRetriever boundaryInputRetriever { set => _boundaryInputRetriever = value; }
         #endregion
 
         #region UserInput
@@ -117,29 +96,16 @@ namespace WBPlugin
                                                  numberOfBoundaries.ToString() +
                                                  " (or ENTER): ");
 
-                if (!interiorBoundary.IsNull())
-                {
-                    returnList.Add(interiorBoundary);
-                    numberOfBoundaries++;
-                }
-                else
-                {
-                    break;
-                }
+                if (interiorBoundary.IsNull()) break;
+                
+                returnList.Add(interiorBoundary);
+                numberOfBoundaries++;
+                
             }
             return returnList;
         }
         #endregion
 
-        private WBLayerTableRecord GetOrCreateLayer()
-        {
-            return new WBLayerTableRecord(LayerGenerator.CreateOrGetLayer(_joistLayerName));
-        }
-
-        protected virtual void RunJoists()
-        {
-            JoistGenerator generator = new JoistGenerator();
-            generator.RunJoists(this);
-        }
+        
     }
 }

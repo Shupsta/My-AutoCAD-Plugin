@@ -86,7 +86,12 @@ namespace WBPlugin
         [CommandMethod("MyGroup", "WBJoist", CommandFlags.Modal)]
         public static void WBJoist() // This method can have any name
         {
-            Joists joistObj = new Joists();
+            
+            Joists joistObj = new Joists(new DoubleInputRetriever(),
+                new PointInputRetriever(),
+                new AngleInputRetriever(),
+                new BoundaryInputRetriever(),
+                new JoistGenerator());
             
         }
 

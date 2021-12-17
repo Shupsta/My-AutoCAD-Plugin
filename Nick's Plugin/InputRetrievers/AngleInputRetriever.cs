@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Autodesk.AutoCAD.EditorInput;
 using WBPlugin;
+using WBPlugin.Utilities;
 
 namespace WBPlugin
 {
@@ -26,7 +27,7 @@ namespace WBPlugin
 
             PromptAngleOptions pao = new PromptAngleOptions(prompt);
             pao.AllowNone = false;
-            pao.BasePoint = point.getPoint();
+            pao.BasePoint = PointGenerator.GetPoint(point);
             pao.UseBasePoint = true;
             pao.UseDashedLine = true;
 

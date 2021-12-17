@@ -15,7 +15,7 @@ namespace WBPlugin
         {
             _idCollection = null;
         }
-        
+
         public WBObjectIdCollection(ObjectIdCollection incomingCollection)
         {
             _idCollection = incomingCollection;

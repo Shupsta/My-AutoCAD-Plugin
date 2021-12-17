@@ -4,6 +4,5 @@
     {
         WBPoint3d getUserInput(string prompt);
         WBPoint3d getUserInput(string prompt, bool allowNone);
-        WBPoint3d getUserInput(string prompt, WBPoint3d defaultValue);
     }
 }
