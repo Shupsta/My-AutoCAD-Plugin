@@ -9,22 +9,22 @@ namespace WBPlugin.Utilities
 {
     public static class ObjectIdTranslator
     {
-        public static List<long> Encode(ObjectIdCollection idCollection)
+        public static List<WBObjectId> Encode(ObjectIdCollection idCollection)
         {
-            List<long> encodedList = new List<long>();
+            List<WBObjectId> encodedList = new List<WBObjectId>();
             foreach(ObjectId id in idCollection)
             {
-                encodedList.Add(id.Handle.Value);
+                encodedList.Add(new WBObjectId(id.Handle.Value));
             }
             return encodedList;
         }
 
-        public static ObjectIdCollection Decode(List<long> encodedList)
+        public static ObjectIdCollection Decode(List<WBObjectId> encodedList)
         {
             ObjectIdCollection decodedList = new ObjectIdCollection();
-            foreach(long value in encodedList)
+            foreach(WBObjectId value in encodedList)
             {
-                decodedList.Add(Active.Database.GetObjectId(false, new Handle(value), 0));
+                decodedList.Add(Active.Database.GetObjectId(false, new Handle(value.Handle), 0));
             }
             return decodedList;
         }

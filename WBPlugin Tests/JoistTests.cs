@@ -38,7 +38,7 @@ namespace WBPlugin_Tests
 
             //_mockBoundaryRetriever.Setup<WBObjectIdCollection>(p => p.getUserInput(It.IsAny<string>())).Returns(new WBObjectIdCollection(new System.Collections.Generic.List<long>() { 1}));
             _mockBoundaryRetriever.SetupSequence<WBObjectIdCollection>(p => p.getUserInput(It.IsAny<string>()))
-                .Returns(new WBObjectIdCollection(new System.Collections.Generic.List<long>() { 1 }))
+                .Returns(new WBObjectIdCollection(new System.Collections.Generic.List<WBObjectId>() { new WBObjectId(1) }))
                 .Returns(new WBObjectIdCollection());
 
 

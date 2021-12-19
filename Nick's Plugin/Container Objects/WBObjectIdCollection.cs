@@ -8,14 +8,14 @@ namespace WBPlugin
 {
     public class WBObjectIdCollection
     {
-        private readonly List<long> _idCollection;
+        private readonly List<WBObjectId> _idCollection;
 
         public WBObjectIdCollection()
         {
             _idCollection = null;
         }
 
-        public WBObjectIdCollection(List<long> incomingCollection)
+        public WBObjectIdCollection(List<WBObjectId> incomingCollection)
         {
             _idCollection = incomingCollection;
         }
@@ -28,6 +28,6 @@ namespace WBPlugin
                 return true;
         }
 
-        public List<long> IdCollection { get => _idCollection; }
+        public List<WBObjectId> IdCollection { get => _idCollection; }
     }
 }

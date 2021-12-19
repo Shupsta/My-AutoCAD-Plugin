@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 
 namespace WBPlugin
 {
-    class WBObjectId
+    public class WBObjectId
     {
+        private long _handle;
+        
+        public WBObjectId(long handle)
+        {
+            this._handle = handle;
+        }
+
+        public long Handle { get => _handle; }
 
     }
 }

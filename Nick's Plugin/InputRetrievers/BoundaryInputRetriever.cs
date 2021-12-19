@@ -28,7 +28,7 @@ namespace WBPlugin
                     {
                         ed.WriteMessage("\nNothing selected.");
 
-                        return new WBObjectIdCollection(new List<long>());
+                        return new WBObjectIdCollection(new List<WBObjectId>());
                     }
 
                     ObjectIdCollection idCollection = ProcessObjectIds(psr.Value);
@@ -41,7 +41,7 @@ namespace WBPlugin
                 {
 
                     ed.WriteMessage("\nProblem occured in BoundaryInputRetriever because " + ex.Message.ToString());
-                    return new WBObjectIdCollection(new List<long>());
+                    return new WBObjectIdCollection(new List<WBObjectId>());
                 }
             }
         }
