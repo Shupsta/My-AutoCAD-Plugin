@@ -7,6 +7,7 @@ using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
 using System;
 using System.Text;
+using WBPlugin.Utilities;
 
 // This line is not mandatory, but improves loading performances
 [assembly: CommandClass(typeof(WBPlugin.CADCommands))]
@@ -83,7 +84,7 @@ namespace WBPlugin
         //}
         #endregion
 
-        [CommandMethod("MyGroup", "WBJoist", CommandFlags.Modal)]
+        [CommandMethod("WarmboardTools", "WBJoist", CommandFlags.Modal)]
         public static void WBJoist() // This method can have any name
         {
             
@@ -95,7 +96,14 @@ namespace WBPlugin
             
         }
 
-        
+        [CommandMethod("WBZones", "WBZone", CommandFlags.Modal)]
+        public static void WBZone() // This method can have any name
+        {
+
+            
+
+        }
+
     }
 
 }

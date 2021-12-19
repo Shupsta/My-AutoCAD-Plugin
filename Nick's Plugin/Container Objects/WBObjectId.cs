@@ -17,5 +17,11 @@ namespace WBPlugin
 
         public long Handle { get => _handle; }
 
+        public bool IsNull()
+        {
+            return _handle == 0;
+        }
+        
+
     }
 }

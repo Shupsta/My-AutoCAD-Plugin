@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WBPlugin.Utilities;
 
 namespace WBPlugin
 {
-    class EntityInputRetriever
+    public class EntityInputRetriever
     {
-        public ObjectId getUserInput(String prompt)//todo change entity to WBEntity
+        public static WBObjectId getUserInput(String prompt)//todo change entity to WBEntity
         {
             Editor ed = Active.Editor;
 
@@ -22,15 +23,15 @@ namespace WBPlugin
             if (per.Status != PromptStatus.OK)
             {
                 ed.WriteMessage("\n*Cancel*");
-                return new ObjectId();//TODO remove null
+                return new WBObjectId(0);//TODO remove null
             }
 
             if (per.Status == PromptStatus.None)
             {
-                return new ObjectId();//TODO
+                return new WBObjectId(0);//TODO
             }
 
-            return per.ObjectId;
+            return ObjectIdTranslator.Encode(per.ObjectId);
         }
     }
 }
