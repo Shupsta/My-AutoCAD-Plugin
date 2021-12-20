@@ -108,6 +108,8 @@
     <Compile Include="Active.cs" />
     <Compile Include="Container Objects\WBObjectId.cs" />
     <Compile Include="InputRetrievers\EntityInputRetriever.cs" />
+    <Compile Include="InputRetrievers\PolyLineInputRetriever.cs" />
+    <Compile Include="InputRetrievers\StringInputRetriever.cs" />
     <Compile Include="Interfaces\ContainerObjects\IWBLayerTableRecord.cs" />
     <Compile Include="Container Objects\WBLayerTableRecord.cs" />
     <Compile Include="Container Objects\WBObjectIdCollection.cs" />

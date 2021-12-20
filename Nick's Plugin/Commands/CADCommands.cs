@@ -8,6 +8,7 @@ using Autodesk.AutoCAD.Runtime;
 using System;
 using System.Text;
 using WBPlugin.Utilities;
+using WBPlugin.Zone_Tools;
 
 // This line is not mandatory, but improves loading performances
 [assembly: CommandClass(typeof(WBPlugin.CADCommands))]
@@ -99,7 +100,11 @@ namespace WBPlugin
         [CommandMethod("WBZones", "WBZone", CommandFlags.Modal)]
         public static void WBZone() // This method can have any name
         {
-
+            WBObjectId selectedPolyLine = PolyLineInputRetriever.GetUserInput("\nSelect PolyLine to make a Zone: ");
+            if (selectedPolyLine.IsNull()) return;
+            string defaultValue = "1";
+            string zoneId = StringInputRetriever.GetUserInput("\nEnter Zone Number: ", defaultValue);
+            Zone zone = new Zone(selectedPolyLine, zoneId);
             
 
         }

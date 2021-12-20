@@ -9,12 +9,12 @@ namespace WBPlugin
 {
     public class PointInputRetriever : IPointInputRetriever
     {
-        public WBPoint3d getUserInput(string prompt)
+        public WBPoint3d GetUserInput(string prompt)
         {
-            return getUserInput(prompt, false);
+            return GetUserInput(prompt, false);
         }
 
-        public virtual WBPoint3d getUserInput(string prompt, bool allowNone)
+        public virtual WBPoint3d GetUserInput(string prompt, bool allowNone)
         {
             Editor ed = Active.Editor;
             PromptPointOptions opts = new PromptPointOptions(prompt);

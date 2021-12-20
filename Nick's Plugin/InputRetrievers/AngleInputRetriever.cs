@@ -11,17 +11,17 @@ namespace WBPlugin
 {
     public class AngleInputRetriever : IAngleInputRetriever
     {
-        public double getUserInput()
+        public double GetUserInput()
         {
-            return getUserInput("\nPick direction :");
+            return GetUserInput("\nPick direction :");
         }
 
-        public double getUserInput(string prompt)
+        public double GetUserInput(string prompt)
         {
-            return getUserInput(prompt, new WBPoint3d());
+            return GetUserInput(prompt, new WBPoint3d());
         }
 
-        public virtual double getUserInput(string prompt, WBPoint3d point)
+        public virtual double GetUserInput(string prompt, WBPoint3d point)
         {
             Editor ed = Active.Editor;
 

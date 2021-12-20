@@ -11,7 +11,7 @@ namespace WBPlugin
 {
     public class EntityInputRetriever
     {
-        public static WBObjectId getUserInput(String prompt)//todo change entity to WBEntity
+        public static WBObjectId GetUserInput(String prompt)//todo change entity to WBEntity
         {
             Editor ed = Active.Editor;
 

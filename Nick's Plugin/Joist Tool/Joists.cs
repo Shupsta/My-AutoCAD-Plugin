@@ -67,22 +67,22 @@ namespace WBPlugin
 
         private double GetJoistSpacingInput()
         {            
-            return  _doubleRetriever.getUserInput("\nEnter Joist center-to-center spacing :", _joistSpacing);
+            return  _doubleRetriever.GetUserInput("\nEnter Joist center-to-center spacing :", _joistSpacing);
         }
 
         private WBPoint3d GetStartPointInput()
         {
-            return _pointRetriever.getUserInput("\nStart point of first joist: ", false);
+            return _pointRetriever.GetUserInput("\nStart point of first joist: ", false);
         }
 
         private double GetJoistAngleInput(WBPoint3d startpoint)
         {
-            return _angleRetriever.getUserInput("\nPick direction of first joist: ", startpoint);
+            return _angleRetriever.GetUserInput("\nPick direction of first joist: ", startpoint);
         }
 
         private WBObjectIdCollection GetOuterBoundaryInput()
         {
-            return _boundaryInputRetriever.getUserInput("Select Outer Hatch Boundary: ");
+            return _boundaryInputRetriever.GetUserInput("Select Outer Hatch Boundary: ");
         }
 
         private List<WBObjectIdCollection> GetInteriorBoundaries()
@@ -92,7 +92,7 @@ namespace WBPlugin
             int numberOfBoundaries = 1;
             while (true)
             {
-                var interiorBoundary = _boundaryInputRetriever.getUserInput("Select Interior Hatch Boundary " +
+                var interiorBoundary = _boundaryInputRetriever.GetUserInput("Select Interior Hatch Boundary " +
                                                  numberOfBoundaries.ToString() +
                                                  " (or ENTER): ");
 

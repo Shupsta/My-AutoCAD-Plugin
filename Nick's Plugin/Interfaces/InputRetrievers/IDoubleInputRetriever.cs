@@ -2,7 +2,7 @@
 {
     public interface IDoubleInputRetriever
     {
-        double getUserInput(string prompt);
-        double getUserInput(string prompt, double defaultValue);
+        double GetUserInput(string prompt);
+        double GetUserInput(string prompt, double defaultValue);
     }
 }

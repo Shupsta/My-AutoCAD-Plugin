@@ -30,14 +30,14 @@ namespace WBPlugin_Tests
             double startX = 1;
             double startY = 1;
             
-            _mockDoubleRetriever.Setup<double>(p => p.getUserInput(It.IsAny<string>(), It.IsAny<double>())).Returns(joistSpacing);
+            _mockDoubleRetriever.Setup<double>(p => p.GetUserInput(It.IsAny<string>(), It.IsAny<double>())).Returns(joistSpacing);
 
-            _mockPointRetriever.Setup<WBPoint3d>(p => p.getUserInput(It.IsAny<string>(), It.IsAny<bool>())).Returns(new WBPoint3d(startX, startY));
+            _mockPointRetriever.Setup<WBPoint3d>(p => p.GetUserInput(It.IsAny<string>(), It.IsAny<bool>())).Returns(new WBPoint3d(startX, startY));
 
-            _mockAngleRetriever.Setup<double>(p => p.getUserInput(It.IsAny<string>(), It.IsAny<WBPoint3d>())).Returns(90);
+            _mockAngleRetriever.Setup<double>(p => p.GetUserInput(It.IsAny<string>(), It.IsAny<WBPoint3d>())).Returns(90);
 
             //_mockBoundaryRetriever.Setup<WBObjectIdCollection>(p => p.getUserInput(It.IsAny<string>())).Returns(new WBObjectIdCollection(new System.Collections.Generic.List<long>() { 1}));
-            _mockBoundaryRetriever.SetupSequence<WBObjectIdCollection>(p => p.getUserInput(It.IsAny<string>()))
+            _mockBoundaryRetriever.SetupSequence<WBObjectIdCollection>(p => p.GetUserInput(It.IsAny<string>()))
                 .Returns(new WBObjectIdCollection(new System.Collections.Generic.List<WBObjectId>() { new WBObjectId(1) }))
                 .Returns(new WBObjectIdCollection());
 

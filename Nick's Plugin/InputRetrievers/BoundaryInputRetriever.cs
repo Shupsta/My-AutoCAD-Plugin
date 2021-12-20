@@ -13,7 +13,7 @@ namespace WBPlugin
 {
     public class BoundaryInputRetriever : IBoundaryInputRetriever
     {
-        public virtual WBObjectIdCollection getUserInput(string prompt)
+        public virtual WBObjectIdCollection GetUserInput(string prompt)
         {
             Editor ed = Active.Editor;
             Document doc = Active.Document;

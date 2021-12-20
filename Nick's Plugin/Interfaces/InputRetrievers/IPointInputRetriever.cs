@@ -2,7 +2,7 @@
 {
     public interface IPointInputRetriever
     {
-        WBPoint3d getUserInput(string prompt);
-        WBPoint3d getUserInput(string prompt, bool allowNone);
+        WBPoint3d GetUserInput(string prompt);
+        WBPoint3d GetUserInput(string prompt, bool allowNone);
     }
 }

@@ -2,8 +2,8 @@
 {
     public interface IAngleInputRetriever
     {
-        double getUserInput();
-        double getUserInput(string prompt);
-        double getUserInput(string prompt, WBPoint3d point);
+        double GetUserInput();
+        double GetUserInput(string prompt);
+        double GetUserInput(string prompt, WBPoint3d point);
     }
 }

@@ -9,12 +9,12 @@ namespace WBPlugin
 {
     public class DoubleInputRetriever : IDoubleInputRetriever
     {
-        public double getUserInput(string prompt)
+        public double GetUserInput(string prompt)
         {
-            return getUserInput(prompt, 16);
+            return GetUserInput(prompt, 16);
         }
 
-        public virtual double getUserInput(String prompt, Double defaultValue)
+        public virtual double GetUserInput(String prompt, Double defaultValue)
         {
             Editor ed = Active.Editor;
 
