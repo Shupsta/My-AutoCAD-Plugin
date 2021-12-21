@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WBPlugin
 {
-    public class WBObjectId
+    public class WBObjectId : IEquatable<WBObjectId>
     {
         private long _handle;
         
@@ -17,11 +17,16 @@ namespace WBPlugin
 
         public long Handle { get => _handle; }
 
+        public bool Equals(WBObjectId other)
+        {
+            return this.Handle.Equals(other.Handle);
+        }
+
         public bool IsNull()
         {
             return _handle == 0;
         }
         
-
+        
     }
 }
