@@ -100,11 +100,16 @@ namespace WBPlugin
         [CommandMethod("WBZones", "WBZone", CommandFlags.Modal)]
         public static void WBZone() // This method can have any name
         {
+            //move all to a class ZoneCreater
             WBObjectId selectedPolyLine = PolyLineInputRetriever.GetUserInput("\nSelect PolyLine to make a Zone: ");
             if (selectedPolyLine.IsNull()) return;
-            string defaultValue = "1";
+            string defaultValue = ZoneManager.GetNextZoneNumber();
             string zoneId = StringInputRetriever.GetUserInput("\nEnter Zone Number: ", defaultValue);
             Zone zone = new Zone(selectedPolyLine, zoneId);
+            zone.Color = ColorChanger.GetColorForZone(zone.ZoneNumber);
+            ColorChanger.ChangeColor(zone.ObjectId, zone.Color);
+            zone.Thermostat = StringInputRetriever.GetUserInput("\nEnter Thermostat Type: ", zone.Thermostat).ToUpper();
+            
             
 
         }
