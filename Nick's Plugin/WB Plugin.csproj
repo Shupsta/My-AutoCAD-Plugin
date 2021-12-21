@@ -134,6 +134,7 @@
     <Compile Include="Utilities\Generators\LayerGenerator.cs" />
     <Compile Include="Utilities\Translators\ObjectIdTranslator.cs" />
     <Compile Include="Utilities\Generators\PointGenerator.cs" />
+    <Compile Include="Utilities\ZoneExtensionMethods.cs" />
     <Compile Include="WBPlugin.cs" />
     <Compile Include="Commands\CADCommands.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

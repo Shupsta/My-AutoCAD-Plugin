@@ -32,5 +32,16 @@ namespace WBPlugin_Tests
             Zone testZone = new Zone(new WBObjectId(objectId), zoneNum);
             Assert.That(testZone.ObjectId.Equals(new WBObjectId(objectId)));
         }
+
+        [Test]
+        public void Test3()
+        {
+            string zoneNum = "1A";
+            long objectId = 123;
+            int zoneColor = 1;
+            Zone testZone = new Zone(new WBObjectId(objectId), zoneNum);
+            int actual = testZone.Color;
+            Assert.That(testZone.Color.Equals(zoneColor));
+        }
     }
 }

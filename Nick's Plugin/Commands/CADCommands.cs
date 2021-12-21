@@ -10,6 +10,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using WBPlugin.Utilities;
 using WBPlugin.Zone_Tools;
+using WBPlugin;
 
 // This line is not mandatory, but improves loading performances
 [assembly: CommandClass(typeof(WBPlugin.CADCommands))]
@@ -104,11 +105,11 @@ namespace WBPlugin
             //move all to a class ZoneCreater
             WBObjectId selectedPolyLine = PolyLineInputRetriever.GetUserInput("\nSelect PolyLine to make a Zone: ");
             if (selectedPolyLine.IsNull()) return;
-            string defaultValue = ZoneManager.GetNextZoneNumber();
+            ZoneManager manager = new ZoneManager();
+            string defaultValue = manager.GetNextZoneNumber();
             string zoneId = StringInputRetriever.GetUserInput("\nEnter Zone Number: ", defaultValue);
             Zone zone = new Zone(selectedPolyLine, zoneId);
-            zone.Color = ColorChanger.GetColorForZone(zone.ZoneNumber);
-            ColorChanger.ChangeColor(zone.ObjectId, zone.Color);
+            ColorChanger.ChangeColor(zone.ObjectId, zone.Color);//TODO need to change how color is handled, for situations where color is changed manually will prob break tests
             zone.Thermostat = StringInputRetriever.GetUserInput("\nEnter Thermostat Type: ", zone.Thermostat).ToUpper();
 
             

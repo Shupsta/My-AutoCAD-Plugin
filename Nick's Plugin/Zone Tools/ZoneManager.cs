@@ -9,24 +9,47 @@ namespace WBPlugin.Zone_Tools
 {
     public class ZoneManager
     {
-
+        private string WBDictionaryName = "WBPLUGIN_ZONES";
+        private List<Zone> _zoneList;
+        
         public ZoneManager()
         {
-            int dictionaryVersion = FindOldDictionary();
-            bool hasZoneData = false;
-            if (dictionaryVersion != 0)
+            using(Transaction tr = Active.Database.TransactionManager.StartTransaction())
             {
-                hasZoneData = CheckIfDictionaryContainsZoneData(dictionaryVersion);
-                OldZoneTranslator.Translate("WB_SETTINGS", "ZONES");
-            }
-            else
-            {
+                DBDictionary NOD = (DBDictionary)tr.GetObject(Active.Database.NamedObjectsDictionaryId, OpenMode.ForRead, false);
+                DBDictionary WBDict;
+                if (NOD.Contains(WBDictionaryName))
+                {
+                    WBDict = (DBDictionary)tr.GetObject(NOD.GetAt(WBDictionaryName), OpenMode.ForRead, false);
+                }
+                else
+                {
+                    NOD.UpgradeOpen();
+                    NOD.SetAt(WBDictionaryName, new DBDictionary());
+                    WBDict = (DBDictionary)tr.GetObject(NOD.GetAt(WBDictionaryName), OpenMode.ForRead, false);
+
+                }
+
+                FillZoneList(WBDict, tr);
+                
                 
             }
-
 
         }
-                
+
+        private void FillZoneList(DBDictionary zoneDictionary, Transaction tr)
+        {
+            foreach(DBDictionaryEntry dbEntry in zoneDictionary)
+            {
+                Xrecord zoneRecord = (Xrecord)tr.GetObject(dbEntry.Value, OpenMode.ForRead, false);
+                TypedValue[] zoneData = zoneRecord.Data.AsArray();
+                long zoneHandle = (long)zoneData[1].Value;
+                string zoneNum = (string)zoneData[2].Value;
+
+
+            }
+        }
+
         private int FindOldDictionary()//0 = none found, 1 = version1, 2 = version2
         {
             string version1DictionaryName = "WB_SETTINGS";
@@ -97,7 +120,7 @@ namespace WBPlugin.Zone_Tools
             return false;
         }
 
-        public static string GetNextZoneNumber()
+        public string GetNextZoneNumber()
         {
             return "1";
         }

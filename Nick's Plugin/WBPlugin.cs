@@ -6,6 +6,7 @@ using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
 using System;
+using WBPlugin.Zone_Tools;
 
 // This line is not mandatory, but improves loading performances
 [assembly: ExtensionApplication(typeof(WBPlugin.WBPlugin))]
@@ -17,6 +18,9 @@ namespace WBPlugin
     // then you should remove this class.
     public class WBPlugin : IExtensionApplication
     {
+        
+        private ZoneManager _zoneManager;
+        public ZoneManager ZoneManager { get => _zoneManager; }
 
         void IExtensionApplication.Initialize()
         {
@@ -38,6 +42,9 @@ namespace WBPlugin
             // as well as some of the existing AutoCAD managed apps.
 
             // Initialize your plug-in application here
+            _zoneManager = new ZoneManager();
+            
+
         }
 
         void IExtensionApplication.Terminate()

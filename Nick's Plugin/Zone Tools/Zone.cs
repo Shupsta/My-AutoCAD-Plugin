@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WBPlugin.Utilities;
 
 namespace WBPlugin.Zone_Tools
 {
@@ -24,7 +25,7 @@ namespace WBPlugin.Zone_Tools
 
         public WBObjectId ObjectId { get => _objectId; }
 
-        public int Color { get; set; }
+        public int Color { get { return ColorChanger.GetColorForZone(this.ZoneNumber); } }
 
         public string Thermostat { get => _thermostat;
             set {
