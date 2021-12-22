@@ -106,7 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Active.cs" />
-    <Compile Include="Utilities\ColorChanger.cs" />
+    <Compile Include="Utilities\ColorManager.cs" />
     <Compile Include="Container Objects\WBObjectId.cs" />
     <Compile Include="InputRetrievers\EntityInputRetriever.cs" />
     <Compile Include="InputRetrievers\PolyLineInputRetriever.cs" />

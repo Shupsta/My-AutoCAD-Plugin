@@ -25,7 +25,7 @@ namespace WBPlugin.Zone_Tools
 
         public WBObjectId ObjectId { get => _objectId; }
 
-        public int Color { get { return ColorChanger.GetColorForZone(this.ZoneNumber); } }
+        public int Color { get { return ColorManager.GetColor(this.ObjectId); } }
 
         public string Thermostat { get => _thermostat;
             set {

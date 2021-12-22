@@ -109,12 +109,26 @@ namespace WBPlugin
             string defaultValue = manager.GetNextZoneNumber();
             string zoneId = StringInputRetriever.GetUserInput("\nEnter Zone Number: ", defaultValue);
             Zone zone = new Zone(selectedPolyLine, zoneId);
-            ColorChanger.ChangeColor(zone.ObjectId, zone.Color);//TODO need to change how color is handled, for situations where color is changed manually will prob break tests
+            ColorManager.ChangeColor(zone.ObjectId, ColorManager.GetColorForZone(zone.ZoneNumber));
             zone.Thermostat = StringInputRetriever.GetUserInput("\nEnter Thermostat Type: ", zone.Thermostat).ToUpper();
 
             
             
             
+
+        }
+
+        [CommandMethod("WBZones", "WBZoneCheck", CommandFlags.Modal)]
+        public static void WBZoneCheck() // This method can have any name
+        {
+            //move all to a class ZoneCreater
+            WBObjectId selectedPolyLine = PolyLineInputRetriever.GetUserInput("\nSelect PolyLine to check for Zone Info: ");
+            if (selectedPolyLine.IsNull()) return;
+            Active.WriteMessage("\n Color is : "+ColorManager.GetColor(selectedPolyLine).ToString());
+
+
+
+
 
         }
 
