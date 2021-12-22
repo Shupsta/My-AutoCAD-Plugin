@@ -23,6 +23,14 @@ namespace WBPlugin.Zone_Tools
 
         }
 
+        public Zone(WBObjectId objectId, int zoneNum, string system, string thermostat)
+        {
+            _objectId = objectId;
+            _zoneNumber = zoneNum;
+            _system = system;
+            _thermostat = thermostat;
+        }
+
         public int ZoneNumber { get => _zoneNumber; }
         public string System { get => _system; }
         public string ZoneId { 

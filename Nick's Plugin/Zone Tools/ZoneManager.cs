@@ -19,22 +19,21 @@ namespace WBPlugin.Zone_Tools
                 DBDictionary NOD = (DBDictionary)tr.GetObject(Active.Database.NamedObjectsDictionaryId, OpenMode.ForRead, false);
                 DBDictionary WBDict;
                 if (NOD.Contains(WBDictionaryName))
-            {
+                {
                     WBDict = (DBDictionary)tr.GetObject(NOD.GetAt(WBDictionaryName), OpenMode.ForRead, false);
-            }
-            else
-            {
+                }
+                else
+                {
                     NOD.UpgradeOpen();
                     NOD.SetAt(WBDictionaryName, new DBDictionary());
                     WBDict = (DBDictionary)tr.GetObject(NOD.GetAt(WBDictionaryName), OpenMode.ForRead, false);
-                
-            }
+                }
 
                 _zoneList = new List<Zone>();
                 FillZoneList(WBDict, tr);
-                
 
-        }
+                tr.Commit();
+            }
                 
         }
 
@@ -44,9 +43,12 @@ namespace WBPlugin.Zone_Tools
             {
                 Xrecord zoneRecord = (Xrecord)tr.GetObject(dbEntry.Value, OpenMode.ForRead, false);
                 TypedValue[] zoneData = zoneRecord.Data.AsArray();
-                long zoneHandle = (long)zoneData[1].Value;
-                string zoneNum = (string)zoneData[2].Value;
-                //TODO
+                long zoneHandle = (long)zoneData[0].Value;
+                int zoneNum = (int)zoneData[1].Value;
+                string system = (string)zoneData[2].Value;
+                string thermostat = (string)zoneData[3].Value;
+
+                Add(new Zone(new WBObjectId(zoneHandle), zoneNum, system, thermostat));
 
             }
         }
@@ -72,6 +74,7 @@ namespace WBPlugin.Zone_Tools
         public void Add(Zone zone)
         {
             _zoneList.Add(zone);
+            CreateXRecord();
         }
 
         public Zone Contains(WBObjectId id)
@@ -84,6 +87,40 @@ namespace WBPlugin.Zone_Tools
             }
 
             return zone;
+        }
+
+        private void CreateXRecord()
+        {
+            using (Transaction tr = Active.Database.TransactionManager.StartTransaction())
+            {
+                DBDictionary NOD = (DBDictionary)tr.GetObject(Active.Database.NamedObjectsDictionaryId, OpenMode.ForRead, false);
+                DBDictionary WBDict;
+                if (NOD.Contains(WBDictionaryName))
+                {
+                    WBDict = (DBDictionary)tr.GetObject(NOD.GetAt(WBDictionaryName), OpenMode.ForRead, false);
+                }
+                else
+                {
+                    NOD.UpgradeOpen();
+                    NOD.SetAt(WBDictionaryName, new DBDictionary());
+                    WBDict = (DBDictionary)tr.GetObject(NOD.GetAt(WBDictionaryName), OpenMode.ForRead, false);
+                }
+
+                foreach(Zone zone in _zoneList)
+                {
+                    ResultBuffer resbuf = new ResultBuffer();
+                    resbuf.Add(new TypedValue((int)DxfCode.Int64, zone.ObjectId.Handle));
+                    resbuf.Add(new TypedValue((int)DxfCode.Int32, zone.ZoneNumber));
+                    resbuf.Add(new TypedValue((int)DxfCode.Text, zone.System));
+                    resbuf.Add(new TypedValue((int)DxfCode.Text, zone.Thermostat));
+
+                    Xrecord zoneRecord = new Xrecord() { Data = resbuf };
+
+                    WBDict.SetAt(zone.ZoneId, zoneRecord);
+                }
+
+                tr.Commit();
+            }
         }
     }
 }

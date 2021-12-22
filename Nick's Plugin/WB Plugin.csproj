@@ -140,6 +140,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Zone Tools\OldZoneTranslator.cs" />
     <Compile Include="Zone Tools\Zone.cs" />
+    <Compile Include="Zone Tools\ZoneChecker.cs" />
+    <Compile Include="Zone Tools\ZoneCreater.cs" />
     <Compile Include="Zone Tools\ZoneManager.cs" />
   </ItemGroup>
   <ItemGroup>
