@@ -18,7 +18,7 @@ namespace WBPlugin.Zone_Tools
         public Zone(WBObjectId objectId, string zoneId)
         {
             _objectId = objectId;
-            SetNumberAndSystem(zoneId);
+            ZoneId = zoneId;
             _thermostat = "H";
 
         }
@@ -27,17 +27,24 @@ namespace WBPlugin.Zone_Tools
         {
             _objectId = objectId;
             _zoneNumber = zoneNum;
-            _system = system;
+            _system = system.ToUpper();
             _thermostat = thermostat;
         }
 
         public int ZoneNumber { get => _zoneNumber; }
         public string System { get => _system; }
-        public string ZoneId { 
-            get {
+        public string ZoneId {
+            get
+            {
                 if (System == "") return ZoneNumber.ToString();
                 else return ZoneNumber.ToString() + System;
-                }
+            }
+            set
+            {
+                _zoneNumber = Convert.ToInt32(Regex.Match(value, @"\d+").Value);
+                _system = Regex.Match(value, @"\D").Value.ToUpper();
+
+            }
         }
 
         public WBObjectId ObjectId { get => _objectId; }
@@ -47,7 +54,7 @@ namespace WBPlugin.Zone_Tools
         public string Thermostat { get => _thermostat;
             set {
 
-                switch (value)
+                switch (value.ToUpper())
                 {
                     case "H":
                         _thermostat = value;
@@ -69,13 +76,6 @@ namespace WBPlugin.Zone_Tools
         public bool Equals(WBObjectId other)
         {
             return this.ObjectId.Equals(other);
-        }
-
-        private void SetNumberAndSystem(string zoneId)
-        {
-            _zoneNumber = Convert.ToInt32(Regex.Match(zoneId, @"\d+").Value);
-            _system = Regex.Match(zoneId, @"\D").Value;
-
         }
     }
 }

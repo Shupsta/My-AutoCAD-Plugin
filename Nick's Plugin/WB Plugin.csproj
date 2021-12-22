@@ -143,6 +143,7 @@
     <Compile Include="Zone Tools\ZoneChecker.cs" />
     <Compile Include="Zone Tools\ZoneCreater.cs" />
     <Compile Include="Zone Tools\ZoneManager.cs" />
+    <Compile Include="Zone Tools\ZoneReNumber.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Commands\CADCommands.resx">

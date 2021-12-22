@@ -111,6 +111,12 @@ namespace WBPlugin
             ZoneChecker.CheckZone();
         }
 
+        [CommandMethod("WBZones", "WBZoneRenumber", CommandFlags.Modal)]
+        public static void WBZoneRenumber() // This method can have any name
+        {
+            ZoneReNumber.Renumber();
+        }
+
     }
 
 }
