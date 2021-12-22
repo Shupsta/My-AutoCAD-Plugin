@@ -10,7 +10,8 @@ namespace WBPlugin.Zone_Tools
     public class ZoneManager
     {
         private string WBDictionaryName = "WBPLUGIN_ZONES";
-        private List<Zone> _zoneList;
+        private string ZoneRecordName = "WBPLUGIN_ZONERECORD";
+        private List<Zone> _zoneList = new List<Zone>();
 
         public ZoneManager()
         {
@@ -20,35 +21,59 @@ namespace WBPlugin.Zone_Tools
                 DBDictionary WBDict;
                 if (!NOD.Contains(WBDictionaryName))
                 {
+                    DBDictionary newDict = new DBDictionary();
                     NOD.UpgradeOpen();
-                    NOD.SetAt(WBDictionaryName, new DBDictionary());
+                    NOD.SetAt(WBDictionaryName, newDict);
+                    tr.AddNewlyCreatedDBObject(newDict, true);
                 }
                 
                 WBDict = (DBDictionary)tr.GetObject(NOD.GetAt(WBDictionaryName), OpenMode.ForRead, false);
+                
+                if (!WBDict.Contains(ZoneRecordName))
+                {
+                    Xrecord newValue = new Xrecord();
+                    WBDict.UpgradeOpen();
+                    WBDict.SetAt(ZoneRecordName, newValue);
+                    tr.AddNewlyCreatedDBObject(newValue, true);
+                }
+                Xrecord zoneRecord = (Xrecord)tr.GetObject(WBDict.GetAt(ZoneRecordName), OpenMode.ForRead, false);
 
-                _zoneList = new List<Zone>();
-                FillZoneList(WBDict, tr);
+                
+                if (zoneRecord.Data == null)
+                {
+                    tr.Commit();
+                    return;
+                }
+                TypedValue[] zoneData = zoneRecord.Data.AsArray();
+
+                foreach(var data in zoneData)
+                {
+                    _zoneList.Add((Zone)data.Value);
+                }
+                
 
                 tr.Commit();
             }
-                
+
+            
+
         }
 
-        private void FillZoneList(DBDictionary zoneDictionary, Transaction tr)
-        {
-            foreach(DBDictionaryEntry dbEntry in zoneDictionary)
-            {
-                Xrecord zoneRecord = (Xrecord)tr.GetObject(dbEntry.Value, OpenMode.ForRead, false);
-                TypedValue[] zoneData = zoneRecord.Data.AsArray();
-                long zoneHandle = (long)zoneData[0].Value;
-                int zoneNum = (int)zoneData[1].Value;
-                string system = (string)zoneData[2].Value;
-                string thermostat = (string)zoneData[3].Value;
+        //private void FillZoneList()
+        //{
+        //    foreach(DBDictionaryEntry dbEntry in zoneDictionary)
+        //    {
+        //        Xrecord zoneRecord = (Xrecord)tr.GetObject(dbEntry.Value, OpenMode.ForRead, false);
+        //        TypedValue[] zoneData = zoneRecord.Data.AsArray();
+        //        long zoneHandle = (long)zoneData[0].Value;
+        //        int zoneNum = (int)zoneData[1].Value;
+        //        string system = (string)zoneData[2].Value;
+        //        string thermostat = (string)zoneData[3].Value;
 
-                _zoneList.Add(new Zone(new WBObjectId(zoneHandle), zoneNum, system, thermostat));
+        //        _zoneList.Add(new Zone(new WBObjectId(zoneHandle), zoneNum, system, thermostat));
 
-            }
-        }
+        //    }
+        //}
 
         public string GetNextZoneNumber()
         {
@@ -101,21 +126,21 @@ namespace WBPlugin.Zone_Tools
             using (Transaction tr = Active.Database.TransactionManager.StartTransaction())
             {
                 DBDictionary NOD = (DBDictionary)tr.GetObject(Active.Database.NamedObjectsDictionaryId, OpenMode.ForWrite, false);
-                DBDictionary WBDict = (DBDictionary)tr.GetObject(NOD.SetAt(WBDictionaryName, new DBDictionary()), OpenMode.ForWrite, false);
                 
+
+                DBDictionary WBDict = (DBDictionary)tr.GetObject(NOD.GetAt(WBDictionaryName), OpenMode.ForWrite, false);
+
+                Xrecord zoneRecord = (Xrecord)tr.GetObject(WBDict.GetAt(ZoneRecordName), OpenMode.ForWrite, false);
+
+                ResultBuffer resbuf = new ResultBuffer();
                 foreach (Zone zone in _zoneList)
                 {
-                    ResultBuffer resbuf = new ResultBuffer();
-                    resbuf.Add(new TypedValue((int)DxfCode.Int64, zone.ObjectId.Handle));
-                    resbuf.Add(new TypedValue((int)DxfCode.Int32, zone.ZoneNumber));
-                    resbuf.Add(new TypedValue((int)DxfCode.Text, zone.System));
-                    resbuf.Add(new TypedValue((int)DxfCode.Text, zone.Thermostat));
-
-                    Xrecord zoneRecord = new Xrecord() { Data = resbuf };
-
-                    WBDict.SetAt(zone.ZoneId, zoneRecord);
+                    
+                    resbuf.Add(new TypedValue(1, zone));
                 }
-                
+
+                zoneRecord.Data = resbuf;
+
                 tr.Commit();
             }
         }

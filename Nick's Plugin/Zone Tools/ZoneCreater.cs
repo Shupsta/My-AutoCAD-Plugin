@@ -12,8 +12,8 @@ namespace WBPlugin.Zone_Tools
         public static bool AddZone()
         {
             //move all to a class ZoneCreater
-            WBObjectId selectedPolyline = getPolyline();
-            if (selectedPolyline == null) return false;
+            WBObjectId selectedPolyLine = PolyLineInputRetriever.GetUserInput("\nSelect PolyLine to make a Zone: ");
+            if (selectedPolyLine.IsNull()) return false;
 
             ZoneManager manager = new ZoneManager();
 
@@ -21,7 +21,7 @@ namespace WBPlugin.Zone_Tools
             string zoneId = StringInputRetriever.GetUserInput("\nEnter Zone Number: ", defaultValue);
             if (zoneId == "-99999") return false;
 
-            Zone zone = new Zone(selectedPolyline, zoneId);
+            Zone zone = new Zone(selectedPolyLine, zoneId);
 
             ColorManager.ChangeColor(zone.ObjectId, ColorManager.GetColorForZone(zone.ZoneNumber));
 
@@ -32,11 +32,6 @@ namespace WBPlugin.Zone_Tools
             return true;
         }
 
-        private static WBObjectId getPolyline()
-        {
-            WBObjectId selectedPolyLine = PolyLineInputRetriever.GetUserInput("\nSelect PolyLine to make a Zone: ");
-            if (selectedPolyLine.IsNull()) return null;
-            return selectedPolyLine;
-        }
+        
     }
 }
