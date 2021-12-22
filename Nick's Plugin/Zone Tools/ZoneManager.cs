@@ -30,6 +30,7 @@ namespace WBPlugin.Zone_Tools
                 
             }
 
+                _zoneList = new List<Zone>();
                 FillZoneList(WBDict, tr);
                 
 
@@ -45,84 +46,44 @@ namespace WBPlugin.Zone_Tools
                 TypedValue[] zoneData = zoneRecord.Data.AsArray();
                 long zoneHandle = (long)zoneData[1].Value;
                 string zoneNum = (string)zoneData[2].Value;
-
-
-            }
-        }
-
-        private int FindOldDictionary()//0 = none found, 1 = version1, 2 = version2
-        {
-            string version1DictionaryName = "WB_SETTINGS";
-            string version2DictionaryName = "WB_SETTINGS_VERSION_2";
-            bool hasVersion1 = false;
-            bool hasVersion2 = false;
-
-            Database db = Active.Database;
-
-            using (Transaction tr = db.TransactionManager.StartTransaction())
-            {
-                DBDictionary NamedObjectDictionary = (DBDictionary)tr.GetObject(db.NamedObjectsDictionaryId, OpenMode.ForRead, false);
-
-                if (NamedObjectDictionary.Contains(version1DictionaryName))
-                {
-                    hasVersion1 = true;
-                }
-
-                if (NamedObjectDictionary.Contains(version2DictionaryName))
-                {
-                    hasVersion2 = true;
-                }
-            }
-
-            if(hasVersion1 == false && hasVersion2 == false)
-            {
-                return 0;
-            }else if (hasVersion1)
-            {
-                return 1;
-            }else if (hasVersion2)
-            {
-                return 2;
-            }
-            else
-            {
-                return 2;
-            }
-        }
-
-        private bool CheckIfDictionaryContainsZoneData(int dictionaryVersion)
-        {
-            string dictionaryName;
-            string xrecordName;
-            Database db = Active.Database;
-
-            if(dictionaryVersion == 1)
-            {
-                dictionaryName = "WB_SETTINGS";
-                xrecordName = "ZONES";
-            }
-            else
-            {
-                dictionaryName = "WB_SETTINGS_VERSION_2";
-                xrecordName = "ZONES_VERSION_2";
-            }
-
-            using(Transaction tr = db.TransactionManager.StartTransaction())
-            {
-                DBDictionary NamedObjectDictionary = (DBDictionary)tr.GetObject(db.NamedObjectsDictionaryId, OpenMode.ForRead, false);
-
-                DBDictionary wbDictionary = (DBDictionary)tr.GetObject(NamedObjectDictionary.GetAt(dictionaryName), OpenMode.ForRead, false);
-
-                if (wbDictionary.Contains(xrecordName)) return true;
+                //TODO
 
             }
-
-            return false;
         }
 
         public string GetNextZoneNumber()
         {
-            return "1";
+            if (_zoneList.Count == 0) return "1";
+            Zone lastAdded = _zoneList.Last<Zone>();
+            
+            int number = lastAdded.ZoneNumber + 1;
+            if(lastAdded.System != null)
+            {
+                return number.ToString() + lastAdded.System;
+            }
+            else
+            {
+                return number.ToString();
+            }
+            
+            
+        }
+
+        public void Add(Zone zone)
+        {
+            _zoneList.Add(zone);
+        }
+
+        public Zone Contains(WBObjectId id)
+        {
+            Zone zone = null;
+
+            foreach(Zone z in _zoneList)
+            {
+                zone = z.Equals(id) ? z : null;
+            }
+
+            return zone;
         }
     }
 }

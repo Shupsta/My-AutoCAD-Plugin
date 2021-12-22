@@ -24,11 +24,11 @@ namespace WBPlugin.Utilities
             }
         }
 
-        public static int GetColorForZone(string zoneString)
+        public static int GetColorForZone(int zoneNumber)
         {
             List<int> DefaultColors = new List<int>() { 1, 116, 30, 5, 40, 190 };
 
-            int zoneNumber = Convert.ToInt32(Regex.Match(zoneString, @"\d+").Value);
+            
             if (zoneNumber % 6 == 0)
                 zoneNumber = 6;
             else

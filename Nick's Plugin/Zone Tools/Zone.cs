@@ -2,26 +2,35 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WBPlugin.Utilities;
 
 namespace WBPlugin.Zone_Tools
 {
-    public class Zone
+    public class Zone : IEquatable<WBObjectId>
     {
         private WBObjectId _objectId;
-        private string _zoneId;
+        private int _zoneNumber;
         private string _thermostat;
+        private string _system;
 
         public Zone(WBObjectId objectId, string zoneId)
         {
             _objectId = objectId;
-            _zoneId = zoneId;
+            SetNumberAndSystem(zoneId);
             _thermostat = "H";
 
         }
 
-        public string ZoneNumber { get => _zoneId; }
+        public int ZoneNumber { get => _zoneNumber; }
+        public string System { get => _system; }
+        public string ZoneId { 
+            get {
+                if (System == "") return ZoneNumber.ToString();
+                else return ZoneNumber.ToString() + System;
+                }
+        }
 
         public WBObjectId ObjectId { get => _objectId; }
 
@@ -47,6 +56,18 @@ namespace WBPlugin.Zone_Tools
                 }
 
             }  
+        }
+
+        public bool Equals(WBObjectId other)
+        {
+            return this.ObjectId.Equals(other);
+        }
+
+        private void SetNumberAndSystem(string zoneId)
+        {
+            _zoneNumber = Convert.ToInt32(Regex.Match(zoneId, @"\d+").Value);
+            _system = Regex.Match(zoneId, @"\D").Value;
+
         }
     }
 }

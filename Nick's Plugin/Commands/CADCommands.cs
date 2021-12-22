@@ -105,14 +105,19 @@ namespace WBPlugin
             //move all to a class ZoneCreater
             WBObjectId selectedPolyLine = PolyLineInputRetriever.GetUserInput("\nSelect PolyLine to make a Zone: ");
             if (selectedPolyLine.IsNull()) return;
-            ZoneManager manager = new ZoneManager();
+
+            ZoneManager manager = WBPlugin.ZoneManager;
+
             string defaultValue = manager.GetNextZoneNumber();
             string zoneId = StringInputRetriever.GetUserInput("\nEnter Zone Number: ", defaultValue);
+            if (zoneId == "-99999") return;
             Zone zone = new Zone(selectedPolyLine, zoneId);
+
             ColorManager.ChangeColor(zone.ObjectId, ColorManager.GetColorForZone(zone.ZoneNumber));
+
             zone.Thermostat = StringInputRetriever.GetUserInput("\nEnter Thermostat Type: ", zone.Thermostat).ToUpper();
 
-            
+            manager.Add(zone);
             
             
 
@@ -125,7 +130,20 @@ namespace WBPlugin
             WBObjectId selectedPolyLine = PolyLineInputRetriever.GetUserInput("\nSelect PolyLine to check for Zone Info: ");
             if (selectedPolyLine.IsNull()) return;
             Active.WriteMessage("\n Color is : "+ColorManager.GetColor(selectedPolyLine).ToString());
+            Zone zone = WBPlugin.ZoneManager.Contains(selectedPolyLine);
 
+            if(zone == null)
+            {
+                Active.WriteMessage("\n Is not a Zone!");
+                return;
+            }
+            else
+            {
+                StringBuilder message = new StringBuilder();
+                message.AppendFormat("\n Zone Number: {0}\nThermostat Type: {1}", zone.ZoneId, zone.Thermostat);
+                Active.WriteMessage(message.ToString());
+                return;
+            }
 
 
 
