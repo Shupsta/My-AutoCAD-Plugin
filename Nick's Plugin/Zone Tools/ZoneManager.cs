@@ -11,7 +11,7 @@ namespace WBPlugin.Zone_Tools
     {
         private string WBDictionaryName = "WBPLUGIN_ZONES";
         private List<Zone> _zoneList;
-        
+
         public ZoneManager()
         {
             using(Transaction tr = Active.Database.TransactionManager.StartTransaction())
@@ -19,22 +19,22 @@ namespace WBPlugin.Zone_Tools
                 DBDictionary NOD = (DBDictionary)tr.GetObject(Active.Database.NamedObjectsDictionaryId, OpenMode.ForRead, false);
                 DBDictionary WBDict;
                 if (NOD.Contains(WBDictionaryName))
-                {
+            {
                     WBDict = (DBDictionary)tr.GetObject(NOD.GetAt(WBDictionaryName), OpenMode.ForRead, false);
-                }
-                else
-                {
+            }
+            else
+            {
                     NOD.UpgradeOpen();
                     NOD.SetAt(WBDictionaryName, new DBDictionary());
                     WBDict = (DBDictionary)tr.GetObject(NOD.GetAt(WBDictionaryName), OpenMode.ForRead, false);
-
-                }
-
-                FillZoneList(WBDict, tr);
-                
                 
             }
 
+                FillZoneList(WBDict, tr);
+                
+
+        }
+                
         }
 
         private void FillZoneList(DBDictionary zoneDictionary, Transaction tr)
