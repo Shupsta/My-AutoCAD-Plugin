@@ -102,51 +102,13 @@ namespace WBPlugin
         [CommandMethod("WBZones", "WBZone", CommandFlags.Modal)]
         public static void WBZone() // This method can have any name
         {
-            //ZoneCreater.AddZone();
-            //move all to a class ZoneCreater
-            WBObjectId selectedPolyLine = PolyLineInputRetriever.GetUserInput("\nSelect PolyLine to make a Zone: ");
-            if (selectedPolyLine.IsNull()) return;
-
-            ZoneManager manager = new ZoneManager();
-
-            string defaultValue = manager.GetNextZoneNumber();
-            string zoneId = StringInputRetriever.GetUserInput("\nEnter Zone Number: ", defaultValue);
-            if (zoneId == "-99999") return;
-
-            Zone zone = new Zone(selectedPolyLine, zoneId);
-
-            ColorManager.ChangeColor(zone.ObjectId, ColorManager.GetColorForZone(zone.ZoneNumber));
-
-            zone.Thermostat = StringInputRetriever.GetUserInput("\nEnter Thermostat Type: ", zone.Thermostat).ToUpper();
-
-            manager.Add(zone);
-
-            return;
+            ZoneCreater.AddZone();
         }
 
         [CommandMethod("WBZones", "WBZoneCheck", CommandFlags.Modal)]
         public static void WBZoneCheck() // This method can have any name
         {
-            //ZoneChecker.CheckZone();
-
-            WBObjectId selectedPolyLine = PolyLineInputRetriever.GetUserInput("\nSelect PolyLine to check for Zone Info: ");
-            if (selectedPolyLine.IsNull()) return;
-
-            Zone zone = new ZoneManager().Contains(selectedPolyLine);
-
-            if (zone == null)
-            {
-                Active.WriteMessage("\n Is not a Zone!");
-                return;
-            }
-            else
-            {
-                int color = ColorManager.GetColor(selectedPolyLine);
-                StringBuilder message = new StringBuilder();
-                message.AppendFormat("\n Zone Number: {0}\nZone Color : {1}\nThermostat Type: {2}", zone.ZoneId, color, zone.Thermostat);
-                Active.WriteMessage(message.ToString());
-                return;
-            }
+            ZoneChecker.CheckZone();
         }
 
         [CommandMethod("WBZones", "WBZoneRenumber", CommandFlags.Modal)]

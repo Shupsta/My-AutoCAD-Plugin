@@ -57,13 +57,13 @@ namespace WBPlugin.Zone_Tools
                 switch (value.ToUpper())
                 {
                     case "H":
-                        _thermostat = value;
+                        _thermostat = value.ToUpper();
                         break;
                     case "W":
-                        _thermostat = value;
+                        _thermostat = value.ToUpper();
                         break;
                     case "C":
-                        _thermostat = value;
+                        _thermostat = value.ToUpper();
                         break;
                     default:
                         _thermostat = "Unknown";

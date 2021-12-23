@@ -38,42 +38,33 @@ namespace WBPlugin.Zone_Tools
                 }
                 Xrecord zoneRecord = (Xrecord)tr.GetObject(WBDict.GetAt(ZoneRecordName), OpenMode.ForRead, false);
 
+                FillZoneList(zoneRecord.Data);
                 
-                if (zoneRecord.Data == null)
-                {
-                    tr.Commit();
-                    return;
-                }
-                TypedValue[] zoneData = zoneRecord.Data.AsArray();
-
-                foreach(var data in zoneData)
-                {
-                    _zoneList.Add((Zone)data.Value);
-                }
+                
                 
 
                 tr.Commit();
-            }
-
-            
+            }                        
 
         }
 
-        //private void FillZoneList()
-        //{
-        //    foreach(DBDictionaryEntry dbEntry in zoneDictionary)
-        //    {
-        //        Xrecord zoneRecord = (Xrecord)tr.GetObject(dbEntry.Value, OpenMode.ForRead, false);
-        //        TypedValue[] zoneData = zoneRecord.Data.AsArray();
-        //        long zoneHandle = (long)zoneData[0].Value;
-        //        int zoneNum = (int)zoneData[1].Value;
-        //        string system = (string)zoneData[2].Value;
-        //        string thermostat = (string)zoneData[3].Value;
+        private void FillZoneList(ResultBuffer data)
+        {
+            if (data == null) return;
+            TypedValue[] zoneData = data.AsArray();
 
-        //        _zoneList.Add(new Zone(new WBObjectId(zoneHandle), zoneNum, system, thermostat));
+            for(int i = 0; i+3 < zoneData.Length; i = i +4)
+            {
+                
+                long zoneHandle = (long)zoneData[i].Value;
+                int zoneNum = (int)zoneData[i+1].Value;
+                string system = (string)zoneData[i+2].Value;
+                string thermostat = (string)zoneData[i+3].Value;
 
-        //    }
-        //}
+                _zoneList.Add(new Zone(new WBObjectId(zoneHandle), zoneNum, system, thermostat));
+
+            }
+        }
 
         public string GetNextZoneNumber()
         {
@@ -136,7 +127,10 @@ namespace WBPlugin.Zone_Tools
                 foreach (Zone zone in _zoneList)
                 {
                     
-                    resbuf.Add(new TypedValue(1, zone));
+                    resbuf.Add(new TypedValue((int)DxfCode.Int64, zone.ObjectId.Handle));
+                    resbuf.Add(new TypedValue((int)DxfCode.Int32, zone.ZoneNumber));
+                    resbuf.Add(new TypedValue((int)DxfCode.Text, zone.System));
+                    resbuf.Add(new TypedValue((int)DxfCode.Text, zone.Thermostat));
                 }
 
                 zoneRecord.Data = resbuf;

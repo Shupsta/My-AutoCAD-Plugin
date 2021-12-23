@@ -11,7 +11,7 @@ namespace WBPlugin.Zone_Tools
     {
         public static bool AddZone()
         {
-            //move all to a class ZoneCreater
+            
             WBObjectId selectedPolyLine = PolyLineInputRetriever.GetUserInput("\nSelect PolyLine to make a Zone: ");
             if (selectedPolyLine.IsNull()) return false;
 
