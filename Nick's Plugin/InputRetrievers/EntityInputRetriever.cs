@@ -11,7 +11,7 @@ namespace WBPlugin
 {
     public class EntityInputRetriever
     {
-        public static WBObjectId GetUserInput(String prompt)//todo change entity to WBEntity
+        public static WBEntity GetUserInput(String prompt)//todo change entity to WBEntity
         {
             Editor ed = Active.Editor;
 
@@ -23,15 +23,32 @@ namespace WBPlugin
             if (per.Status != PromptStatus.OK)
             {
                 ed.WriteMessage("\n*Cancel*");
-                return new WBObjectId(0);//TODO remove null
+                return new WBEntity(new WBObjectId(0));
             }
 
             if (per.Status == PromptStatus.None)
             {
-                return new WBObjectId(0);//TODO
+                return new WBEntity(new WBObjectId(0));
             }
 
-            return ObjectIdTranslator.Encode(per.ObjectId);
+            
+            return Create(per.ObjectId);
+        }
+
+        private static WBEntity Create(ObjectId rawId)
+        {
+            var id = ObjectIdTranslator.Encode(rawId);
+            WBEntity newEntity = new WBEntity(id);
+
+            using(Transaction tr = Active.Database.TransactionManager.StartTransaction())
+            {
+                Entity ent = (Entity)rawId.GetObject(OpenMode.ForRead, false);
+                newEntity.TypeName = ent.GetType().Name;
+                newEntity.Layer = ent.Layer.ToUpper();
+            }
+            
+
+            return newEntity;
         }
     }
 }

@@ -106,8 +106,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Active.cs" />
+    <Compile Include="Container Objects\WBEntity.cs" />
     <Compile Include="InputRetrievers\IntegerInputRetriever.cs" />
     <Compile Include="InputRetrievers\KeywordInputRetriever.cs" />
+    <Compile Include="Tube Tools\Tube.cs" />
+    <Compile Include="Tube Tools\TubeManager.cs" />
+    <Compile Include="Tube Tools\TubeTallier.cs" />
     <Compile Include="Utilities\ColorManager.cs" />
     <Compile Include="Container Objects\WBObjectId.cs" />
     <Compile Include="InputRetrievers\EntityInputRetriever.cs" />

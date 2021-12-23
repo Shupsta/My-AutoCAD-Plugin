@@ -99,6 +99,7 @@ namespace WBPlugin
             
         }
 
+        #region Zone Tools
         [CommandMethod("WBZones", "WBZone", CommandFlags.Modal)]
         public static void WBZone() // This method can have any name
         {
@@ -128,6 +129,13 @@ namespace WBPlugin
         {
             ZoneShift shifter = new ZoneShift();
             shifter.Shift();
+        }
+        #endregion
+
+        [CommandMethod("WarmboardTools", "WBTubeTally", CommandFlags.Modal)]
+        public static void WBTubeTally()
+        {
+
         }
     }
 
