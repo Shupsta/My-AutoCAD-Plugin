@@ -145,5 +145,14 @@ namespace WBPlugin.Zone_Tools
                 tr.Commit();
             }
         }
+
+        public void ForEach(Action<Zone> action)
+        {
+            foreach(Zone zone in _zoneList)
+            {
+                action(zone);
+            }
+        }
+
     }
 }

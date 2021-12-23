@@ -123,6 +123,12 @@ namespace WBPlugin
             ZoneDelete.Delete();
         }
 
+        [CommandMethod("WBZones", "WBZoneShift", CommandFlags.Modal)]
+        public static void WBZoneShift() // This method can have any name
+        {
+            ZoneShift shifter = new ZoneShift();
+            shifter.Shift();
+        }
     }
 
 }
