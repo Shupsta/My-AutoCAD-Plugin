@@ -16,6 +16,8 @@ namespace WBPlugin.Tube_Tools
             TubeManager manager = new TubeManager();
             if (!manager.IsTube(tubeEntity)) return;
 
+            Tube tube = new Tube(tubeEntity);
+
         }
     }
 }

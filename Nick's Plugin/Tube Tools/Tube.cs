@@ -8,6 +8,23 @@ namespace WBPlugin.Tube_Tools
 {
     public class Tube
     {
-        
+        public WBEntity Entity { get; private set; }
+        public string Name { get => Entity.TypeName; }
+        public WBPoint3d Start { get; private set; }
+        public WBPoint3d End { get; private set; }
+        public double Length { get; set; }
+        public bool IsBuried { get; set; }
+
+        public Tube(WBEntity ent)
+        {
+            Entity = ent;
+            Start = TubeManager.GetStartOrEndPoint(ent, "start");
+            End = TubeManager.GetStartOrEndPoint(ent, "end");
+            Length = TubeManager.GetLength(ent);
+            IsBuried = ent.Layer.Contains("BURIED");
+
+
+
+        }
     }
 }

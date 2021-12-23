@@ -45,6 +45,7 @@ namespace WBPlugin
                 Entity ent = (Entity)rawId.GetObject(OpenMode.ForRead, false);
                 newEntity.TypeName = ent.GetType().Name;
                 newEntity.Layer = ent.Layer.ToUpper();
+                
             }
             
 

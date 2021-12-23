@@ -21,5 +21,7 @@ namespace WBPlugin
         {
             return this.ObjectId.IsNull();
         }
+
+        public static implicit operator WBObjectId(WBEntity e) => e.ObjectId;
     }
 }
