@@ -98,6 +98,11 @@ namespace WBPlugin.Zone_Tools
             CreateXRecord();
         }
 
+        public void Sync()
+        {
+            CreateXRecord();
+        }
+
         public Zone Contains(WBObjectId id)
         {
             Zone zone = null;

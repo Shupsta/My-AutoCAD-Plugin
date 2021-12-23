@@ -24,7 +24,7 @@ namespace WBPlugin.Zone_Tools
             }
             else
             {
-                manager.Remove(zone);
+                
                 string newId = StringInputRetriever.GetUserInput("\nEnter the new Zone Number: ", zone.ZoneId);
                 if (newId == "-99999") return false;
                 zone.ZoneId = newId;
@@ -32,7 +32,7 @@ namespace WBPlugin.Zone_Tools
                 string thermostat = StringInputRetriever.GetUserInput("\nEnter the new Zone Thermostat Type: ", zone.Thermostat);
                 if (thermostat == "-99999") return false;
                 zone.Thermostat = thermostat;
-                manager.Add(zone);
+                manager.Sync();
                 return true;
             }
         }
