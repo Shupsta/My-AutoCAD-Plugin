@@ -9,51 +9,37 @@ namespace WBPlugin.Zone_Tools
 {
     public class ZoneShift
     {
+        private string _addMode = "Add";
+        private string _removeMode = "Remove";
         private string _mode;
         private int _shiftNumber;
         private Zone _pivotZone;
+        private ZoneManager _manager;
         
         public bool Shift()
         {
-            
-            WBObjectId selectedPolyLine = PolyLineInputRetriever.GetUserInput("\nSelect PolyLine to check for Zone Info: ");
-            if (selectedPolyLine.IsNull()) return false;
 
-            ZoneManager manager = new ZoneManager();            
-            _pivotZone = manager.Contains(selectedPolyLine);
-            if (_pivotZone == null)
-            {
-                Active.WriteMessage("\n Is not a Zone!"); 
-                return false;
-            }
+            if (!GetPivotZone()) return false;
 
-            string addMode = "Add";
-            string removeMode = "Remove";
-            _mode = KeywordInputRetriever.GetUserInput("\nAdding or Removing Zone(s) ", addMode, removeMode);
-            if (_mode == "-99999") return false;
+            if (!GetMode()) return false;
 
-            _shiftNumber = IntegerInputRetriever.GetUserInput("\nShift by how many?", 1, manager.NumberOfZones);
+            _shiftNumber = IntegerInputRetriever.GetUserInput("\nShift by how many?", 1, _manager.NumberOfZones);
             if (_shiftNumber == 0) return false;
 
 
-            if(_mode == addMode)
+            if(_mode == _addMode)
             {
-                manager.ForEach(ShiftZoneAdd);
-                manager.Sync();
+                _manager.ForEach(ShiftZoneAdd);
+                _manager.Sync();
             }
 
-            if (_mode == removeMode)
+            if (_mode == _removeMode)
             {
-                manager.ForEach(ShiftZoneRemove);
+                _manager.ForEach(ShiftZoneRemove);
                 ColorManager.ChangeColor(_pivotZone.ObjectId, 6);
-                manager.Remove(_pivotZone);
+                _manager.Remove(_pivotZone);
             }
             
-
-            //int color = ColorManager.GetColor(selectedPolyLine);
-            //StringBuilder message = new StringBuilder();
-            //message.AppendFormat("\n Zone Number: {0}\nZone Color : {1}\nThermostat Type: {2}", zone.ZoneId, color, zone.Thermostat);
-            //Active.WriteMessage(message.ToString());
             return true;
 
         }
@@ -77,6 +63,29 @@ namespace WBPlugin.Zone_Tools
                 zone.ZoneId = newZoneNum.ToString() + zone.System;
                 ColorManager.ChangeColor(zone.ObjectId, ColorManager.GetColorForZone(zone.ZoneNumber));
             }
+        }
+
+        private bool GetPivotZone()
+        {
+            WBObjectId selectedPolyLine = PolyLineInputRetriever.GetUserInput("\nSelect PolyLine to check for Zone Info: ");
+            if (selectedPolyLine.IsNull()) return false;
+
+            ZoneManager _manager = new ZoneManager();
+            _pivotZone = _manager.Contains(selectedPolyLine);
+            if (_pivotZone == null)
+            {
+                Active.WriteMessage("\n Is not a Zone!");
+                return false;
+            }
+            return true;
+        }
+
+        private bool GetMode()
+        {             
+            _mode = KeywordInputRetriever.GetUserInput("\nAdding or Removing Zone(s) ", _addMode, _removeMode);
+            if (_mode == "-99999") return false;
+
+            return true;
         }
     }
 }
