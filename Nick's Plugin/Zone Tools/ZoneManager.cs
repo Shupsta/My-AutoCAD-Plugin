@@ -13,6 +13,8 @@ namespace WBPlugin.Zone_Tools
         private string ZoneRecordName = "WBPLUGIN_ZONERECORD";
         private List<Zone> _zoneList = new List<Zone>();
 
+        public int NumberOfZones { get => _zoneList.Count; }
+
         public ZoneManager()
         {
             using(Transaction tr = Active.Database.TransactionManager.StartTransaction())
