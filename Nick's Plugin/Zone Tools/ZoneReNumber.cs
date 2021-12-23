@@ -7,7 +7,7 @@ using WBPlugin.Utilities;
 
 namespace WBPlugin.Zone_Tools
 {
-    public static class ZoneReNumber
+    public static class ZoneRenumber
     {
         public static bool Renumber()
         {

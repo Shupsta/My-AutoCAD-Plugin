@@ -140,10 +140,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Zone Tools\OldZoneTranslator.cs" />
     <Compile Include="Zone Tools\Zone.cs" />
-    <Compile Include="Zone Tools\ZoneChecker.cs" />
-    <Compile Include="Zone Tools\ZoneCreater.cs" />
+    <Compile Include="Zone Tools\ZoneCheck.cs" />
+    <Compile Include="Zone Tools\ZoneCreate.cs" />
+    <Compile Include="Zone Tools\ZoneDelete.cs" />
     <Compile Include="Zone Tools\ZoneManager.cs" />
-    <Compile Include="Zone Tools\ZoneReNumber.cs" />
+    <Compile Include="Zone Tools\ZoneRenumber.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Commands\CADCommands.resx">

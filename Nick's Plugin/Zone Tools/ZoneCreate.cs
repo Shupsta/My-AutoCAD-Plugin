@@ -7,7 +7,7 @@ using WBPlugin.Utilities;
 
 namespace WBPlugin.Zone_Tools
 {
-    public static class ZoneCreater
+    public static class ZoneCreate
     {
         public static bool AddZone()
         {

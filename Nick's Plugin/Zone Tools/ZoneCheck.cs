@@ -7,7 +7,7 @@ using WBPlugin.Utilities;
 
 namespace WBPlugin.Zone_Tools
 {
-    public static class ZoneChecker
+    public static class ZoneCheck
     {
         public static bool CheckZone()
         {

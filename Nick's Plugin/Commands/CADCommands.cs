@@ -102,19 +102,25 @@ namespace WBPlugin
         [CommandMethod("WBZones", "WBZone", CommandFlags.Modal)]
         public static void WBZone() // This method can have any name
         {
-            ZoneCreater.AddZone();
+            ZoneCreate.AddZone();
         }
 
         [CommandMethod("WBZones", "WBZoneCheck", CommandFlags.Modal)]
         public static void WBZoneCheck() // This method can have any name
         {
-            ZoneChecker.CheckZone();
+            ZoneCheck.CheckZone();
         }
 
         [CommandMethod("WBZones", "WBZoneRenumber", CommandFlags.Modal)]
         public static void WBZoneRenumber() // This method can have any name
         {
-            ZoneReNumber.Renumber();
+            ZoneRenumber.Renumber();
+        }
+
+        [CommandMethod("WBZones", "WBZoneDelete", CommandFlags.Modal)]
+        public static void WBZoneDelete() // This method can have any name
+        {
+            ZoneDelete.Delete();
         }
 
     }
