@@ -106,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Active.cs" />
+    <Compile Include="InputRetrievers\KeywordInputRetriever.cs" />
     <Compile Include="Utilities\ColorManager.cs" />
     <Compile Include="Container Objects\WBObjectId.cs" />
     <Compile Include="InputRetrievers\EntityInputRetriever.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Zone Tools\OldZoneTranslator.cs" />
     <Compile Include="Zone Tools\Zone.cs" />
+    <Compile Include="Zone Tools\ZoneShift.cs" />
     <Compile Include="Zone Tools\ZoneCheck.cs" />
     <Compile Include="Zone Tools\ZoneCreate.cs" />
     <Compile Include="Zone Tools\ZoneDelete.cs" />
