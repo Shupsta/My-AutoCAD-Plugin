@@ -38,9 +38,11 @@ namespace WBPlugin
 
         public bool Equals(WBPoint3d other)
         {
-            if (X.Equals(other.X) && Y.Equals(other.Y)) return true;
+            if (Math.Round(X,2).Equals(Math.Round(other.X, 2)) && Math.Round(Y, 2).Equals(Math.Round(other.Y, 2))) return true;
             return false;
         }
+
+        
 
         public double X { get => _x; }
         public double Y { get => _y; }

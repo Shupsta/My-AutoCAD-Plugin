@@ -29,16 +29,16 @@ namespace WBPlugin.Tube_Tools
 
         public bool IsConnected(Tube that)
         {
-            if (this.Start == that.Start) return true;
-            if (this.End == that.End) return true;
-            if (this.Start == that.End) return true;
-            if (this.End == that.Start) return true;
+            if (this.Start.Equals(that.Start)) return true;
+            if (this.Start.Equals(that.End)) return true;
+            if (this.End.Equals(that.Start)) return true;
+            if (this.End.Equals(that.End)) return true;
             return false;
         }
 
         public bool Equals(Tube other)
         {
-            if (this.Entity == other.Entity) return true;
+            if (this.Entity.Equals(other.Entity)) return true;
             return false;
         }
     }

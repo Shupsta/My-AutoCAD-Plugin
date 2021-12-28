@@ -39,7 +39,7 @@ namespace WBPlugin
 
         public bool Equals(WBEntity other)
         {
-            if (this.ObjectId == other.ObjectId) return true;
+            if (this.ObjectId.Equals(other.ObjectId)) return true;
             return false;
         }
 
