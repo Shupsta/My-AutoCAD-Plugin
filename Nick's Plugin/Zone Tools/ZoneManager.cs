@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Autodesk.AutoCAD.DatabaseServices;
+using WarmBoardTools.Interfaces;
 
 namespace WBPlugin.Zone_Tools
 {
@@ -17,6 +18,7 @@ namespace WBPlugin.Zone_Tools
 
         public ZoneManager()
         {
+            OldZoneInfo();//TODO remove if tests prove unsuccessful, as well as old support folder and contents
             using(Transaction tr = Active.Database.TransactionManager.StartTransaction())
             {
                 DBDictionary NOD = (DBDictionary)tr.GetObject(Active.Database.NamedObjectsDictionaryId, OpenMode.ForRead, false);
@@ -48,6 +50,38 @@ namespace WBPlugin.Zone_Tools
                 tr.Commit();
             }                        
 
+        }
+
+        private void OldZoneInfo()
+        {
+            using (Transaction tr = Active.Database.TransactionManager.StartTransaction())
+            {
+                DBDictionary NOD = (DBDictionary)tr.GetObject(Active.Database.NamedObjectsDictionaryId, OpenMode.ForRead, false);
+                DBDictionary WBDict;
+                if (NOD.Contains("WB_SETTINGS"))
+                {
+                    WBDict = (DBDictionary)tr.GetObject(NOD.GetAt("WB_SETTINGS"), OpenMode.ForRead, false);
+                    if (WBDict.Contains("ZONES"))
+                    {
+                        Xrecord zoneRecord = (Xrecord)tr.GetObject(WBDict.GetAt("ZONES"), OpenMode.ForRead, false);
+                    }
+                    
+
+                }
+
+                if (NOD.Contains("WB_SETTINGS_VERSION_2"))
+                {
+                    WBDict = (DBDictionary)tr.GetObject(NOD.GetAt("WB_SETTINGS_VERSION_2"), OpenMode.ForRead, false);
+                    if (WBDict.Contains("ZONES_VERSION_2"))
+                    {
+                        Xrecord zoneRecord = (Xrecord)tr.GetObject(WBDict.GetAt("ZONES_VERSION_2"), OpenMode.ForRead, false);
+                        TypedValue[] testArr = zoneRecord.Data.AsArray();
+                        List<IZone> testList = (List<IZone>)testArr[0].Value;
+                    }
+                }
+
+                
+            }
         }
 
         private void FillZoneList(ResultBuffer data)

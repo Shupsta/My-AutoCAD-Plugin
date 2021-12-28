@@ -153,7 +153,8 @@
     <Compile Include="WBPlugin.cs" />
     <Compile Include="Commands\CADCommands.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Zone Tools\OldZoneTranslator.cs" />
+    <Compile Include="Zone Tools\Old Support\IZone.cs" />
+    <Compile Include="Zone Tools\Old Support\OldZoneTranslator.cs" />
     <Compile Include="Zone Tools\Zone.cs" />
     <Compile Include="Zone Tools\ZoneShift.cs" />
     <Compile Include="Zone Tools\ZoneCheck.cs" />
