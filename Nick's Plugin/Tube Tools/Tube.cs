@@ -8,7 +8,7 @@ namespace WBPlugin.Tube_Tools
 {
     public class Tube : IEquatable<Tube>
     {
-        private double _length;
+        private double? _length;
         private bool? _isBuried;
         private WBPoint3d _start;
         private WBPoint3d _end;
@@ -36,7 +36,7 @@ namespace WBPlugin.Tube_Tools
         }
         public double Length { get
             {
-                if (_length != 0) return _length;
+                if (_length != null) return (double)_length;
                 return GetLength();
             } }
         public bool IsBuried { get
@@ -49,11 +49,7 @@ namespace WBPlugin.Tube_Tools
 
         public Tube(WBEntity ent)
         {
-            Entity = ent;
-            
-
-
-
+            Entity = ent;            
         }
 
         public bool IsConnected(Tube that)

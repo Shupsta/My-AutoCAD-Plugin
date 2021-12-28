@@ -31,7 +31,7 @@ namespace WBPlugin.Tube_Tools
             return connectedTubes;
         }
 
-        private void FillTubeList(ref List<Tube> allTubes, ref List<Tube> connectedTubes)//TODO TEST! recursive!
+        private void FillTubeList(ref List<Tube> allTubes, ref List<Tube> connectedTubes)
         {
             bool finished = false;
             
@@ -53,6 +53,21 @@ namespace WBPlugin.Tube_Tools
                 if (finished) break;
             }
 
+        }
+
+        public double GetLength()
+        {
+            double total = 0;
+
+            foreach(Tube tube in Tubes)
+            {
+                total += tube.Length;
+            }
+
+            total /= 12;
+            total += 9;//took from the original code, unclear why adding 9 rounds the number out
+            
+            return total = total + (5 - (total % 5));
         }
     }
 }

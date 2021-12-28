@@ -96,6 +96,8 @@
     <!--AME Reference End-->
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -139,6 +141,12 @@
       <DependentUpon>CADCommands.resx</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Generators\LayerGenerator.cs" />
+    <Compile Include="Utilities\Report.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utilities\Report.Designer.cs">
+      <DependentUpon>Report.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\Translators\ObjectIdTranslator.cs" />
     <Compile Include="Utilities\Generators\PointGenerator.cs" />
     <Compile Include="Utilities\ZoneExtensionMethods.cs" />
@@ -159,6 +167,9 @@
       <DependentUpon>CADCommands.cs</DependentUpon>
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CADCommands.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utilities\Report.resx">
+      <DependentUpon>Report.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

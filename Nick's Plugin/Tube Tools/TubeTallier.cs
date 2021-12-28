@@ -24,8 +24,11 @@ namespace WBPlugin.Tube_Tools
 
             HighlightTubes(loop);
 
+            //TODO get info from loop marker for amount added
 
-            Active.WriteMessage("\nAll Done!");
+            StringBuilder report = new StringBuilder();
+            report.AppendFormat("Horizontal Loop Length = {0}'", loop.GetLength());
+            Report loopReport = new Report(report.ToString());
         }
 
         private static void HighlightTubes(Loop loop)

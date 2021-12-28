@@ -55,15 +55,15 @@ namespace WBPlugin.Tube_Tools
 
                 switch (entity.TypeName)
                 {
-                    case "Line":
+                    case "LINE":
                         Line line = (Line)id.GetObject(OpenMode.ForRead, false);
                         length = line.Length;
                         break;
-                    case "Arc":
+                    case "ARC":
                         Arc arc = (Arc)id.GetObject(OpenMode.ForRead, false);
                         length = arc.Length;
                         break;
-                    case "Polyline":
+                    case "POLYLINE":
                         Polyline polyline = (Polyline)id.GetObject(OpenMode.ForRead, false);
                         length = polyline.Length;
                         break;
