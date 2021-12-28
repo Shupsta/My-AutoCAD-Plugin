@@ -10,27 +10,26 @@ namespace WBPlugin
 {
     public class WBEntity : IEquatable<WBEntity>
     {
+        private string _layer;
+        private string _typeName;
         public WBObjectId ObjectId { get; private set; }
-        public string TypeName { get; set; }
-        public string Layer { get; set; }
+        public string TypeName { get
+            {
+                if (_typeName != null) return _typeName;
+                return GetTypeName();
+            } }
+        public string Layer { get
+            {
+                if (_layer != null) return _layer;
+                return GetLayer();
+            } }
         
         public WBEntity(WBObjectId id)
         {
             ObjectId = id;
-            Initialize();
         }
 
-        private void Initialize()
-        {
-            using (Transaction tr = Active.Database.TransactionManager.StartTransaction())
-            {
-                ObjectId rawId = ObjectIdTranslator.Decode(ObjectId);
-                Entity ent = (Entity)rawId.GetObject(OpenMode.ForRead, false);
-                this.TypeName = ent.GetType().Name;
-                this.Layer = ent.Layer.ToUpper();
-
-            }
-        }
+        
 
         public bool IsNull()
         {
@@ -41,6 +40,34 @@ namespace WBPlugin
         {
             if (this.ObjectId.Equals(other.ObjectId)) return true;
             return false;
+        }
+
+        public string GetLayer()
+        {
+            using (Transaction tr = Active.Database.TransactionManager.StartTransaction())
+            {
+                ObjectId rawId = ObjectIdTranslator.Decode(ObjectId);
+                Entity ent = (Entity)rawId.GetObject(OpenMode.ForRead, false);
+                string layer = ent.Layer.ToUpper();
+                this._layer = layer;
+                return layer;
+
+            }
+        }
+
+        public string GetTypeName()
+        {
+            using (Transaction tr = Active.Database.TransactionManager.StartTransaction())
+            {
+                ObjectId rawId = ObjectIdTranslator.Decode(ObjectId);
+                Entity ent = (Entity)rawId.GetObject(OpenMode.ForRead, false);
+                string typeName = ent.GetType().Name.ToUpper();
+                this._typeName = typeName;
+                return typeName;
+
+            }
+
+
         }
 
         public static implicit operator WBObjectId(WBEntity e) => e.ObjectId;

@@ -32,7 +32,7 @@ namespace WBPlugin.Tube_Tools
 
         private void FillTubeList(ref List<Tube> allTubes, ref List<Tube> connectedTubes)//TODO TEST! recursive!
         {
-            if (allTubes.Count == 0) return;
+            bool finished = false;
             
             foreach(Tube potentialTube in allTubes)
             {
@@ -42,10 +42,14 @@ namespace WBPlugin.Tube_Tools
                     {
                         connectedTubes.Add(potentialTube);
                         allTubes.Remove(potentialTube);
+                        
                         FillTubeList(ref allTubes, ref connectedTubes);
+                        finished = true;
+                        break;
                     }
                     
                 }
+                if (finished) break;
             }
 
         }
