@@ -107,13 +107,13 @@ namespace WBPlugin.Tube_Tools
                     SelectionSet ss = psr.Value;
                     ObjectId[] idArray = ss.GetObjectIds();
 
-                    Parallel.ForEach<ObjectId>(idArray, oID =>
+                    foreach(ObjectId oID in idArray)
                     {
                         WBObjectId id = new WBObjectId(oID.Handle.Value);
                         WBEntity ent = new WBEntity(id);
                         Tube tube = new Tube(ent);
                         tubes.Add(tube);
-                    });
+                    }
                     
                     tr.Commit();
                     return tubes;

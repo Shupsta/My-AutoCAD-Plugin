@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Autodesk.AutoCAD.DatabaseServices;
+using WBPlugin.Utilities;
 
 namespace WBPlugin.Tube_Tools
 {
@@ -20,10 +22,26 @@ namespace WBPlugin.Tube_Tools
 
             Loop loop = new Loop(tube);
 
-
+            HighlightTubes(loop);
 
 
             Active.WriteMessage("\nAll Done!");
+        }
+
+        private static void HighlightTubes(Loop loop)
+        {
+            using(Transaction tr = Active.Database.TransactionManager.StartTransaction())
+            {
+                foreach (Tube tube in loop.Tubes)
+                {
+                    ObjectId id = ObjectIdTranslator.Decode(tube.Entity.ObjectId);
+                    Entity ent = (Entity)id.GetObject(OpenMode.ForRead, false);
+                    ent.Highlight();
+                }
+            }
+            
+            
+            Active.Editor.UpdateScreen();
         }
     }
 }
