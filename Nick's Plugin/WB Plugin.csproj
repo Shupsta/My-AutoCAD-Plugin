@@ -109,6 +109,7 @@
     <Compile Include="Container Objects\WBEntity.cs" />
     <Compile Include="InputRetrievers\IntegerInputRetriever.cs" />
     <Compile Include="InputRetrievers\KeywordInputRetriever.cs" />
+    <Compile Include="Tube Tools\Loop\Loop.cs" />
     <Compile Include="Tube Tools\Tube.cs" />
     <Compile Include="Tube Tools\TubeManager.cs" />
     <Compile Include="Tube Tools\TubeTallier.cs" />

@@ -18,6 +18,8 @@ namespace WBPlugin.Tube_Tools
 
             Tube tube = new Tube(tubeEntity);
 
+            Loop loop = new Loop(tube);
+
         }
     }
 }

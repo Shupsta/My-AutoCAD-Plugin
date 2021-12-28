@@ -26,5 +26,14 @@ namespace WBPlugin.Tube_Tools
 
 
         }
+
+        public bool IsConnected(Tube that)
+        {
+            if (this.Start == that.Start) return true;
+            if (this.End == that.End) return true;
+            if (this.Start == that.End) return true;
+            if (this.End == that.Start) return true;
+            return false;
+        }
     }
 }
