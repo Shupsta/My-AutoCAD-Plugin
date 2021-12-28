@@ -15,6 +15,7 @@ namespace WBPlugin.Tube_Tools
         private string[] _tubeLayer = new string[] { "TUBING", "BURIED TUBING", "CUSTOM GROOVE", "T_TUBING", "T_BURIED TUBING", "T_CUSTOM GROOVE", "T_SUPPLY" };
         private string[] _tubeEntityTypes = new string[] { "ARC", "LINE", "LWPOLYLINE" };
         private string JoinedTubeEntityTypes { get => String.Join(",", _tubeEntityTypes); }
+        private string JoinedTubeLayers { get => String.Join(",", _tubeLayer); }
         
         internal bool IsTube(WBEntity tubeEntity)
         {
@@ -97,7 +98,7 @@ namespace WBPlugin.Tube_Tools
                 {
                     // Find all entities of a given type and layer
                     TypedValue[] values = { new TypedValue((int)DxfCode.Start, JoinedTubeEntityTypes),
-                                new TypedValue((int)DxfCode.LayerName, _tubeLayer) };
+                                new TypedValue((int)DxfCode.LayerName, JoinedTubeLayers) };
                     SelectionFilter sFilter = new SelectionFilter(values);
 
                     PromptSelectionResult psr = ed.SelectAll(sFilter);

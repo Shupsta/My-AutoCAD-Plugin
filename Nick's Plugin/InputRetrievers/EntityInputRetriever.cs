@@ -39,16 +39,7 @@ namespace WBPlugin
         {
             var id = ObjectIdTranslator.Encode(rawId);
             WBEntity newEntity = new WBEntity(id);
-
-            using(Transaction tr = Active.Database.TransactionManager.StartTransaction())
-            {
-                Entity ent = (Entity)rawId.GetObject(OpenMode.ForRead, false);
-                newEntity.TypeName = ent.GetType().Name;
-                newEntity.Layer = ent.Layer.ToUpper();
-                
-            }
             
-
             return newEntity;
         }
     }

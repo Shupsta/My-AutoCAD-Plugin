@@ -27,7 +27,7 @@ namespace WBPlugin.Tube_Tools
             connectedTubes.Add(selectedTube);
 
             FillTubeList(ref allTubes, ref connectedTubes);
-            
+            return connectedTubes;
         }
 
         private void FillTubeList(ref List<Tube> allTubes, ref List<Tube> connectedTubes)//TODO TEST! recursive!

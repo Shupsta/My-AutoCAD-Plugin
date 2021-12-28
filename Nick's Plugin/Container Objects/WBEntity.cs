@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Autodesk.AutoCAD.DatabaseServices;
+using WBPlugin.Utilities;
 
 namespace WBPlugin
 {
@@ -15,6 +17,19 @@ namespace WBPlugin
         public WBEntity(WBObjectId id)
         {
             ObjectId = id;
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            using (Transaction tr = Active.Database.TransactionManager.StartTransaction())
+            {
+                ObjectId rawId = ObjectIdTranslator.Decode(ObjectId);
+                Entity ent = (Entity)rawId.GetObject(OpenMode.ForRead, false);
+                this.TypeName = ent.GetType().Name;
+                this.Layer = ent.Layer.ToUpper();
+
+            }
         }
 
         public bool IsNull()

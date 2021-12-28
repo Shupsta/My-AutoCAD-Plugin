@@ -11,6 +11,7 @@ using System.Text;
 using WBPlugin.Utilities;
 using WBPlugin.Zone_Tools;
 using WBPlugin;
+using WBPlugin.Tube_Tools;
 
 // This line is not mandatory, but improves loading performances
 [assembly: CommandClass(typeof(WBPlugin.CADCommands))]
@@ -135,7 +136,7 @@ namespace WBPlugin
         [CommandMethod("WarmboardTools", "WBTubeTally", CommandFlags.Modal)]
         public static void WBTubeTally()
         {
-
+            TubeTallier.Tally();
         }
     }
 
