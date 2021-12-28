@@ -19,34 +19,29 @@ namespace WBPlugin.Tube_Tools
         
         internal bool IsTube(WBEntity tubeEntity)
         {
-            if (tubeEntity.TypeName != "Line" && tubeEntity.TypeName != "Arc" && tubeEntity.TypeName != "Polyline")
+            if (tubeEntity.TypeName == "LINE" || tubeEntity.TypeName == "ARC" || tubeEntity.TypeName == "POLYLINE")
             {
-                Active.WriteMessage("\nInvalid Selection. Not a line, arc, or polyline.");
-            }
-
-            foreach (string layer in _tubeLayer)
-            {
-                if (tubeEntity.Layer == layer)
-                    return true;
-            }
-
+                foreach (string layer in _tubeLayer)
+                {
+                    if (tubeEntity.Layer == layer)
+                        return true;
+                }
+            }            
+            Active.WriteMessage("\nInvalid Selection. Not a line, arc, or polyline.");
             return false;
         }
 
         
 
-        public static WBPoint3d GetStartOrEndPoint(WBEntity tube, string mode)
+        public static Tuple<WBPoint3d, WBPoint3d> GetStartOrEndPoint(WBEntity tube)
         {
             using(Transaction tr = Active.Database.TransactionManager.StartTransaction())
             {
                 ObjectId id = ObjectIdTranslator.Decode(tube.ObjectId);
                 Curve ent = (Curve)id.GetObject(OpenMode.ForRead, false);
-                if(mode.Equals("start"))
-                    return new WBPoint3d(ent.StartPoint.X, ent.StartPoint.Y);
-                if (mode.Equals("end"))
-                    return new WBPoint3d(ent.EndPoint.X, ent.EndPoint.Y);
-                else
-                    return new WBPoint3d();
+                return new Tuple<WBPoint3d, WBPoint3d>(
+                    new WBPoint3d(ent.StartPoint.X, ent.StartPoint.Y), 
+                    new WBPoint3d(ent.EndPoint.X, ent.EndPoint.Y));              
             }
         }
 
@@ -111,12 +106,15 @@ namespace WBPlugin.Tube_Tools
                     // Build an array of all the tube items in the drawing
                     SelectionSet ss = psr.Value;
                     ObjectId[] idArray = ss.GetObjectIds();
-                    foreach (ObjectId oID in idArray)
-                    {
-                        Tube tube = new Tube(new WBEntity(new WBObjectId(oID.Handle.Value)));
-                        tubes.Add(tube);
-                    }
 
+                    Parallel.ForEach<ObjectId>(idArray, oID =>
+                    {
+                        WBObjectId id = new WBObjectId(oID.Handle.Value);
+                        WBEntity ent = new WBEntity(id);
+                        Tube tube = new Tube(ent);
+                        tubes.Add(tube);
+                    });
+                    
                     tr.Commit();
                     return tubes;
                 }

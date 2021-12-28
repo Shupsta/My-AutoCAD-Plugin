@@ -20,6 +20,10 @@ namespace WBPlugin.Tube_Tools
 
             Loop loop = new Loop(tube);
 
+
+
+
+            Active.WriteMessage("\nAll Done!");
         }
     }
 }
