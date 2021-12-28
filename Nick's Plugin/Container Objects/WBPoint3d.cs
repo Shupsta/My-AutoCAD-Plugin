@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WBPlugin
 {
-    public class WBPoint3d
+    public class WBPoint3d : IEquatable<WBPoint3d>
     {
         
         private double _x;
@@ -34,6 +34,12 @@ namespace WBPlugin
             {
                 return false;
             }
+        }
+
+        public bool Equals(WBPoint3d other)
+        {
+            if (X.Equals(other.X) && Y.Equals(other.Y)) return true;
+            return false;
         }
 
         public double X { get => _x; }

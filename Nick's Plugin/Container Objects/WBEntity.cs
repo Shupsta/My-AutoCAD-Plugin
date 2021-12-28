@@ -8,7 +8,7 @@ using WBPlugin.Utilities;
 
 namespace WBPlugin
 {
-    public class WBEntity
+    public class WBEntity : IEquatable<WBEntity>
     {
         public WBObjectId ObjectId { get; private set; }
         public string TypeName { get; set; }
@@ -35,6 +35,12 @@ namespace WBPlugin
         public bool IsNull()
         {
             return this.ObjectId.IsNull();
+        }
+
+        public bool Equals(WBEntity other)
+        {
+            if (this.ObjectId == other.ObjectId) return true;
+            return false;
         }
 
         public static implicit operator WBObjectId(WBEntity e) => e.ObjectId;

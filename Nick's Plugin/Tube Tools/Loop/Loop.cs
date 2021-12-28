@@ -21,7 +21,7 @@ namespace WBPlugin.Tube_Tools
             TubeManager manager = new TubeManager();
             List<Tube> allTubes = manager.GetAllTubes();
             if (allTubes == null) return null;
-            allTubes.RemoveAll(t => t.Entity.ObjectId == selectedTube.Entity.ObjectId);
+            allTubes.RemoveAll(t => t.Equals(selectedTube));
             
             List<Tube> connectedTubes = new List<Tube>();
             connectedTubes.Add(selectedTube);

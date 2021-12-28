@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WBPlugin.Tube_Tools
 {
-    public class Tube
+    public class Tube : IEquatable<Tube>
     {
         public WBEntity Entity { get; private set; }
         public string Name { get => Entity.TypeName; }
@@ -33,6 +33,12 @@ namespace WBPlugin.Tube_Tools
             if (this.End == that.End) return true;
             if (this.Start == that.End) return true;
             if (this.End == that.Start) return true;
+            return false;
+        }
+
+        public bool Equals(Tube other)
+        {
+            if (this.Entity == other.Entity) return true;
             return false;
         }
     }
