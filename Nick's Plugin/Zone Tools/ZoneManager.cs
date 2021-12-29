@@ -18,7 +18,7 @@ namespace WBPlugin.Zone_Tools
 
         public ZoneManager()
         {
-            OldZoneInfo();//TODO remove if tests prove unsuccessful, as well as old support folder and contents
+            //OldZoneInfo();//TODO remove if tests prove unsuccessful, as well as old support folder and contents
             using(Transaction tr = Active.Database.TransactionManager.StartTransaction())
             {
                 DBDictionary NOD = (DBDictionary)tr.GetObject(Active.Database.NamedObjectsDictionaryId, OpenMode.ForRead, false);
@@ -75,8 +75,7 @@ namespace WBPlugin.Zone_Tools
                     if (WBDict.Contains("ZONES_VERSION_2"))
                     {
                         Xrecord zoneRecord = (Xrecord)tr.GetObject(WBDict.GetAt("ZONES_VERSION_2"), OpenMode.ForRead, false);
-                        TypedValue[] testArr = zoneRecord.Data.AsArray();
-                        List<IZone> testList = (List<IZone>)testArr[0].Value;
+                        var test = (List<IZone>)Old_Support.OldDeserializer.Deserialize(zoneRecord.Data);
                     }
                 }
 
