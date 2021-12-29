@@ -29,6 +29,8 @@ namespace WBPlugin.Tube_Tools
             StringBuilder report = new StringBuilder();
             report.AppendFormat("Horizontal Loop Length = {0}'", loop.GetLength());
             Report loopReport = new Report(report.ToString());
+
+            UnhighlightTubes(loop);
         }
 
         private static void HighlightTubes(Loop loop)
@@ -37,13 +39,29 @@ namespace WBPlugin.Tube_Tools
             {
                 foreach (Tube tube in loop.Tubes)
                 {
-                    ObjectId id = ObjectIdTranslator.Decode(tube.Entity.ObjectId);
+                    ObjectId id = tube.Entity.ObjectId.GetId();
                     Entity ent = (Entity)id.GetObject(OpenMode.ForRead, false);
                     ent.Highlight();
                 }
             }
             
             
+            Active.Editor.UpdateScreen();
+        }
+
+        private static void UnhighlightTubes(Loop loop)
+        {
+            using (Transaction tr = Active.Database.TransactionManager.StartTransaction())
+            {
+                foreach (Tube tube in loop.Tubes)
+                {
+                    ObjectId id = tube.Entity.ObjectId.GetId();
+                    Entity ent = (Entity)id.GetObject(OpenMode.ForRead, false);
+                    ent.Unhighlight();
+                }
+            }
+
+
             Active.Editor.UpdateScreen();
         }
     }

@@ -37,7 +37,7 @@ namespace WBPlugin.Tube_Tools
         {
             using(Transaction tr = Active.Database.TransactionManager.StartTransaction())
             {
-                ObjectId id = ObjectIdTranslator.Decode(tube.ObjectId);
+                ObjectId id = tube.ObjectId.GetId();
                 Curve ent = (Curve)id.GetObject(OpenMode.ForRead, false);
                 return new Tuple<WBPoint3d, WBPoint3d>(
                     new WBPoint3d(ent.StartPoint.X, ent.StartPoint.Y), 
@@ -51,7 +51,7 @@ namespace WBPlugin.Tube_Tools
 
             using(Transaction tr = Active.Database.TransactionManager.StartTransaction())
             {
-                ObjectId id = ObjectIdTranslator.Decode(entity);
+                ObjectId id = entity.ObjectId.GetId();
 
                 switch (entity.TypeName)
                 {

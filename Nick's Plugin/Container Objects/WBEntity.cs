@@ -46,7 +46,7 @@ namespace WBPlugin
         {
             using (Transaction tr = Active.Database.TransactionManager.StartTransaction())
             {
-                ObjectId rawId = ObjectIdTranslator.Decode(ObjectId);
+                ObjectId rawId = ObjectId.GetId();
                 Entity ent = (Entity)rawId.GetObject(OpenMode.ForRead, false);
                 string layer = ent.Layer.ToUpper();
                 this._layer = layer;
@@ -59,7 +59,7 @@ namespace WBPlugin
         {
             using (Transaction tr = Active.Database.TransactionManager.StartTransaction())
             {
-                ObjectId rawId = ObjectIdTranslator.Decode(ObjectId);
+                ObjectId rawId = ObjectId.GetId();
                 Entity ent = (Entity)rawId.GetObject(OpenMode.ForRead, false);
                 string typeName = ent.GetType().Name.ToUpper();
                 this._typeName = typeName;

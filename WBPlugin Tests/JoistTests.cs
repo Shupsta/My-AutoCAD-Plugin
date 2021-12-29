@@ -11,6 +11,7 @@ namespace WBPlugin_Tests
         private Mock<IAngleInputRetriever> _mockAngleRetriever;
         private Mock<IBoundaryInputRetriever> _mockBoundaryRetriever;
         private Mock<IJoistGenerator> _mockJoistGenerator;
+        private Mock<IWBObjectId> _objectId;
 
         [SetUp]
         public void Setup()
@@ -20,6 +21,7 @@ namespace WBPlugin_Tests
             _mockAngleRetriever = new Mock<IAngleInputRetriever>();
             _mockBoundaryRetriever = new Mock<IBoundaryInputRetriever>();
             _mockJoistGenerator = new Mock<IJoistGenerator>();
+            _objectId = new Mock<IWBObjectId>();
 
         }
 
@@ -36,10 +38,10 @@ namespace WBPlugin_Tests
 
             _mockAngleRetriever.Setup<double>(p => p.GetUserInput(It.IsAny<string>(), It.IsAny<WBPoint3d>())).Returns(90);
 
-            //_mockBoundaryRetriever.Setup<WBObjectIdCollection>(p => p.getUserInput(It.IsAny<string>())).Returns(new WBObjectIdCollection(new System.Collections.Generic.List<long>() { 1}));
-            _mockBoundaryRetriever.SetupSequence<WBObjectIdCollection>(p => p.GetUserInput(It.IsAny<string>()))
-                .Returns(new WBObjectIdCollection(new System.Collections.Generic.List<WBObjectId>() { new WBObjectId(1) }))
-                .Returns(new WBObjectIdCollection());
+            
+            //_mockBoundaryRetriever.SetupSequence<WBObjectIdCollection>(p => p.GetUserInput(It.IsAny<string>()))
+            //    .Returns(new WBObjectIdCollection(new System.Collections.Generic.List<IWBObjectId>() { _objectId.Object }))
+            //    .Returns(new WBObjectIdCollection());
 
 
             _mockJoistGenerator.Setup<bool>(p => p.RunJoists(It.IsAny<Joists>())).Returns(true);

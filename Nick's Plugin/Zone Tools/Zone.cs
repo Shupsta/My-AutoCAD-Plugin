@@ -8,14 +8,14 @@ using WBPlugin.Utilities;
 
 namespace WBPlugin.Zone_Tools
 {
-    public class Zone : IEquatable<WBObjectId>
+    public class Zone : IEquatable<IWBObjectId>
     {
-        private WBObjectId _objectId;
+        private IWBObjectId _objectId;
         private int _zoneNumber;
         private string _thermostat;
         private string _system;
 
-        public Zone(WBObjectId objectId, string zoneId)
+        public Zone(IWBObjectId objectId, string zoneId)
         {
             _objectId = objectId;
             ZoneId = zoneId;
@@ -23,7 +23,7 @@ namespace WBPlugin.Zone_Tools
 
         }
 
-        public Zone(WBObjectId objectId, int zoneNum, string system, string thermostat)
+        public Zone(IWBObjectId objectId, int zoneNum, string system, string thermostat)
         {
             _objectId = objectId;
             _zoneNumber = zoneNum;
@@ -47,7 +47,7 @@ namespace WBPlugin.Zone_Tools
             }
         }
 
-        public WBObjectId ObjectId { get => _objectId; }
+        public IWBObjectId ObjectId { get => _objectId; }
 
         public int Color { get { return ColorManager.GetColor(this.ObjectId); } }
 
@@ -73,7 +73,7 @@ namespace WBPlugin.Zone_Tools
             }  
         }
 
-        public bool Equals(WBObjectId other)
+        public bool Equals(IWBObjectId other)
         {
             return this.ObjectId.Equals(other);
         }

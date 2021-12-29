@@ -28,15 +28,5 @@ namespace WBPlugin.Utilities
             }
             return decodedList;
         }
-
-        public static WBObjectId Encode(ObjectId id)
-        {
-            return new WBObjectId(id.Handle.Value);
-        }
-
-        public static ObjectId Decode(WBObjectId id)
-        {
-            return Active.Database.GetObjectId(false, new Handle(id.Handle), 0);
-        }
     }
 }

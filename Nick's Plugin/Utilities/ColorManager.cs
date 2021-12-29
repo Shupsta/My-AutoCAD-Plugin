@@ -11,9 +11,9 @@ namespace WBPlugin.Utilities
     {
         
         
-        public static void ChangeColor(WBObjectId inputObject, int colorToChangeTo)
+        public static void ChangeColor(IWBObjectId inputObject, int colorToChangeTo)
         {
-            ObjectId id = ObjectIdTranslator.Decode(inputObject);
+            ObjectId id = inputObject.GetId();
 
             using(Transaction tr = id.Database.TransactionManager.StartTransaction())
             {
@@ -36,12 +36,12 @@ namespace WBPlugin.Utilities
             return DefaultColors[zoneNumber - 1]; //6 colors, in a 0 indexed array. so zone 10 % 6 = 4 - 1 = index 3 which is the fourth color
         }
 
-        public static int GetColor(WBObjectId WBid)
+        public static int GetColor(IWBObjectId WBid)
         {
             Database db = Active.Database;
             using (Transaction tr = db.TransactionManager.StartTransaction())
             {
-                ObjectId id = ObjectIdTranslator.Decode(WBid);
+                ObjectId id = WBid.GetId();
                 Entity ent = (Entity)id.GetObject(OpenMode.ForRead, false);
                 return ent.Color.ColorIndex;
             }

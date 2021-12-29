@@ -37,8 +37,7 @@ namespace WBPlugin
 
         private static WBEntity Create(ObjectId rawId)
         {
-            var id = ObjectIdTranslator.Encode(rawId);
-            WBEntity newEntity = new WBEntity(id);
+            WBEntity newEntity = new WBEntity(new WBObjectId(rawId));
             
             return newEntity;
         }

@@ -109,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Active.cs" />
+    <Compile Include="Interfaces\ContainerObjects\IWBObjectId.cs" />
     <Compile Include="Container Objects\WBEntity.cs" />
     <Compile Include="InputRetrievers\IntegerInputRetriever.cs" />
     <Compile Include="InputRetrievers\KeywordInputRetriever.cs" />

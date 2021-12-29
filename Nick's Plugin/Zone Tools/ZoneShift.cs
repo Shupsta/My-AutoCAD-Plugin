@@ -18,6 +18,7 @@ namespace WBPlugin.Zone_Tools
         
         public bool Shift()
         {
+            this._manager = new ZoneManager();
 
             if (!GetPivotZone()) return false;
 
@@ -26,8 +27,7 @@ namespace WBPlugin.Zone_Tools
             _shiftNumber = IntegerInputRetriever.GetUserInput("\nShift by how many?", 1, _manager.NumberOfZones);
             if (_shiftNumber == 0) return false;
 
-
-            if(_mode == _addMode)
+            if (_mode == _addMode)
             {
                 _manager.ForEach(ShiftZoneAdd);
                 _manager.Sync();
@@ -70,7 +70,7 @@ namespace WBPlugin.Zone_Tools
             WBObjectId selectedPolyLine = PolyLineInputRetriever.GetUserInput("\nSelect PolyLine to check for Zone Info: ");
             if (selectedPolyLine.IsNull()) return false;
 
-            ZoneManager _manager = new ZoneManager();
+            
             _pivotZone = _manager.Contains(selectedPolyLine);
             if (_pivotZone == null)
             {

@@ -8,12 +8,12 @@ namespace WBPlugin_Tests
 {
     public class ZoneTests
     {
-        
+        Mock<IWBObjectId> _objectId;
 
         [SetUp]
         public void Setup()
         {
-            
+            _objectId = new Mock<IWBObjectId>();
 
         }
 
@@ -21,7 +21,8 @@ namespace WBPlugin_Tests
         public void IsZoneIdCorrect()
         {
             string zoneNum = "1A";
-            Zone testZone = new(new WBObjectId(123), zoneNum);
+            
+            Zone testZone = new(_objectId.Object, zoneNum);
             Assert.That(testZone.ZoneId == zoneNum);
         }
 
@@ -29,9 +30,8 @@ namespace WBPlugin_Tests
         public void IsObjectIdCorrect()
         {
             string zoneNum = "1A";
-            long objectId = 123;
-            Zone testZone = new Zone(new WBObjectId(objectId), zoneNum);
-            Assert.That(testZone.ObjectId.Equals(new WBObjectId(objectId)));
+            Zone testZone = new Zone(_objectId.Object, zoneNum);
+            Assert.That(testZone.ObjectId.Equals(_objectId));
         }
 
         [Test]
@@ -41,7 +41,7 @@ namespace WBPlugin_Tests
             string system = "a";
             string zoneId = zoneNum + system;
             long objectId = 123;
-            Zone testZone = new Zone(new WBObjectId(objectId), zoneId);
+            Zone testZone = new Zone(_objectId.Object, zoneId);
             Assert.That(testZone.System == system.ToUpper());
         }
 
@@ -52,7 +52,7 @@ namespace WBPlugin_Tests
             string system = "a";
             string zoneId = zoneNum + system;
             long objectId = 123;
-            Zone testZone = new Zone(new WBObjectId(objectId), zoneId);
+            Zone testZone = new Zone(_objectId.Object, zoneId);
             Assert.That(testZone.System == system.ToUpper());
             Assert.That(testZone.ZoneNumber == Convert.ToInt32(zoneNum));
 
