@@ -2,6 +2,6 @@
 {
     public interface IBoundaryInputRetriever
     {
-        WBObjectIdCollection GetUserInput(string prompt);
+        IWBObjectIdCollection GetUserInput(string prompt);
     }
 }

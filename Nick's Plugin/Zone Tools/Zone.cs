@@ -49,7 +49,7 @@ namespace WBPlugin.Zone_Tools
 
         public IWBObjectId ObjectId { get => _objectId; }
 
-        public int Color { get { return ColorManager.GetColor(this.ObjectId); } }
+        public int Color { get { return ColorManager.GetColor((WBObjectId)this.ObjectId); } }
 
         public string Thermostat { get => _thermostat;
             set {

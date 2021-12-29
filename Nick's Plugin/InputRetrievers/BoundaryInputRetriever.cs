@@ -13,7 +13,7 @@ namespace WBPlugin
 {
     public class BoundaryInputRetriever : IBoundaryInputRetriever
     {
-        public virtual WBObjectIdCollection GetUserInput(string prompt)
+        public virtual IWBObjectIdCollection GetUserInput(string prompt)
         {
             Editor ed = Active.Editor;
             Document doc = Active.Document;
@@ -28,20 +28,20 @@ namespace WBPlugin
                     {
                         ed.WriteMessage("\nNothing selected.");
 
-                        return new WBObjectIdCollection(new List<WBObjectId>());
+                        return new WBObjectIdCollection(new List<IWBObjectId>());
                     }
 
                     ObjectIdCollection idCollection = ProcessObjectIds(psr.Value);
 
                     
 
-                    return new WBObjectIdCollection(ObjectIdTranslator.Encode(idCollection));
+                    return new WBObjectIdCollection(idCollection);
                 }
                 catch (Autodesk.AutoCAD.Runtime.Exception ex)
                 {
 
                     ed.WriteMessage("\nProblem occured in BoundaryInputRetriever because " + ex.Message.ToString());
-                    return new WBObjectIdCollection(new List<WBObjectId>());
+                    return new WBObjectIdCollection(new List<IWBObjectId>());
                 }
             }
         }

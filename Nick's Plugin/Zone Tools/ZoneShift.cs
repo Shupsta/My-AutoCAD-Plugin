@@ -36,7 +36,7 @@ namespace WBPlugin.Zone_Tools
             if (_mode == _removeMode)
             {
                 _manager.ForEach(ShiftZoneRemove);
-                ColorManager.ChangeColor(_pivotZone.ObjectId, 6);
+                ColorManager.ChangeColor((WBObjectId)_pivotZone.ObjectId, 6);
                 _manager.Remove(_pivotZone);
             }
             
@@ -50,7 +50,7 @@ namespace WBPlugin.Zone_Tools
             {
                 int newZoneNum = zone.ZoneNumber + 1;
                 zone.ZoneId = newZoneNum.ToString() + zone.System;
-                ColorManager.ChangeColor(zone.ObjectId, ColorManager.GetColorForZone(zone.ZoneNumber));
+                ColorManager.ChangeColor((WBObjectId)zone.ObjectId, ColorManager.GetColorForZone(zone.ZoneNumber));
                 
             }
         }
@@ -61,7 +61,7 @@ namespace WBPlugin.Zone_Tools
             {
                 int newZoneNum = zone.ZoneNumber - 1;
                 zone.ZoneId = newZoneNum.ToString() + zone.System;
-                ColorManager.ChangeColor(zone.ObjectId, ColorManager.GetColorForZone(zone.ZoneNumber));
+                ColorManager.ChangeColor((WBObjectId)zone.ObjectId, ColorManager.GetColorForZone(zone.ZoneNumber));
             }
         }
 

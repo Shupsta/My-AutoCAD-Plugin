@@ -9,6 +9,6 @@ namespace WBPlugin
         bool Equals(IWBObjectId other);
         bool IsNull();
 
-        ObjectId GetId();
+        //ObjectId GetId();
     }
 }

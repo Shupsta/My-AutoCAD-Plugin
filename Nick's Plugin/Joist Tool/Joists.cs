@@ -12,8 +12,8 @@ namespace WBPlugin
         private double _joistSpacing;
         private WBPoint3d _startPoint;
         private double _angle;
-        private WBObjectIdCollection _outerBoundary;
-        private List<WBObjectIdCollection> _interiorBoundaries;
+        private IWBObjectIdCollection _outerBoundary;
+        private List<IWBObjectIdCollection> _interiorBoundaries;
         private IDoubleInputRetriever _doubleRetriever;
         private IPointInputRetriever _pointRetriever;
         private IAngleInputRetriever _angleRetriever;
@@ -36,8 +36,8 @@ namespace WBPlugin
         public double JoistSpacing { get => _joistSpacing;}
         public WBPoint3d StartPoint { get => _startPoint;}
         public double Angle { get => _angle;}
-        public WBObjectIdCollection OuterBoundary { get => _outerBoundary;}
-        public List<WBObjectIdCollection> InteriorBoundaries { get => _interiorBoundaries; }
+        public IWBObjectIdCollection OuterBoundary { get => _outerBoundary;}
+        public List<IWBObjectIdCollection> InteriorBoundaries { get => _interiorBoundaries; }
         #endregion
 
         #region UserInput
@@ -52,7 +52,7 @@ namespace WBPlugin
             double joistAngle = GetJoistAngleInput(startPoint);
             if (joistAngle == -9999) return false;
 
-            WBObjectIdCollection outerBoundary = GetOuterBoundaryInput();
+            IWBObjectIdCollection outerBoundary = GetOuterBoundaryInput();
             if (outerBoundary.IsNull()) return false;
                                     
             
@@ -80,14 +80,14 @@ namespace WBPlugin
             return _angleRetriever.GetUserInput("\nPick direction of first joist: ", startpoint);
         }
 
-        private WBObjectIdCollection GetOuterBoundaryInput()
+        private IWBObjectIdCollection GetOuterBoundaryInput()
         {
             return _boundaryInputRetriever.GetUserInput("Select Outer Hatch Boundary: ");
         }
 
-        private List<WBObjectIdCollection> GetInteriorBoundaries()
+        private List<IWBObjectIdCollection> GetInteriorBoundaries()
         {
-            List<WBObjectIdCollection> returnList = new List<WBObjectIdCollection>();
+            List<IWBObjectIdCollection> returnList = new List<IWBObjectIdCollection>();
 
             int numberOfBoundaries = 1;
             while (true)

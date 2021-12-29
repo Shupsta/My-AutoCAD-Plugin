@@ -109,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Active.cs" />
+    <Compile Include="Interfaces\ContainerObjects\IWBObjectIdCollection.cs" />
     <Compile Include="Interfaces\ContainerObjects\IWBObjectId.cs" />
     <Compile Include="Container Objects\WBEntity.cs" />
     <Compile Include="InputRetrievers\IntegerInputRetriever.cs" />
@@ -149,7 +150,6 @@
     <Compile Include="Utilities\Report.Designer.cs">
       <DependentUpon>Report.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\Translators\ObjectIdTranslator.cs" />
     <Compile Include="Utilities\Generators\PointGenerator.cs" />
     <Compile Include="Utilities\ZoneExtensionMethods.cs" />
     <Compile Include="WBPlugin.cs" />

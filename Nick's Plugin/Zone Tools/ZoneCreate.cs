@@ -23,7 +23,7 @@ namespace WBPlugin.Zone_Tools
 
             Zone zone = new Zone(selectedPolyLine, zoneId);
 
-            ColorManager.ChangeColor(zone.ObjectId, ColorManager.GetColorForZone(zone.ZoneNumber));
+            ColorManager.ChangeColor((WBObjectId)zone.ObjectId, ColorManager.GetColorForZone(zone.ZoneNumber));
 
             zone.Thermostat = StringInputRetriever.GetUserInput("\nEnter Thermostat Type: ", zone.Thermostat).ToUpper();
 

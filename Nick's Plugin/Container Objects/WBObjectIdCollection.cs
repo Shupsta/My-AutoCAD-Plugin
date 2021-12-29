@@ -3,21 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Autodesk.AutoCAD.DatabaseServices;
 
 namespace WBPlugin
 {
-    public class WBObjectIdCollection
+    public class WBObjectIdCollection : IWBObjectIdCollection
     {
-        private readonly List<WBObjectId> _idCollection;
+        private readonly List<IWBObjectId> _idCollection;
 
         public WBObjectIdCollection()
         {
             _idCollection = null;
         }
 
-        public WBObjectIdCollection(List<WBObjectId> incomingCollection)
+        public WBObjectIdCollection(List<IWBObjectId> incomingCollection)
         {
             _idCollection = incomingCollection;
+        }
+
+        public WBObjectIdCollection(ObjectIdCollection idCollection)
+        {
+            List<IWBObjectId> encodedList = new List<IWBObjectId>();
+            foreach (ObjectId id in idCollection)
+            {
+                encodedList.Add(new WBObjectId(id.Handle.Value));
+            }
+            _idCollection = encodedList;
         }
 
         public bool IsNull()
@@ -28,6 +39,18 @@ namespace WBPlugin
                 return true;
         }
 
-        public List<WBObjectId> IdCollection { get => _idCollection; }
+        public List<IWBObjectId> IdCollection { get => _idCollection; }
+
+        public ObjectIdCollection GetIdCollection()
+        {
+            ObjectIdCollection decodedList = new ObjectIdCollection();
+            foreach (WBObjectId value in _idCollection)
+            {
+                decodedList.Add(Active.Database.GetObjectId(false, new Handle(value.Handle), 0));
+            }
+            return decodedList;
+        }
+
+
     }
 }

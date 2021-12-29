@@ -27,14 +27,6 @@ namespace WBPlugin_Tests
         }
 
         [Test]
-        public void IsObjectIdCorrect()
-        {
-            string zoneNum = "1A";
-            Zone testZone = new Zone(_objectId.Object, zoneNum);
-            Assert.That(testZone.ObjectId.Equals(_objectId));
-        }
-
-        [Test]
         public void IsSystemCorrect()
         {
             string zoneNum = "1";
