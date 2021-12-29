@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Autodesk.AutoCAD.Geometry;
 
 namespace WBPlugin
 {
@@ -42,7 +43,10 @@ namespace WBPlugin
             return false;
         }
 
-        
+        public Point3d GetPoint()
+        {
+            return new Point3d(this.X, this.Y, 0);
+        }
 
         public double X { get => _x; }
         public double Y { get => _y; }

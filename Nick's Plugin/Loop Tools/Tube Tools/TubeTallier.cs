@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Autodesk.AutoCAD.DatabaseServices;
 using WBPlugin.Utilities;
+using WBPlugin.Loop_Tools;
 
 namespace WBPlugin.Tube_Tools
 {
@@ -27,7 +28,7 @@ namespace WBPlugin.Tube_Tools
             //TODO get info from loop marker for amount added
 
             StringBuilder report = new StringBuilder();
-            report.AppendFormat("Horizontal Loop Length = {0}'", loop.GetLength());
+            report.AppendFormat("Horizontal Loop Length = {0}'", loop.GetLength());//TODO add custom groove and other info
             Report loopReport = new Report(report.ToString());
 
             UnhighlightTubes(loop);

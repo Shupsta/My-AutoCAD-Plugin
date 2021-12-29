@@ -114,10 +114,11 @@
     <Compile Include="Container Objects\WBEntity.cs" />
     <Compile Include="InputRetrievers\IntegerInputRetriever.cs" />
     <Compile Include="InputRetrievers\KeywordInputRetriever.cs" />
-    <Compile Include="Tube Tools\Loop\Loop.cs" />
-    <Compile Include="Tube Tools\Tube.cs" />
-    <Compile Include="Tube Tools\TubeManager.cs" />
-    <Compile Include="Tube Tools\TubeTallier.cs" />
+    <Compile Include="Loop Tools\CustomGrooveCounter.cs" />
+    <Compile Include="Loop Tools\Loop.cs" />
+    <Compile Include="Loop Tools\Tube Tools\Tube.cs" />
+    <Compile Include="Loop Tools\Tube Tools\TubeManager.cs" />
+    <Compile Include="Loop Tools\Tube Tools\TubeTallier.cs" />
     <Compile Include="Utilities\ColorManager.cs" />
     <Compile Include="Container Objects\WBObjectId.cs" />
     <Compile Include="InputRetrievers\EntityInputRetriever.cs" />
@@ -143,15 +144,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CADCommands.resx</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\Generators\LayerGenerator.cs" />
     <Compile Include="Utilities\Report.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Utilities\Report.Designer.cs">
       <DependentUpon>Report.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\Generators\PointGenerator.cs" />
-    <Compile Include="Utilities\ZoneExtensionMethods.cs" />
     <Compile Include="WBPlugin.cs" />
     <Compile Include="Commands\CADCommands.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

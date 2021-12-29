@@ -27,7 +27,7 @@ namespace WBPlugin
 
             PromptAngleOptions pao = new PromptAngleOptions(prompt);
             pao.AllowNone = false;
-            pao.BasePoint = PointGenerator.GetPoint(point);
+            pao.BasePoint = point.GetPoint();
             pao.UseBasePoint = true;
             pao.UseDashedLine = true;
 
