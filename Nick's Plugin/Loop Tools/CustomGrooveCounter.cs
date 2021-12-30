@@ -26,8 +26,12 @@ namespace WBPlugin.Loop_Tools
                 ed.SwitchToModelSpace();
             }
 
+            CustomeGrooveReport report = new CustomeGrooveReport(GetCustomGrooveEntities());
+
 
         }
+
+        
 
         private static int GetCurrentSpace()
         {
@@ -47,6 +51,68 @@ namespace WBPlugin.Loop_Tools
             }
             else //paperspace
                 return 2;
+        }
+
+        private static ObjectId[] GetCustomGrooveEntities()
+        {
+            PromptSelectionOptions pso = new PromptSelectionOptions()
+            {
+                MessageForAdding = "\nSelect Custom Grooves: ",
+                SingleOnly = false
+            };
+
+            SelectionFilter filter = new SelectionFilter(
+                    new TypedValue[]
+                    {
+                        new TypedValue((int)DxfCode.Start, "ARC,LINE"),
+                        new TypedValue((int)DxfCode.LayerName, "Custom Groove,T_Custom Groove")
+                    }
+                );
+
+            PromptSelectionResult selectionRes = Active.Editor.GetSelection(pso, filter);
+
+            if(selectionRes.Status != PromptStatus.OK)
+            {
+                Active.WriteMessage("\n*Cancel*");
+            }
+            return selectionRes.Value.GetObjectIds();
+        }
+    }
+
+    class CustomeGrooveReport
+    {
+        private double _arcLength;
+        private double _lineLength;
+        private int _arcCount;
+        private int _lineCount;
+        public double ArcLengths { get => _arcLength; set => _arcLength = value; }
+        public double LineLengths { get => _lineLength; set => _lineLength = value; }
+        public int ArcCount { get => _arcCount; set => _arcCount = value; }
+        public int LineCount { get => _lineCount; set => _lineCount = value; }
+        
+        public CustomeGrooveReport(ObjectId[] ids)
+        {
+            using(Transaction tr = Active.Database.TransactionManager.StartTransaction())
+            {
+                foreach(ObjectId id in ids)
+                {
+                    Entity ent = (Entity)id.GetObject(OpenMode.ForRead, false);
+
+                    switch (ent.GetType().Name)
+                    {
+                        case "Arc":
+                            Arc arc = (Arc)ent;
+                            ArcLengths += arc.Length;
+                            ArcCount += 1;
+                            break;
+                        case "Line":
+                            Line line = (Line)ent;
+                            LineLengths += line.Length;
+                            LineCount += 1;
+                            break;
+                    }
+                }
+            }
         }
     }
 }

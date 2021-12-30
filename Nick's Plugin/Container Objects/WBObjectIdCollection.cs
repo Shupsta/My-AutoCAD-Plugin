@@ -31,6 +31,16 @@ namespace WBPlugin
             _idCollection = encodedList;
         }
 
+        public WBObjectIdCollection(ObjectId[] ids)
+        {
+            List<IWBObjectId> idCollection = new List<IWBObjectId>();
+            foreach(ObjectId id in ids)
+            {
+                idCollection.Add(new WBObjectId(id.Handle.Value));
+            }
+            _idCollection = idCollection;
+        }
+
         public bool IsNull()
         {
             if (_idCollection != null)
