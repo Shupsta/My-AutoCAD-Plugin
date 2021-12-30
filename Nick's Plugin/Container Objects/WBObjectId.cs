@@ -9,7 +9,7 @@ namespace WBPlugin
 {
     public class WBObjectId : IEquatable<IWBObjectId>, IWBObjectId
     {
-        private long _handle;
+        private readonly long _handle;
 
         public WBObjectId(long handle)
         {

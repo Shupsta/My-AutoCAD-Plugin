@@ -29,7 +29,7 @@ namespace WBPlugin.Tube_Tools
 
             StringBuilder report = new StringBuilder();
             report.AppendFormat("Horizontal Loop Length = {0}'", loop.GetLength());//TODO add custom groove and other info
-            Report loopReport = new Report(report.ToString());
+            new Report(report.ToString());
 
             UnhighlightTubes(loop);
         }

@@ -49,7 +49,7 @@ namespace WBPlugin_Tests
 
             _mockJoistGenerator.Setup<bool>(p => p.RunJoists(It.IsAny<Joists>())).Returns(true);
 
-            Joists testjoist = new Joists(_mockDoubleRetriever.Object, _mockPointRetriever.Object, _mockAngleRetriever.Object, _mockBoundaryRetriever.Object, _mockJoistGenerator.Object);
+            Joists testjoist = new(_mockDoubleRetriever.Object, _mockPointRetriever.Object, _mockAngleRetriever.Object, _mockBoundaryRetriever.Object, _mockJoistGenerator.Object);
 
             Assert.AreEqual(joistSpacing, testjoist.JoistSpacing);
         }

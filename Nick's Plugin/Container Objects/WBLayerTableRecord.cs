@@ -20,7 +20,7 @@ namespace WBPlugin
 
         public bool isNull()
         {
-            return _layerTableRecord == null ? true : false;
+            return _layerTableRecord == null;
         }
 
         private static LayerTableRecord CreateOrGetLayer(string layername)

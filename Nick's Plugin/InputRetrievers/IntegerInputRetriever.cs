@@ -18,10 +18,12 @@ namespace WBPlugin
         {
             Editor ed = Active.Editor;
 
-            PromptIntegerOptions pio = new PromptIntegerOptions(prompt);
-            pio.DefaultValue = defaultValue;
-            pio.AllowNone = true;
-            pio.AllowNegative = false;
+            PromptIntegerOptions pio = new PromptIntegerOptions(prompt)
+            {
+                DefaultValue = defaultValue,
+                AllowNone = true,
+                AllowNegative = false
+            };
 
             if (upperLimit != 0) pio.UpperLimit = upperLimit;
 

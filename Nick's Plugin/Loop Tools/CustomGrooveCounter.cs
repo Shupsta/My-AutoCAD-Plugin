@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.ApplicationServices;
+using WBPlugin.Utilities.Misc;
+using Autodesk.AutoCAD.EditorInput;
 
 namespace WBPlugin.Loop_Tools
 {
@@ -12,7 +14,19 @@ namespace WBPlugin.Loop_Tools
     {
         public static void Count()
         {
+            Editor ed = Active.Editor;
             
+            if (!BlockFinder.FindBlock("custom route count")) return;
+
+            int currentSpace = GetCurrentSpace();
+
+            if (currentSpace == 2) //paperspace
+            {
+                ed.WriteMessage("\nSwitching to Modelspace...");
+                ed.SwitchToModelSpace();
+            }
+
+
         }
 
         private static int GetCurrentSpace()

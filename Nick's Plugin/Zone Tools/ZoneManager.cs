@@ -10,8 +10,8 @@ namespace WBPlugin.Zone_Tools
 {
     public class ZoneManager
     {
-        private string WBDictionaryName = "WBPLUGIN_ZONES";
-        private string ZoneRecordName = "WBPLUGIN_ZONERECORD";
+        private readonly string WBDictionaryName = "WBPLUGIN_ZONES";
+        private readonly string ZoneRecordName = "WBPLUGIN_ZONERECORD";
         private List<Zone> _zoneList = new List<Zone>();
 
         public int NumberOfZones { get => _zoneList.Count; }
@@ -88,7 +88,7 @@ namespace WBPlugin.Zone_Tools
             if (data == null) return;
             TypedValue[] zoneData = data.AsArray();
 
-            for(int i = 0; i+3 < zoneData.Length; i = i +4)
+            for(int i = 0; i+3 < zoneData.Length; i += 4)
             {
                 
                 long zoneHandle = (long)zoneData[i].Value;

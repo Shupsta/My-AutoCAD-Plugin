@@ -47,7 +47,7 @@ namespace WBPlugin.Zone_Tools.Old_Support
             }
             finally
             {
-                if(!ReferenceEquals(serializationStream, null))
+                if(serializationStream is object)
                 {
                     serializationStream.Dispose();
                 }

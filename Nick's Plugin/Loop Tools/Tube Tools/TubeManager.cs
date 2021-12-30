@@ -12,8 +12,8 @@ namespace WBPlugin.Tube_Tools
 {
     public class TubeManager
     {
-        private string[] _tubeLayer = new string[] { "TUBING", "BURIED TUBING", "CUSTOM GROOVE", "T_TUBING", "T_BURIED TUBING", "T_CUSTOM GROOVE", "T_SUPPLY" };
-        private string[] _tubeEntityTypes = new string[] { "ARC", "LINE", "LWPOLYLINE" };
+        private readonly string[] _tubeLayer = new string[] { "TUBING", "BURIED TUBING", "CUSTOM GROOVE", "T_TUBING", "T_BURIED TUBING", "T_CUSTOM GROOVE", "T_SUPPLY" };
+        private readonly string[] _tubeEntityTypes = new string[] { "ARC", "LINE", "LWPOLYLINE" };
         private string JoinedTubeEntityTypes { get => String.Join(",", _tubeEntityTypes); }
         private string JoinedTubeLayers { get => String.Join(",", _tubeLayer); }
         
@@ -47,7 +47,7 @@ namespace WBPlugin.Tube_Tools
 
         public static double GetLength(WBEntity entity)
         {
-            double length = 0;
+            double length;
 
             using(Transaction tr = Active.Database.TransactionManager.StartTransaction())
             {

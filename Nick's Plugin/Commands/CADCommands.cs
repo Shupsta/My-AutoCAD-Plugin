@@ -93,7 +93,7 @@ namespace WBPlugin
         public static void WBJoist() // This method can have any name
         {
             
-            Joists joistObj = new Joists(new DoubleInputRetriever(),
+            new Joists(new DoubleInputRetriever(),
                 new PointInputRetriever(),
                 new AngleInputRetriever(),
                 new BoundaryInputRetriever(),

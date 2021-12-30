@@ -32,7 +32,7 @@ namespace WBPlugin.Utilities
             if (zoneNumber % 6 == 0)
                 zoneNumber = 6;
             else
-                zoneNumber = zoneNumber % 6;
+                zoneNumber %= 6;
             return DefaultColors[zoneNumber - 1]; //6 colors, in a 0 indexed array. so zone 10 % 6 = 4 - 1 = index 3 which is the fourth color
         }
 

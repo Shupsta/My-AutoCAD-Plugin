@@ -14,11 +14,10 @@ namespace WBPlugin
         private double _angle;
         private IWBObjectIdCollection _outerBoundary;
         private List<IWBObjectIdCollection> _interiorBoundaries;
-        private IDoubleInputRetriever _doubleRetriever;
-        private IPointInputRetriever _pointRetriever;
-        private IAngleInputRetriever _angleRetriever;
-        private IBoundaryInputRetriever _boundaryInputRetriever;
-        private bool _success;
+        private readonly IDoubleInputRetriever _doubleRetriever;
+        private readonly IPointInputRetriever _pointRetriever;
+        private readonly IAngleInputRetriever _angleRetriever;
+        private readonly IBoundaryInputRetriever _boundaryInputRetriever;
 
         
         public Joists(IDoubleInputRetriever spacingRetriever, IPointInputRetriever startPointRetriever, IAngleInputRetriever angleRetriever, IBoundaryInputRetriever boundaryRetriever, IJoistGenerator joistGenerator)
@@ -29,7 +28,7 @@ namespace WBPlugin
             _angleRetriever = angleRetriever;
             _boundaryInputRetriever = boundaryRetriever;
             if (this.GetUserInput() == false) return;
-            _success = joistGenerator.RunJoists(this);
+            joistGenerator.RunJoists(this);
         }
 
         #region getters
@@ -47,7 +46,7 @@ namespace WBPlugin
             if (joistSpacing == 0) return false;
             
             WBPoint3d startPoint = GetStartPointInput();
-            if (startPoint.isNull()) return false;
+            if (startPoint.IsNull()) return false;
 
             double joistAngle = GetJoistAngleInput(startPoint);
             if (joistAngle == -9999) return false;

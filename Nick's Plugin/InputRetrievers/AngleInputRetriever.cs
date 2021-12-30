@@ -25,11 +25,13 @@ namespace WBPlugin
         {
             Editor ed = Active.Editor;
 
-            PromptAngleOptions pao = new PromptAngleOptions(prompt);
-            pao.AllowNone = false;
-            pao.BasePoint = point.GetPoint();
-            pao.UseBasePoint = true;
-            pao.UseDashedLine = true;
+            PromptAngleOptions pao = new PromptAngleOptions(prompt)
+            {
+                AllowNone = false,
+                BasePoint = point.GetPoint(),
+                UseBasePoint = true,
+                UseDashedLine = true
+            };
 
             PromptDoubleResult pdr = ed.GetAngle(pao);
             if (pdr.Status != PromptStatus.OK)

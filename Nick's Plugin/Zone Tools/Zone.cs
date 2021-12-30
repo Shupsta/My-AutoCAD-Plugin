@@ -10,7 +10,7 @@ namespace WBPlugin.Zone_Tools
 {
     public class Zone : IEquatable<IWBObjectId>
     {
-        private IWBObjectId _objectId;
+        private readonly IWBObjectId _objectId;
         private int _zoneNumber;
         private string _thermostat;
         private string _system;

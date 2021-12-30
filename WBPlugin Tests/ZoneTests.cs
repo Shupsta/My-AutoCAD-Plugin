@@ -32,8 +32,7 @@ namespace WBPlugin_Tests
             string zoneNum = "1";
             string system = "a";
             string zoneId = zoneNum + system;
-            long objectId = 123;
-            Zone testZone = new Zone(_objectId.Object, zoneId);
+            Zone testZone = new(_objectId.Object, zoneId);
             Assert.That(testZone.System == system.ToUpper());
         }
 
@@ -43,8 +42,7 @@ namespace WBPlugin_Tests
             string zoneNum = "10";
             string system = "a";
             string zoneId = zoneNum + system;
-            long objectId = 123;
-            Zone testZone = new Zone(_objectId.Object, zoneId);
+            Zone testZone = new(_objectId.Object, zoneId);
             Assert.That(testZone.System == system.ToUpper());
             Assert.That(testZone.ZoneNumber == Convert.ToInt32(zoneNum));
 

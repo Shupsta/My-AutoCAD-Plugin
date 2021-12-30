@@ -9,8 +9,8 @@ namespace WBPlugin.Zone_Tools
 {
     public class ZoneShift
     {
-        private string _addMode = "Add";
-        private string _removeMode = "Remove";
+        private readonly string _addMode = "Add";
+        private readonly string _removeMode = "Remove";
         private string _mode;
         private int _shiftNumber;
         private Zone _pivotZone;

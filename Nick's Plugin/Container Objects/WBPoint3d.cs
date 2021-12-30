@@ -10,8 +10,8 @@ namespace WBPlugin
     public class WBPoint3d : IEquatable<WBPoint3d>
     {
         
-        private double _x;
-        private double _y;
+        private readonly double _x;
+        private readonly double _y;
 
         public WBPoint3d()
         {            
@@ -25,7 +25,7 @@ namespace WBPlugin
             _y = y;
         }
 
-        public bool isNull()
+        public bool IsNull()
         {
             if(X == 0 && Y == 0)
             {

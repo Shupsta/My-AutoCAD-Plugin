@@ -24,9 +24,11 @@ namespace WBPlugin.Loop_Tools
 
             if (allTubes == null) return null;
             allTubes.Remove(selectedTube);
-            
-            List<Tube> connectedTubes = new List<Tube>();
-            connectedTubes.Add(selectedTube);
+
+            List<Tube> connectedTubes = new List<Tube>
+            {
+                selectedTube
+            };
 
             FillTubeList(ref allTubes, ref connectedTubes);
             return connectedTubes;
@@ -68,7 +70,7 @@ namespace WBPlugin.Loop_Tools
             total /= 12;
             total += 9;//took from the original code, unclear why adding 9 rounds the number out
             
-            return total = total + (5 - (total % 5));
+            return total + (5 - (total % 5));
         }
     }
 }

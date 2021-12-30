@@ -17,9 +17,11 @@ namespace WBPlugin
 
             TypedValue[] values = new TypedValue[1] { new TypedValue((int)DxfCode.Start, "LWPOLYLINE") };//only select plines
             SelectionFilter filter = new SelectionFilter(values);
-            PromptSelectionOptions opts = new PromptSelectionOptions();
-            opts.MessageForAdding = prompt;
-            opts.SingleOnly = true;
+            PromptSelectionOptions opts = new PromptSelectionOptions
+            {
+                MessageForAdding = prompt,
+                SingleOnly = true
+            };
             PromptSelectionResult psr = ed.GetSelection(opts, filter);
             if (psr.Status != PromptStatus.OK || psr.Status == PromptStatus.None) return new WBObjectId(0); //check for esc
             return new WBObjectId(psr.Value.GetObjectIds()[0].Handle.Value);
