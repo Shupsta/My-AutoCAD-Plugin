@@ -133,7 +133,7 @@ namespace WBPlugin
 
         private bool GetOrCreateLayer(string layerName)
         {
-            return new WBLayerTableRecord(layerName).isNull();
+            return new WBLayerTableRecord(layerName).IsNull();
         }
     }
 }

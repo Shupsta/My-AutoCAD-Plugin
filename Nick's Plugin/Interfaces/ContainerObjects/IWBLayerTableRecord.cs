@@ -3,6 +3,6 @@
     public interface IWBLayerTableRecord
     {
         
-        bool isNull();
+        bool IsNull();
     }
 }

@@ -51,6 +51,8 @@ namespace WBPlugin
         public double X { get => _x; }
         public double Y { get => _y; }
 
+        public static implicit operator Point3d(WBPoint3d p) => p.GetPoint();
+
         
     }
 }

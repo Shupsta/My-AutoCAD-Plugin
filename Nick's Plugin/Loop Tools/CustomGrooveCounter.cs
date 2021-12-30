@@ -12,11 +12,16 @@ namespace WBPlugin.Loop_Tools
 {
     public class CustomGrooveCounter
     {
-        public static void Count()
+        private readonly string _customRouteScheduleBlock = "custom route count";
+        private readonly string[] _customGrooveLayers = { };
+
+
+        public void Count(PointInputRetriever pointRetriever)
         {
+            
             Editor ed = Active.Editor;
             
-            if (!BlockFinder.FindBlock("custom route count")) return;
+            if (!BlockFinder.FindBlock(_customRouteScheduleBlock)) return;
 
             int currentSpace = GetCurrentSpace();
 
@@ -36,12 +41,16 @@ namespace WBPlugin.Loop_Tools
                 ed.SwitchToPaperSpace();
             }
 
+            Active.WriteMessage("\nNumber of turns = " + report.ArcCount);
+            Active.WriteMessage("\nTotal straight length = " + report.LineLengths);
 
+            ObjectId id = InsertCustomGrooveSchedule(pointRetriever);
+            FillAttributes(id, report);
         }
 
         
 
-        private static int GetCurrentSpace()
+        private int GetCurrentSpace()
         {
             // Get the current values of CVPORT and TILEMODE
             object cvport = Application.GetSystemVariable("CVPORT");
@@ -61,7 +70,7 @@ namespace WBPlugin.Loop_Tools
                 return 2;
         }
 
-        private static ObjectId[] GetCustomGrooveEntities()
+        private ObjectId[] GetCustomGrooveEntities()
         {
             PromptSelectionOptions pso = new PromptSelectionOptions()
             {
@@ -85,6 +94,41 @@ namespace WBPlugin.Loop_Tools
             }
             return selectionRes.Value.GetObjectIds();
         }
+
+        private ObjectId InsertCustomGrooveSchedule(PointInputRetriever pointRetriever)
+        {
+            WBPoint3d insertPoint = pointRetriever.GetUserInput("\nInsertion Point :", false);
+            if (insertPoint.IsNull()) return ObjectId.Null;
+
+            WBLayerTableRecord ltr = new WBLayerTableRecord("B_Schedules");
+            if (ltr.IsNull()) return ObjectId.Null;
+
+            ObjectId blockId = BlockInsert.Insert(_customRouteScheduleBlock, insertPoint, ltr, 0);
+            if (blockId.IsNull) return ObjectId.Null;
+
+            return blockId;
+        }
+
+        private void FillAttributes(ObjectId id, CustomeGrooveReport report)
+        {
+            using (Transaction tr = Active.Database.TransactionManager.StartTransaction())
+            {
+                BlockReference br = tr.GetObject(id, OpenMode.ForRead, true) as BlockReference;
+                AttributeCollection attCol = br.AttributeCollection;
+
+                foreach (ObjectId attId in attCol)
+                {
+                    AttributeReference attRef = (AttributeReference)tr.GetObject(attId, OpenMode.ForWrite);
+                    switch (attRef.Tag)
+                    {
+                        case "Turns:": attRef.TextString = report.ArcCount.ToString(); break;
+                        case "Length:": attRef.TextString = report.LineLengths.ToString()+"'"; break;
+                        default: break;
+                    }
+                }
+                tr.Commit();
+            }
+        }
     }
 
     class CustomeGrooveReport
@@ -93,10 +137,10 @@ namespace WBPlugin.Loop_Tools
         private double _lineLength;
         private int _arcCount;
         private int _lineCount;
-        public double ArcLengths { get => _arcLength; set => _arcLength = value; }
-        public double LineLengths { get => _lineLength; set => _lineLength = value; }
-        public int ArcCount { get => _arcCount; set => _arcCount = value; }
-        public int LineCount { get => _lineCount; set => _lineCount = value; }
+        public double ArcLengths { get => _arcLength;}
+        public double LineLengths { get => _lineLength/12;}
+        public int ArcCount { get => _arcCount;}
+        public int LineCount { get => _lineCount;}
         
         public CustomeGrooveReport(ObjectId[] ids)
         {
@@ -110,13 +154,13 @@ namespace WBPlugin.Loop_Tools
                     {
                         case "Arc":
                             Arc arc = (Arc)ent;
-                            ArcLengths += arc.Length;
-                            ArcCount += 1;
+                            _arcLength += arc.Length;
+                            _arcCount += 1;
                             break;
                         case "Line":
                             Line line = (Line)ent;
-                            LineLengths += line.Length;
-                            LineCount += 1;
+                            _lineLength += line.Length;
+                            _lineCount += 1;
                             break;
                     }
                 }

@@ -12,13 +12,17 @@ namespace WBPlugin
     public class WBLayerTableRecord : IWBLayerTableRecord
     {
         private readonly LayerTableRecord _layerTableRecord;
+        public string LayerName { get
+            {
+                return _layerTableRecord.Name;
+            } }
 
         public WBLayerTableRecord(string layerName)
         {
             _layerTableRecord = CreateOrGetLayer(layerName);
         }
 
-        public bool isNull()
+        public bool IsNull()
         {
             return _layerTableRecord == null;
         }

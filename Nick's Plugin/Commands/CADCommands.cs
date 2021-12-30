@@ -143,7 +143,8 @@ namespace WBPlugin
         [CommandMethod("WBTubes", "WBGrooveCount", CommandFlags.Modal)]
         public static void WBGrooveCount()
         {
-            CustomGrooveCounter.Count();
+            var groove = new CustomGrooveCounter();
+            groove.Count(new PointInputRetriever());
         }
     }
 

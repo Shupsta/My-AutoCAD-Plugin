@@ -147,6 +147,7 @@
     <Compile Include="Utilities\ExtensionMethods\DatabaseExtensionMethods.cs" />
     <Compile Include="Utilities\ExtensionMethods\SymbolTableExtensionMethods.cs" />
     <Compile Include="Utilities\Misc\BlockFinder.cs" />
+    <Compile Include="Utilities\Misc\BlockInsert.cs" />
     <Compile Include="Utilities\Report.cs">
       <SubType>Form</SubType>
     </Compile>
