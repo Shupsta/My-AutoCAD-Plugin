@@ -12,6 +12,7 @@ using WBPlugin.Utilities;
 using WBPlugin.Zone_Tools;
 using WBPlugin;
 using WBPlugin.Tube_Tools;
+using WBPlugin.Loop_Tools;
 
 // This line is not mandatory, but improves loading performances
 [assembly: CommandClass(typeof(WBPlugin.CADCommands))]
@@ -133,10 +134,16 @@ namespace WBPlugin
         }
         #endregion
 
-        [CommandMethod("WarmboardTools", "WBTubeTally", CommandFlags.Modal)]
+        [CommandMethod("WBTubes", "WBTubeTally", CommandFlags.Modal)]
         public static void WBTubeTally()
         {
             TubeTallier.Tally();
+        }
+
+        [CommandMethod("WBTubes", "WBGrooveCount", CommandFlags.Modal)]
+        public static void WBGrooveCount()
+        {
+            CustomGrooveCounter.Count();
         }
     }
 
