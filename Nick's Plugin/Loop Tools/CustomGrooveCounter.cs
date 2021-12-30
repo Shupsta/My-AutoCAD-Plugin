@@ -28,6 +28,14 @@ namespace WBPlugin.Loop_Tools
 
             CustomeGrooveReport report = new CustomeGrooveReport(GetCustomGrooveEntities());
 
+            currentSpace = GetCurrentSpace();
+
+            if (currentSpace == 1) //floating modelspace
+            {
+                ed.WriteMessage("\nSwitching to Paperspace...");
+                ed.SwitchToPaperSpace();
+            }
+
 
         }
 

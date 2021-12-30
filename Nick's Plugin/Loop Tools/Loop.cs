@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.Runtime;
 using WBPlugin.Tube_Tools;
 
 namespace WBPlugin.Loop_Tools
@@ -58,7 +59,7 @@ namespace WBPlugin.Loop_Tools
 
         }
 
-        public double GetLength()
+        public string GetLength()
         {
             double total = 0;
 
@@ -67,10 +68,10 @@ namespace WBPlugin.Loop_Tools
                 total += tube.Length;
             }
 
-            total /= 12;
-            total += 9;//took from the original code, unclear why adding 9 rounds the number out
-            
-            return total + (5 - (total % 5));
+            //108in = 9' for safety margin
+            total += 108;
+            total += (60 - (total % 60));//60 is rounding to nearest 5' 60/12in = 5ft
+            return Converter.DistanceToString(total, DistanceUnitFormat.Current, 0);
         }
     }
 }
