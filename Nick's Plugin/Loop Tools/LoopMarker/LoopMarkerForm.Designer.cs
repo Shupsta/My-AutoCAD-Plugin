@@ -33,7 +33,7 @@ namespace WBPlugin.Loop_Tools
             this.textManifold = new System.Windows.Forms.TextBox();
             this.textRoom = new System.Windows.Forms.TextBox();
             this.labelRoom = new System.Windows.Forms.Label();
-            this.txtLoop = new System.Windows.Forms.TextBox();
+            this.textLoop = new System.Windows.Forms.TextBox();
             this.labelLoop = new System.Windows.Forms.Label();
             this.labelAddLength = new System.Windows.Forms.Label();
             this.textAddLength = new System.Windows.Forms.TextBox();
@@ -73,12 +73,12 @@ namespace WBPlugin.Loop_Tools
             this.labelRoom.TabIndex = 2;
             this.labelRoom.Text = "Room";
             // 
-            // txtLoop
+            // textLoop
             // 
-            this.txtLoop.Location = new System.Drawing.Point(118, 133);
-            this.txtLoop.Name = "txtLoop";
-            this.txtLoop.Size = new System.Drawing.Size(48, 20);
-            this.txtLoop.TabIndex = 17;
+            this.textLoop.Location = new System.Drawing.Point(118, 133);
+            this.textLoop.Name = "textLoop";
+            this.textLoop.Size = new System.Drawing.Size(48, 20);
+            this.textLoop.TabIndex = 17;
             // 
             // labelLoop
             // 
@@ -132,7 +132,7 @@ namespace WBPlugin.Loop_Tools
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(212, 225);
             this.ControlBox = false;
-            this.Controls.Add(this.txtLoop);
+            this.Controls.Add(this.textLoop);
             this.Controls.Add(this.labelLoop);
             this.Controls.Add(this.labelAddLength);
             this.Controls.Add(this.textAddLength);
@@ -160,7 +160,7 @@ namespace WBPlugin.Loop_Tools
         private System.Windows.Forms.TextBox textManifold;
         private System.Windows.Forms.TextBox textRoom;
         private System.Windows.Forms.Label labelRoom;
-        private System.Windows.Forms.TextBox txtLoop;
+        private System.Windows.Forms.TextBox textLoop;
         private System.Windows.Forms.Label labelLoop;
         private System.Windows.Forms.Label labelAddLength;
         private System.Windows.Forms.TextBox textAddLength;

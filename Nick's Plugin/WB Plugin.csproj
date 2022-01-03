@@ -152,6 +152,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CADCommands.resx</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\ExtensionMethods\BlockReferenceExtensionMethod.cs" />
     <Compile Include="Utilities\ExtensionMethods\DatabaseExtensionMethods.cs" />
     <Compile Include="Utilities\ExtensionMethods\SymbolTableExtensionMethods.cs" />
     <Compile Include="Utilities\Block Tools\BlockFinder.cs" />

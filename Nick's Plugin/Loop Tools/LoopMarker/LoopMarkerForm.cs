@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
@@ -21,12 +22,26 @@ namespace WBPlugin.Loop_Tools
 
         private void LoopMarkerForm_Load(object sender, EventArgs e)
         {
-            textManifold.Text = GetManifoldNum().ToString();
+            textManifold.Text = LoopMarker.LastManifold;
+            textLoop.Text = (LoopMarker.LastLoop + 1).ToString();//TODO logic for the loop number is not going to work
+            textAddLength.Text = LoopMarker.AdditionalLength.ToString();
         }
 
         private void cmdOk_Click(object sender, EventArgs e)
         {
+            try
+            {
+                LoopMarker.LastManifold = textManifold.Text;
+                LoopMarker.LastLoop = Convert.ToInt32(textLoop.Text);
+                LoopMarker.AdditionalLength = Convert.ToInt32(textAddLength.Text);
+                LoopMarker.RoomName = textRoom.Text;
 
+                this.Hide();
+            }
+            catch(Exception ex)
+            {
+                Active.WriteMessage("\nError occured in after Clicking Ok, possibly bad input format or character?" + ex.Message);
+            }
         }
 
         private void cmdCancel_Click(object sender, EventArgs e)
@@ -34,22 +49,6 @@ namespace WBPlugin.Loop_Tools
             this.Hide();
         }
 
-        private int GetManifoldNum()
-        {
-            int answer = 0;
-            Active.Database.ForEach<BlockReference>(block =>
-            {
-                using(Transaction tr2 = Active.Database.TransactionManager.StartTransaction())
-                {
-                    BlockIdentifier.IsBlockType(block, LoopMarker.LoopMarkerBlockName);
-                    BlockTableRecord blockTb = tr2.GetObject(block.DynamicBlockTableRecord, OpenMode.ForRead, false) as BlockTableRecord;
-                    if (blockTb.Name == LoopMarker.LoopMarkerBlockName) Active.WriteMessage("found a loop marker");
-                }
-
-
-
-            });
-            return answer;
-        }
+        
     }
 }
