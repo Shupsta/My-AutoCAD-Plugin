@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 
-namespace WBPlugin.Utilities.Misc
+namespace WBPlugin.Utilities
 {
     public static class BlockInsert
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.ApplicationServices;
-using WBPlugin.Utilities.Misc;
+using WBPlugin.Utilities;
 using Autodesk.AutoCAD.EditorInput;
 
 namespace WBPlugin.Loop_Tools

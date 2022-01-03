@@ -39,9 +39,11 @@ namespace WBPlugin.Loop_Tools
             int answer = 0;
             Active.Database.ForEach<BlockReference>(block =>
             {
-                if (block.BlockName == LoopMarker.LoopMarkerBlockName)
+                using(Transaction tr2 = Active.Database.TransactionManager.StartTransaction())
                 {
-                    Active.WriteMessage("found a loop marker!");
+                    BlockIdentifier.IsBlockType(block, LoopMarker.LoopMarkerBlockName);
+                    BlockTableRecord blockTb = tr2.GetObject(block.DynamicBlockTableRecord, OpenMode.ForRead, false) as BlockTableRecord;
+                    if (blockTb.Name == LoopMarker.LoopMarkerBlockName) Active.WriteMessage("found a loop marker");
                 }
 
 

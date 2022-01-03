@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 using Autodesk.AutoCAD.ApplicationServices;
 using WBPlugin.Tube_Tools;
 using WBPlugin.Utilities;
-using WBPlugin.Utilities.Misc;
 
 namespace WBPlugin.Loop_Tools
 {
     public class LoopMarker
     {
-        public static string LoopMarkerBlockName { get; } = "Marker";
+        public static string LoopMarkerBlockName { get; } = "MARKER";
         
         public static void Add(PointInputRetriever pointRetriever)
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 
-namespace WBPlugin.Utilities.Misc
+namespace WBPlugin.Utilities
 {
     public static class BlockFinder
     {

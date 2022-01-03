@@ -126,6 +126,7 @@
     <Compile Include="Loop Tools\Tube Tools\Tube.cs" />
     <Compile Include="Loop Tools\Tube Tools\TubeManager.cs" />
     <Compile Include="Loop Tools\Tube Tools\TubeTallier.cs" />
+    <Compile Include="Utilities\Block Tools\BlockIdentifier.cs" />
     <Compile Include="Utilities\ColorManager.cs" />
     <Compile Include="Container Objects\WBObjectId.cs" />
     <Compile Include="InputRetrievers\EntityInputRetriever.cs" />
@@ -153,8 +154,8 @@
     </Compile>
     <Compile Include="Utilities\ExtensionMethods\DatabaseExtensionMethods.cs" />
     <Compile Include="Utilities\ExtensionMethods\SymbolTableExtensionMethods.cs" />
-    <Compile Include="Utilities\Misc\BlockFinder.cs" />
-    <Compile Include="Utilities\Misc\BlockInsert.cs" />
+    <Compile Include="Utilities\Block Tools\BlockFinder.cs" />
+    <Compile Include="Utilities\Block Tools\BlockInsert.cs" />
     <Compile Include="Utilities\Report.cs">
       <SubType>Form</SubType>
     </Compile>
