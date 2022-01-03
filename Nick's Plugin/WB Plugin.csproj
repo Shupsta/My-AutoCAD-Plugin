@@ -116,7 +116,13 @@
     <Compile Include="InputRetrievers\KeywordInputRetriever.cs" />
     <Compile Include="Loop Tools\CustomGrooveCounter.cs" />
     <Compile Include="Loop Tools\Loop.cs" />
-    <Compile Include="Loop Tools\LoopMarker.cs" />
+    <Compile Include="Loop Tools\LoopMarker\LoopMarker.cs" />
+    <Compile Include="Loop Tools\LoopMarker\LoopMarkerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Loop Tools\LoopMarker\LoopMarkerForm.Designer.cs">
+      <DependentUpon>LoopMarkerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Loop Tools\Tube Tools\Tube.cs" />
     <Compile Include="Loop Tools\Tube Tools\TubeManager.cs" />
     <Compile Include="Loop Tools\Tube Tools\TubeTallier.cs" />
@@ -174,6 +180,9 @@
       <DependentUpon>CADCommands.cs</DependentUpon>
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CADCommands.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Loop Tools\LoopMarker\LoopMarkerForm.resx">
+      <DependentUpon>LoopMarkerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Utilities\Report.resx">
       <DependentUpon>Report.cs</DependentUpon>
