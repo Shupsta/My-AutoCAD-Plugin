@@ -75,7 +75,7 @@ namespace WBPlugin.Zone_Tools
                     if (WBDict.Contains("ZONES_VERSION_2"))
                     {
                         Xrecord zoneRecord = (Xrecord)tr.GetObject(WBDict.GetAt("ZONES_VERSION_2"), OpenMode.ForRead, false);
-                        var test = (List<IZone>)Old_Support.OldDeserializer.Deserialize(zoneRecord.Data);
+                        var test = (List<IZone>)Old_Support.DeserializerForOldZoneData.Deserialize(zoneRecord.Data);
                     }
                 }
 

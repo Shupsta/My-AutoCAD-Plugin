@@ -146,6 +146,12 @@ namespace WBPlugin
             var groove = new CustomGrooveCounter();
             groove.Count(new PointInputRetriever());
         }
+
+        [CommandMethod("WBTubes", "WBLoopCallout", CommandFlags.Modal)]
+        public static void WBLoopCallout()
+        {
+            
+        }
     }
 
 }

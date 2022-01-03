@@ -12,7 +12,7 @@ using WarmBoardTools.Interfaces;
 
 namespace WBPlugin.Zone_Tools.Old_Support
 {
-    public class OldDeserializer
+    public class DeserializerForOldZoneData
     {
         public static Object Deserialize(ResultBuffer xrecordData)
         {
@@ -61,33 +61,31 @@ namespace WBPlugin.Zone_Tools.Old_Support
     {
         public override Type BindToType(string assemblyName, string typeName)
         {
+
+            //string test = string.Format("{1}, {0}", typeName, Assembly.GetExecutingAssembly().FullName);
+            //return Type.GetType(test);
+
             string str = assemblyName.Split(new char[] { ',' })[0];
-            
+
             Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
-            if (str.Equals("WarmBoardTools")){
-                for (int i = 0; i < assemblies.Length; i++)
-                {
-                    char[] seperator = new char[] { ',' };
-                    if (assemblies[i].FullName.Split(seperator)[0] == "WBPlugin")
-                    {
-                        return assemblies[i].GetType(typeName);
-                    }
-                }
+            if (str.Equals("WarmBoardTools"))
+            {
+                return Assembly.GetExecutingAssembly().GetType(typeName);
             }
 
             int index = 0;
             while (true)
             {
                 Type type;
-                if(index >= assemblies.Length)
+                if (index >= assemblies.Length)
                 {
                     type = null;
                 }
                 else
                 {
                     char[] seperator = new char[] { ',' };
-                    if(str != assemblies[index].FullName.Split(seperator)[0])
+                    if (str != assemblies[index].FullName.Split(seperator)[0])
                     {
                         index++;
                         continue;
@@ -98,4 +96,6 @@ namespace WBPlugin.Zone_Tools.Old_Support
             }
         }
     }
+
+    
 }
