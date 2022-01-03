@@ -126,5 +126,20 @@ namespace WBPlugin.Tube_Tools
                 }
             }
         }
+        /// <summary>
+        /// Can return null
+        /// </summary>
+        /// <returns>A tube object which represents an object in CAD</returns>
+        public static Tube GetTube()
+        {
+            WBEntity entity = EntityInputRetriever.GetUserInput("\nSelect a tube entity");
+            if (entity.IsNull()) return null;
+
+            TubeManager manager = new TubeManager();
+
+            if (!manager.IsTube(entity)) return null;
+
+            return new Tube(entity);
+        }
     }
 }

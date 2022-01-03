@@ -13,13 +13,8 @@ namespace WBPlugin.Tube_Tools
     {
         public static void Tally()
         {
-            WBEntity tubeEntity = EntityInputRetriever.GetUserInput("\nSelect a tube entity");
-            if (tubeEntity.IsNull()) return;
-
-            TubeManager manager = new TubeManager();
-            if (!manager.IsTube(tubeEntity)) return;
-
-            Tube tube = new Tube(tubeEntity);
+            Tube tube = TubeManager.GetTube();
+            if (tube == null) return;
 
             Loop loop = new Loop(tube);
 
