@@ -9,6 +9,7 @@ using Autodesk.AutoCAD.DatabaseServices;
 using WBPlugin.Tube_Tools;
 using WBPlugin.Utilities;
 using WBPlugin.Utilities.ExtensionMethods;
+using WBPlugin.Zone_Tools;
 
 namespace WBPlugin.Loop_Tools
 {
@@ -62,8 +63,12 @@ namespace WBPlugin.Loop_Tools
                     ObjectId blockId = BlockInsert.Insert(LoopMarkerBlockName, insertPoint, loopMarkerLayer, 1);
                     BlockReference block = tr.GetObject(blockId, OpenMode.ForWrite, false) as BlockReference;
 
+                    ZoneManager manager = new ZoneManager();
+                    string zoneId = manager.IsInZone(insertPoint);
+                    if (zoneId == null) zoneId = "0";
+
                     Dictionary<string, string> attributeValues = new Dictionary<string, string>();
-                    attributeValues.Add("ZONE", "1");
+                    attributeValues.Add("ZONE", zoneId);
                     attributeValues.Add("MANIFOLD", LastManifold);
                     attributeValues.Add("LENGTH", length);
                     attributeValues.Add("LENGTH_ADD", AdditionalLength.ToString());

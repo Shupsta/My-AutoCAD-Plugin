@@ -75,6 +75,9 @@
       <Private>False</Private>
       <HintPath>..\..\..\..\..\..\Autodesk\Autodesk_ObjectARX_2018_Win_64_and_32_Bit\inc\AcMgd.dll</HintPath>
     </Reference>
+    <Reference Include="acmpolygonmgd">
+      <HintPath>..\..\..\..\..\..\WarmboardTools\Master_For_Build\WarmBoardTools.bundle\acmpolygonmgd.dll</HintPath>
+    </Reference>
     <Reference Include="Autodesk.AutoCAD.Interop.Common">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -154,6 +157,7 @@
     </Compile>
     <Compile Include="Utilities\ExtensionMethods\BlockReferenceExtensionMethod.cs" />
     <Compile Include="Utilities\ExtensionMethods\DatabaseExtensionMethods.cs" />
+    <Compile Include="Utilities\ExtensionMethods\PolyLineExtensionMethods.cs" />
     <Compile Include="Utilities\ExtensionMethods\SymbolTableExtensionMethods.cs" />
     <Compile Include="Utilities\Block Tools\BlockFinder.cs" />
     <Compile Include="Utilities\Block Tools\BlockInsert.cs" />

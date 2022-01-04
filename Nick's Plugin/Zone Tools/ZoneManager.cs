@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using WarmBoardTools.Interfaces;
+using WBPlugin.Utilities.ExtensionMethods;
 
 namespace WBPlugin.Zone_Tools
 {
@@ -185,6 +187,26 @@ namespace WBPlugin.Zone_Tools
             {
                 action(zone);
             }
+        }
+
+        public string IsInZone(WBPoint3d point)
+        {
+            string answer = null;
+            using(DocumentLock docLoc = Active.Document.LockDocument())
+            using(Transaction tr = Active.Database.TransactionManager.StartTransaction())
+            {
+                ForEach(zone =>
+                {
+                    WBObjectId wbId = (WBObjectId)zone.ObjectId;
+                    Polyline zoneline = tr.GetObject(wbId.GetId(), OpenMode.ForRead, false) as Polyline;
+
+                    if (!zoneline.Closed) zoneline.Closed = true;
+
+                    if (zoneline.IsPointInside(point.GetPoint())) answer = zone.ZoneId;
+                });
+            }
+
+            return answer;
         }
 
     }
