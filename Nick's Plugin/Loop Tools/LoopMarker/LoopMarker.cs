@@ -76,7 +76,9 @@ namespace WBPlugin.Loop_Tools
                     attributeValues.Add("ROOM", RoomName);
                     attributeValues.Add("LENGTH_DISPLAY", (lengthNum + AdditionalLength).ToString() + "'");
 
-                    block.UpdateAttributes(attributeValues);                    
+                    block.UpdateAttributes(attributeValues);
+
+                    ChangeLoopColor(loop, zoneId);
 
                     tr.Commit();
                 }
@@ -86,6 +88,20 @@ namespace WBPlugin.Loop_Tools
                     tr.Abort();
                 }
             }
+        }
+
+        private static void ChangeLoopColor(Loop loop, string zoneId)
+        {
+            int color = 1;
+
+            if (!zoneId.Equals("0"))
+            {
+                Match match = Regex.Match(zoneId, @"\d+");
+                if (match.Success) color = Convert.ToInt32(match.Value);
+                color = ColorManager.GetColorForZone(color);
+            }
+
+            ColorManager.ChangeColors(loop.GetCollectionForColor(), color);
         }
     }
 }

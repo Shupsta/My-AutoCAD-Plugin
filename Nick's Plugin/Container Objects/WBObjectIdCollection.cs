@@ -49,6 +49,11 @@ namespace WBPlugin
                 return true;
         }
 
+        public void Add(IWBObjectId id)
+        {
+            _idCollection.Add(id);
+        }
+
         public List<IWBObjectId> IdCollection { get => _idCollection; }
 
         public ObjectIdCollection GetIdCollection()

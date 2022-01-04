@@ -9,7 +9,7 @@ namespace WBPlugin.Tube_Tools
     public class Tube : IEquatable<Tube>
     {
         private double? _length;
-        private bool? _isBuried;
+        private bool? _isCustom;
         private WBPoint3d _start;
         private WBPoint3d _end;
         private WBPoint3d _middle;
@@ -57,10 +57,10 @@ namespace WBPlugin.Tube_Tools
                 _length = value;
             }
         }
-        public bool IsBuried { get
+        public bool IsCustom { get
             {
-                if (_isBuried != null) return (bool)_isBuried;
-                return GetIsBuried();
+                if (_isCustom != null) return (bool)_isCustom;
+                return GetIsCustom();
             } }
 
         
@@ -96,11 +96,11 @@ namespace WBPlugin.Tube_Tools
             this._length = length;
             return length;
         }
-        private bool GetIsBuried()
+        private bool GetIsCustom()
         {
-            bool isBuried = this.Entity.Layer.Contains("BURIED");
-            this._isBuried = isBuried;
-            return isBuried;
+            bool isCustom = this.Entity.Layer.Contains("CUSTOM");
+            this._isCustom = isCustom;
+            return isCustom;
         }
 
         private void SetPoints()

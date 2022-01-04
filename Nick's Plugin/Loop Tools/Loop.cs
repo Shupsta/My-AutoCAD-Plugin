@@ -9,10 +9,10 @@ using WBPlugin.Tube_Tools;
 
 namespace WBPlugin.Loop_Tools
 {
-     public class Loop
+    public class Loop
     {
         public List<Tube> Tubes { get; private set; }
-        
+
         public Loop(Tube selectedTube)
         {
             Tubes = GetConnectedTubes(selectedTube);
@@ -38,21 +38,21 @@ namespace WBPlugin.Loop_Tools
         private void FillTubeList(ref List<Tube> allTubes, ref List<Tube> connectedTubes)
         {
             bool finished = false;
-            
-            foreach(Tube potentialTube in allTubes)
+
+            foreach (Tube potentialTube in allTubes)
             {
-                foreach(Tube connectedTube in connectedTubes)
+                foreach (Tube connectedTube in connectedTubes)
                 {
                     if (connectedTube.IsConnected(potentialTube))
                     {
                         connectedTubes.Add(potentialTube);
                         allTubes.Remove(potentialTube);
-                        
+
                         FillTubeList(ref allTubes, ref connectedTubes);
                         finished = true;
                         break;
                     }
-                    
+
                 }
                 if (finished) break;
             }
@@ -72,6 +72,17 @@ namespace WBPlugin.Loop_Tools
             total += 108;
             total += (60 - (total % 60));//60 is rounding to nearest 5' 60/12in = 5ft
             return Converter.DistanceToString(total, DistanceUnitFormat.Current, 0);
+        }
+
+        public WBObjectIdCollection GetCollectionForColor()
+        {
+            WBObjectIdCollection collection = new WBObjectIdCollection(new List<IWBObjectId>());
+            foreach(Tube tube in Tubes)
+            {
+                if (tube.IsCustom) continue;
+                collection.Add(tube.Entity.ObjectId);
+            }
+            return collection;
         }
     }
 }
