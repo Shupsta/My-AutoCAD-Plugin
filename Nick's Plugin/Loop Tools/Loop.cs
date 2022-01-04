@@ -63,7 +63,7 @@ namespace WBPlugin.Loop_Tools
         {
             double total = 0;
 
-            foreach(Tube tube in Tubes)
+            foreach (Tube tube in Tubes)
             {
                 total += tube.Length;
             }

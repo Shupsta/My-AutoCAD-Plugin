@@ -26,5 +26,22 @@ namespace WBPlugin.Utilities.ExtensionMethods
             }
             
         }
+
+        public static void UpdateAttributes(this BlockReference block, Dictionary<string, string> values)
+        {
+            using (Transaction tr = Active.Database.TransactionManager.StartTransaction())
+            {
+                foreach(ObjectId attId in block.AttributeCollection)
+                {
+                    AttributeReference attribute = tr.GetObject(attId, OpenMode.ForWrite, false) as AttributeReference;
+                    if (values.ContainsKey(attribute.Tag))
+                    {
+                        attribute.TextString = values[attribute.Tag];
+                    }
+                }
+
+                tr.Commit();
+            }
+        }
     }
 }

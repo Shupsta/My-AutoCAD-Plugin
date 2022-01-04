@@ -14,50 +14,35 @@ namespace WBPlugin.Loop_Tools
 {
     public static class LoopMarker
     {
-        private static int _lastLoop = 1;
-        
         public static string LoopMarkerBlockName { get; } = "MARKER";
         public static string LastManifold { get; set; } = "1";
-        public static int LastLoop
-        {
-            get
-            {
-                if (_lastLoop > 8) return 1;
-                return _lastLoop;
-            }
-            set
-            {
-                _lastLoop = value;
-            }
-        }
+        public static int LastLoop { get; set; } = 0;
         public static string RoomName { get; set; }
         public static int AdditionalLength { get; set; } = 0;
 
 
-        public static void Add(PointInputRetriever pointRetriever)
+        public static void Add()
         {
             Tube tube = TubeManager.GetTube();
             if (tube == null) return;
 
-            WBPoint3d insertPoint = pointRetriever.GetUserInput("\nSelect insertion point: ", false);
+            WBPoint3d insertPoint = tube.Middle;
             if (insertPoint.IsNull()) return;
 
             WBLayerTableRecord loopMarkerLayer = new WBLayerTableRecord("T_Loop_Marker");
 
-            ObjectId blockId = BlockInsert.Insert(LoopMarkerBlockName, insertPoint, loopMarkerLayer, 1);
-
             GetUserInput();
 
-            SetBlockAttributes(tube, blockId);
+            SetBlockAttributes(tube, insertPoint, loopMarkerLayer);
         }
 
         private static void GetUserInput()
         {
-            if (LastLoop == 0) LastLoop = 1;
+            if (LastLoop+1 > 8) LastLoop = 1;
             Application.ShowModalDialog(new LoopMarkerForm());
         }
 
-        private static void SetBlockAttributes(Tube tube, ObjectId blockId)
+        private static void SetBlockAttributes(Tube tube, WBPoint3d insertPoint, WBLayerTableRecord loopMarkerLayer)
         {
             Loop loop = new Loop(tube);
 
@@ -72,18 +57,23 @@ namespace WBPlugin.Loop_Tools
             {
                 try
                 {
+
+
+                    ObjectId blockId = BlockInsert.Insert(LoopMarkerBlockName, insertPoint, loopMarkerLayer, 1);
                     BlockReference block = tr.GetObject(blockId, OpenMode.ForWrite, false) as BlockReference;
 
-                    block.UpdateAttribute("ZONE", "1");//TODO update 1 to be a call to ZoneManager to find what zone the block is in
-                    block.UpdateAttribute("MANIFOLD", LastManifold);
-                    block.UpdateAttribute("LENGTH", length);
-                    block.UpdateAttribute("LENGTH_ADD", AdditionalLength.ToString());
-                    block.UpdateAttribute("LOOP", LastLoop.ToString());
-                    block.UpdateAttribute("ROOM", RoomName);
-                    block.UpdateAttribute("LENGTH_DISPLAY", (lengthNum + AdditionalLength).ToString() + "'");
+                    Dictionary<string, string> attributeValues = new Dictionary<string, string>();
+                    attributeValues.Add("ZONE", "1");
+                    attributeValues.Add("MANIFOLD", LastManifold);
+                    attributeValues.Add("LENGTH", length);
+                    attributeValues.Add("LENGTH_ADD", AdditionalLength.ToString());
+                    attributeValues.Add("LOOP", LastLoop.ToString());
+                    attributeValues.Add("ROOM", RoomName);
+                    attributeValues.Add("LENGTH_DISPLAY", (lengthNum + AdditionalLength).ToString() + "'");
+
+                    block.UpdateAttributes(attributeValues);                    
 
                     tr.Commit();
-                    Active.Document.SendStringToExecute("Regen ", true, false, false);
                 }
                 catch (Exception ex)
                 {

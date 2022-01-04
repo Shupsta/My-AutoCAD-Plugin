@@ -23,7 +23,7 @@ namespace WBPlugin.Loop_Tools
         private void LoopMarkerForm_Load(object sender, EventArgs e)
         {
             textManifold.Text = LoopMarker.LastManifold;
-            textLoop.Text = (LoopMarker.LastLoop + 1).ToString();//TODO logic for the loop number is not going to work
+            textLoop.Text = (LoopMarker.LastLoop + 1).ToString();
             textAddLength.Text = LoopMarker.AdditionalLength.ToString();
         }
 
@@ -31,7 +31,7 @@ namespace WBPlugin.Loop_Tools
         {
             try
             {
-                LoopMarker.LastManifold = textManifold.Text;
+                LoopMarker.LastManifold = textManifold.Text.ToUpper();
                 LoopMarker.LastLoop = Convert.ToInt32(textLoop.Text);
                 LoopMarker.AdditionalLength = Convert.ToInt32(textAddLength.Text);
                 LoopMarker.RoomName = textRoom.Text;

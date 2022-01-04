@@ -12,12 +12,13 @@ namespace WBPlugin.Tube_Tools
         private bool? _isBuried;
         private WBPoint3d _start;
         private WBPoint3d _end;
+        private WBPoint3d _middle;
         
         public WBEntity Entity { get; private set; }
         public string Name { get => Entity.TypeName; }
         public WBPoint3d Start { get
             {
-                if (_start == null) SetStartAndEndPoints();
+                if (_start == null) SetPoints();
                 return _start;
             } private set
             {
@@ -27,18 +28,35 @@ namespace WBPlugin.Tube_Tools
         {
             get
             {
-                if (_end == null) SetStartAndEndPoints();
+                if (_end == null) SetPoints();
                 return _end;
             } private set
             {
                 _end = value;
             }
         }
+        public WBPoint3d Middle
+        {
+            get
+            {
+                if (_middle == null) SetPoints();
+                return _middle;
+            }
+            private set
+            {
+                _middle = value;
+            }
+        }
+
         public double Length { get
             {
                 if (_length != null) return (double)_length;
                 return GetLength();
-            } }
+            }private set
+            {
+                _length = value;
+            }
+        }
         public bool IsBuried { get
             {
                 if (_isBuried != null) return (bool)_isBuried;
@@ -50,6 +68,11 @@ namespace WBPlugin.Tube_Tools
         public Tube(WBEntity ent)
         {
             Entity = ent;            
+        }
+        public Tube(WBEntity ent, double length)
+        {
+            Entity = ent;
+            this.Length = length;
         }
 
         public bool IsConnected(Tube that)
@@ -80,11 +103,12 @@ namespace WBPlugin.Tube_Tools
             return isBuried;
         }
 
-        private void SetStartAndEndPoints()
+        private void SetPoints()
         {
-            Tuple<WBPoint3d, WBPoint3d> startAndEnd = TubeManager.GetStartOrEndPoint(this.Entity);
-            Start = startAndEnd.Item1;
-            End = startAndEnd.Item2;
+            Tuple<WBPoint3d, WBPoint3d, WBPoint3d> points = TubeManager.GetStartOrEndPoint(this.Entity);
+            Start = points.Item1;
+            End = points.Item2;
+            Middle = points.Item3;
         }
     }
 }

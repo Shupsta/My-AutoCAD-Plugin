@@ -150,7 +150,7 @@ namespace WBPlugin
         [CommandMethod("WBTubes", "WBLoopCallout", CommandFlags.Modal)]
         public static void WBLoopCallout()
         {
-            LoopMarker.Add(new PointInputRetriever());
+            LoopMarker.Add();
         }
     }
 

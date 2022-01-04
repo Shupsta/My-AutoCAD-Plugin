@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
+using Autodesk.AutoCAD.Geometry;
 using WBPlugin.Utilities;
 
 namespace WBPlugin.Tube_Tools
@@ -33,15 +34,17 @@ namespace WBPlugin.Tube_Tools
 
         
 
-        public static Tuple<WBPoint3d, WBPoint3d> GetStartOrEndPoint(WBEntity tube)
+        public static Tuple<WBPoint3d, WBPoint3d, WBPoint3d> GetStartOrEndPoint(WBEntity tube)
         {
             using(Transaction tr = Active.Database.TransactionManager.StartTransaction())
             {
                 ObjectId id = tube.ObjectId.GetId();
                 Curve ent = (Curve)id.GetObject(OpenMode.ForRead, false);
-                return new Tuple<WBPoint3d, WBPoint3d>(
+                LineSegment3d lineSeg = new LineSegment3d(ent.StartPoint, ent.EndPoint);
+                return new Tuple<WBPoint3d, WBPoint3d, WBPoint3d>(
                     new WBPoint3d(ent.StartPoint.X, ent.StartPoint.Y), 
-                    new WBPoint3d(ent.EndPoint.X, ent.EndPoint.Y));              
+                    new WBPoint3d(ent.EndPoint.X, ent.EndPoint.Y),
+                    new WBPoint3d(lineSeg.MidPoint.X, lineSeg.MidPoint.Y));              
             }
         }
 
@@ -73,11 +76,27 @@ namespace WBPlugin.Tube_Tools
 
                 }
                 return length;
+            }            
+        }
+
+        private static double GetLength(Entity entity)
+        {
+            ObjectId id = entity.ObjectId;
+            switch (entity.GetType().Name)
+            {
+                case "LINE":
+                    Line line = (Line)id.GetObject(OpenMode.ForRead, false);
+                    return line.Length;
+                case "ARC":
+                    Arc arc = (Arc)id.GetObject(OpenMode.ForRead, false);
+                    return arc.Length;
+                case "POLYLINE":
+                    Polyline polyline = (Polyline)id.GetObject(OpenMode.ForRead, false);
+                    return polyline.Length;
+                default:
+                    return 0;
+
             }
-            
-            
-            
-            
         }
 
         internal List<Tube> GetAllTubes()
@@ -111,7 +130,8 @@ namespace WBPlugin.Tube_Tools
                     {
                         WBObjectId id = new WBObjectId(oID.Handle.Value);
                         WBEntity ent = new WBEntity(id);
-                        Tube tube = new Tube(ent);
+                        Entity entity = oID.GetObject(OpenMode.ForRead, false) as Entity;
+                        Tube tube = new Tube(ent, GetLength(entity));
                         tubes.Add(tube);
                     }
                     
