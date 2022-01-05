@@ -21,7 +21,7 @@ namespace WBPlugin.Zone_Tools
         public ZoneManager()
         {
             //OldZoneInfo();//TODO remove if tests prove unsuccessful, as well as old support folder and contents
-            using(Transaction tr = Active.Database.TransactionManager.StartTransaction())
+            using (Transaction tr = Active.Database.TransactionManager.StartTransaction())
             {
                 DBDictionary NOD = (DBDictionary)tr.GetObject(Active.Database.NamedObjectsDictionaryId, OpenMode.ForRead, false);
                 DBDictionary WBDict;
@@ -123,19 +123,31 @@ namespace WBPlugin.Zone_Tools
 
         public void Add(Zone zone)
         {
-            _zoneList.Add(zone);
-            CreateXRecord();
+            using(Transaction tr = Active.Database.TransactionManager.StartTransaction())
+            {
+                _zoneList.Add(zone);
+                CreateXRecord(tr);
+                tr.Commit();
+            }
         }
 
         public void Remove(Zone zone)
         {
-            _zoneList.Remove(zone);
-            CreateXRecord();
+            using (Transaction tr = Active.Database.TransactionManager.StartTransaction())
+            {
+                _zoneList.Remove(zone);
+                CreateXRecord(tr);
+                tr.Commit();
+            }
         }
 
         public void Sync()
         {
-            CreateXRecord();
+            using (Transaction tr = Active.Database.TransactionManager.StartTransaction())
+            {
+                CreateXRecord(tr);
+                tr.Commit();
+            }
         }
 
         public Zone Contains(WBObjectId id)
@@ -154,31 +166,26 @@ namespace WBPlugin.Zone_Tools
             return zone;
         }
 
-        private void CreateXRecord()
-        {            
-            using (Transaction tr = Active.Database.TransactionManager.StartTransaction())
+        private void CreateXRecord(Transaction tr)
+        {
+            DBDictionary NOD = (DBDictionary)tr.GetObject(Active.Database.NamedObjectsDictionaryId, OpenMode.ForWrite, false);
+
+
+            DBDictionary WBDict = (DBDictionary)tr.GetObject(NOD.GetAt(WBDictionaryName), OpenMode.ForWrite, false);
+
+            Xrecord zoneRecord = (Xrecord)tr.GetObject(WBDict.GetAt(ZoneRecordName), OpenMode.ForWrite, false);
+
+            ResultBuffer resbuf = new ResultBuffer();
+            foreach (Zone zone in _zoneList)
             {
-                DBDictionary NOD = (DBDictionary)tr.GetObject(Active.Database.NamedObjectsDictionaryId, OpenMode.ForWrite, false);
-                
 
-                DBDictionary WBDict = (DBDictionary)tr.GetObject(NOD.GetAt(WBDictionaryName), OpenMode.ForWrite, false);
-
-                Xrecord zoneRecord = (Xrecord)tr.GetObject(WBDict.GetAt(ZoneRecordName), OpenMode.ForWrite, false);
-
-                ResultBuffer resbuf = new ResultBuffer();
-                foreach (Zone zone in _zoneList)
-                {
-                    
-                    resbuf.Add(new TypedValue((int)DxfCode.Int64, zone.ObjectId.Handle));
-                    resbuf.Add(new TypedValue((int)DxfCode.Int32, zone.ZoneNumber));
-                    resbuf.Add(new TypedValue((int)DxfCode.Text, zone.System));
-                    resbuf.Add(new TypedValue((int)DxfCode.Text, zone.Thermostat));
-                }
-
-                zoneRecord.Data = resbuf;
-
-                tr.Commit();
+                resbuf.Add(new TypedValue((int)DxfCode.Int64, zone.ObjectId.Handle));
+                resbuf.Add(new TypedValue((int)DxfCode.Int32, zone.ZoneNumber));
+                resbuf.Add(new TypedValue((int)DxfCode.Text, zone.System));
+                resbuf.Add(new TypedValue((int)DxfCode.Text, zone.Thermostat));
             }
+
+            zoneRecord.Data = resbuf;
         }
 
         public void ForEach(Action<Zone> action)

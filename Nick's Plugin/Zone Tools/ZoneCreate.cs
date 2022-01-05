@@ -16,7 +16,7 @@ namespace WBPlugin.Zone_Tools
             WBObjectId selectedPolyLine = PolyLineInputRetriever.GetUserInput("\nSelect PolyLine to make a Zone: ");
             if (selectedPolyLine.IsNull()) return false;
 
-            ZoneManager manager = new ZoneManager();
+            ZoneManager manager = WBPlugin.ZoneManager;
 
             string defaultValue = manager.GetNextZoneNumber();
             string zoneId = StringInputRetriever.GetUserInput("\nEnter Zone Number: ", defaultValue);
@@ -30,7 +30,7 @@ namespace WBPlugin.Zone_Tools
 
             manager.Add(zone);
 
-            AddEvent(zone);
+            //AddEvent(zone);
 
             return true;
         }

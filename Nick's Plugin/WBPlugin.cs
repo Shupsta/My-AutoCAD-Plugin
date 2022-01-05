@@ -19,7 +19,7 @@ namespace WBPlugin
     public class WBPlugin : IExtensionApplication
     {
         
-        
+        public static ZoneManager ZoneManager { get; private set; }
         
 
         void IExtensionApplication.Initialize()
@@ -42,8 +42,8 @@ namespace WBPlugin
             // as well as some of the existing AutoCAD managed apps.
 
             // Initialize your plug-in application here
-            
-            
+
+            ZoneManager = new ZoneManager();
 
         }
 

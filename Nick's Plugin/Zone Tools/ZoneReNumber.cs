@@ -13,7 +13,7 @@ namespace WBPlugin.Zone_Tools
         {
             WBObjectId selectedPolyLine = PolyLineInputRetriever.GetUserInput("\nSelect Zone to Renumber: ");
             if (selectedPolyLine.IsNull()) return false;
-            ZoneManager manager = new ZoneManager();
+            ZoneManager manager = WBPlugin.ZoneManager;
 
             Zone zone = manager.Contains(selectedPolyLine);
 

@@ -117,6 +117,8 @@
     <Compile Include="Container Objects\WBEntity.cs" />
     <Compile Include="InputRetrievers\IntegerInputRetriever.cs" />
     <Compile Include="InputRetrievers\KeywordInputRetriever.cs" />
+    <Compile Include="New\NewDoubleInputRetriever.cs" />
+    <Compile Include="New\NewJoists.cs" />
     <Compile Include="Loop Tools\CustomGrooveCounter.cs" />
     <Compile Include="Loop Tools\Loop.cs" />
     <Compile Include="Loop Tools\LoopMarker\LoopMarker.cs" />
@@ -174,6 +176,7 @@
     <Compile Include="Zone Tools\Old Support\IZone.cs" />
     <Compile Include="Zone Tools\Old Support\DeserializerForOldZoneData.cs" />
     <Compile Include="Zone Tools\Zone.cs" />
+    <Compile Include="Zone Tools\ZoneModifiedEvent.cs" />
     <Compile Include="Zone Tools\ZoneShift.cs" />
     <Compile Include="Zone Tools\ZoneCheck.cs" />
     <Compile Include="Zone Tools\ZoneCreate.cs" />

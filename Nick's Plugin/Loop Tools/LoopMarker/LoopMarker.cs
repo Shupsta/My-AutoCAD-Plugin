@@ -65,7 +65,7 @@ namespace WBPlugin.Loop_Tools
                     ObjectId blockId = BlockInsert.Insert(LoopMarkerBlockName, insertPoint, loopMarkerLayer, 1);
                     BlockReference block = tr.GetObject(blockId, OpenMode.ForWrite, false) as BlockReference;
 
-                    ZoneManager manager = new ZoneManager();
+                    ZoneManager manager = WBPlugin.ZoneManager;
                     string zoneId = manager.IsInZone(insertPoint);
                     if (zoneId == null) zoneId = "0";
 

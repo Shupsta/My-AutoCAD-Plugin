@@ -25,21 +25,23 @@ namespace WBPlugin.Zone_Tools
 
         private static void ChangeColor(Polyline zoneLine)
         {
-            ZoneManager manager = new ZoneManager();
+            ZoneManager manager = WBPlugin.ZoneManager;
 
             WBObjectId wbId = new WBObjectId(zoneLine.ObjectId.Handle.Value);
 
             Zone zoneObj = manager.Contains(wbId);
             if (zoneObj == null) return;
 
-            int properColor = ColorManager.GetColorForZone(zoneObj.ZoneNumber);
-            int actualColor = ColorManager.GetColor(wbId);
-            if (properColor == actualColor) return;
+             Transaction test = zoneLine.Database.TransactionManager.TopTransaction;
 
-            using (Transaction tr = zoneLine.ObjectId.Database.TransactionManager.StartTransaction())
+            using (Transaction tr = test == null ?
+                zoneLine.ObjectId.Database.TransactionManager.StartTransaction() : test)
             {
-                Editor ed = Active.Editor;
+                int properColor = ColorManager.GetColorForZone(zoneObj.ZoneNumber);
+                int actualColor = zoneLine.ColorIndex;
+                if (properColor == actualColor) return;
 
+                Editor ed = Active.Editor;
                 TypedValue[] array = new TypedValue[1];
                 array.SetValue(new TypedValue((int)DxfCode.BlockName, LoopMarker.LoopMarkerBlockName), 0);
                 SelectionFilter filter = new SelectionFilter(array);
@@ -47,8 +49,6 @@ namespace WBPlugin.Zone_Tools
                 PromptSelectionResult psr = ed.SelectAll(filter);
 
                 if (psr.Status != PromptStatus.OK) return;
-
-                var test = psr.Value;                
 
                 foreach(ObjectId markerId in psr.Value.GetObjectIds())
                 {
@@ -61,5 +61,7 @@ namespace WBPlugin.Zone_Tools
                 tr.Commit();
             }
         }
+
+        
     }
 }

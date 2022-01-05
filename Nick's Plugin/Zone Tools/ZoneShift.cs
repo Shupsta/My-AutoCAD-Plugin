@@ -18,7 +18,7 @@ namespace WBPlugin.Zone_Tools
         
         public bool Shift()
         {
-            this._manager = new ZoneManager();
+            this._manager = WBPlugin.ZoneManager;
 
             if (!GetPivotZone()) return false;
 
