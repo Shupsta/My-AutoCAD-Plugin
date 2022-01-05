@@ -16,6 +16,15 @@ namespace WBPlugin.Zone_Tools
         {
             Polyline zoneLine = sender as Polyline;
 
+            ChangeColor(zoneLine);
+
+
+
+
+        }
+
+        private static void ChangeColor(Polyline zoneLine)
+        {
             ZoneManager manager = new ZoneManager();
 
             WBObjectId wbId = new WBObjectId(zoneLine.ObjectId.Handle.Value);
@@ -27,14 +36,7 @@ namespace WBPlugin.Zone_Tools
             int actualColor = ColorManager.GetColor(wbId);
             if (properColor == actualColor) return;
 
-            ChangeColor(zoneLine.ObjectId);
-
-
-        }
-
-        private static void ChangeColor(ObjectId zoneId)
-        {
-            using(Transaction tr = zoneId.Database.TransactionManager.StartTransaction())
+            using (Transaction tr = zoneLine.ObjectId.Database.TransactionManager.StartTransaction())
             {
                 Editor ed = Active.Editor;
 
@@ -45,6 +47,18 @@ namespace WBPlugin.Zone_Tools
                 PromptSelectionResult psr = ed.SelectAll(filter);
 
                 if (psr.Status != PromptStatus.OK) return;
+
+                var test = psr.Value;                
+
+                foreach(ObjectId markerId in psr.Value.GetObjectIds())
+                {
+                    BlockReference marker = markerId.GetObject(OpenMode.ForRead, false) as BlockReference;
+                    string containingZone = manager.IsInZone(new WBPoint3d(marker.Position.X, marker.Position.Y));
+                    if(!zoneObj.ZoneId.Equals(containingZone)) continue;
+                    LoopMarker.ChangeXDataLoopColor(marker, tr, actualColor);
+                }
+
+                tr.Commit();
             }
         }
     }

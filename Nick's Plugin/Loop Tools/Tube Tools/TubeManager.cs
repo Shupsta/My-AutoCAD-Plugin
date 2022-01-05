@@ -13,12 +13,12 @@ namespace WBPlugin.Tube_Tools
 {
     public class TubeManager
     {
-        private readonly string[] _tubeLayer = new string[] { "TUBING", "BURIED TUBING", "CUSTOM GROOVE", "T_TUBING", "T_BURIED TUBING", "T_CUSTOM GROOVE", "T_SUPPLY" };
+        private static readonly string[] _tubeLayer = new string[] { "TUBING", "BURIED TUBING", "CUSTOM GROOVE", "T_TUBING", "T_BURIED TUBING", "T_CUSTOM GROOVE", "T_SUPPLY" };
         private readonly string[] _tubeEntityTypes = new string[] { "ARC", "LINE", "LWPOLYLINE" };
         private string JoinedTubeEntityTypes { get => String.Join(",", _tubeEntityTypes); }
         private string JoinedTubeLayers { get => String.Join(",", _tubeLayer); }
         
-        internal bool IsTube(WBEntity tubeEntity)
+        public static bool IsTube(WBEntity tubeEntity)
         {
             if (tubeEntity.TypeName == "LINE" || tubeEntity.TypeName == "ARC" || tubeEntity.TypeName == "POLYLINE")
             {
@@ -155,9 +155,7 @@ namespace WBPlugin.Tube_Tools
             WBEntity entity = EntityInputRetriever.GetUserInput("\nSelect a tube entity");
             if (entity.IsNull()) return null;
 
-            TubeManager manager = new TubeManager();
-
-            if (!manager.IsTube(entity)) return null;
+            if (!TubeManager.IsTube(entity)) return null;
 
             return new Tube(entity);
         }

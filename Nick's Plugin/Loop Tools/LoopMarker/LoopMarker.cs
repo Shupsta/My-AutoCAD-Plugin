@@ -21,6 +21,8 @@ namespace WBPlugin.Loop_Tools
         public static string RoomName { get; set; }
         public static int AdditionalLength { get; set; } = 0;
 
+        public static string XrecordKey { get; } = "LoopEnt";
+
 
         public static void Add()
         {
@@ -78,7 +80,9 @@ namespace WBPlugin.Loop_Tools
 
                     block.UpdateAttributes(attributeValues);
 
-                    ChangeLoopColor(loop, zoneId);
+                    int color = GetLoopColor(loop, zoneId);
+                    ColorManager.ChangeColors(loop.GetCollectionForColor(), color);
+
                     AddXData(block, tube, tr);
 
                     tr.Commit();
@@ -92,7 +96,7 @@ namespace WBPlugin.Loop_Tools
         }
         
 
-        private static void ChangeLoopColor(Loop loop, string zoneId)
+        private static int GetLoopColor(Loop loop, string zoneId)
         {
             int color = 1;
 
@@ -102,8 +106,7 @@ namespace WBPlugin.Loop_Tools
                 if (match.Success) color = Convert.ToInt32(match.Value);
                 color = ColorManager.GetColorForZone(color);
             }
-
-            ColorManager.ChangeColors(loop.GetCollectionForColor(), color);
+            return color;
         }
 
         private static void AddXData(BlockReference block, Tube tube, Transaction tr)
@@ -121,10 +124,30 @@ namespace WBPlugin.Loop_Tools
                 
             }
             DBDictionary exDict = block.ExtensionDictionary.GetObject(OpenMode.ForWrite, false) as DBDictionary;
-            exDict.SetAt("LoopEnt", record);
+            exDict.SetAt(XrecordKey, record);
             tr.AddNewlyCreatedDBObject(record, true);
             
 
+        }
+
+        public static void ChangeXDataLoopColor(BlockReference marker, Transaction tr, int color)
+        {
+            if (marker.ExtensionDictionary == ObjectId.Null) return;
+
+            DBDictionary exDict = tr.GetObject(marker.ExtensionDictionary, OpenMode.ForRead, false) as DBDictionary;
+
+            Xrecord record = exDict.GetAt(XrecordKey).GetObject(OpenMode.ForRead, false) as Xrecord;
+
+            foreach(TypedValue value in record.ToArray())
+            {
+                long handle = Convert.ToInt64(value.Value);
+                WBEntity possibleTube = new WBEntity(new WBObjectId(handle));
+                if (!TubeManager.IsTube(possibleTube)) return;
+                Tube tube = new Tube(possibleTube);
+                Loop loop = new Loop(tube);
+
+                ColorManager.ChangeColors(loop.GetCollectionForColor(), color);
+            }
         }
     }
 }
