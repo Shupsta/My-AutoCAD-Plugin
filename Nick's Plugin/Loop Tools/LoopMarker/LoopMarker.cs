@@ -79,6 +79,7 @@ namespace WBPlugin.Loop_Tools
                     block.UpdateAttributes(attributeValues);
 
                     ChangeLoopColor(loop, zoneId);
+                    AddXData(block, tube, tr);
 
                     tr.Commit();
                 }
@@ -89,6 +90,7 @@ namespace WBPlugin.Loop_Tools
                 }
             }
         }
+        
 
         private static void ChangeLoopColor(Loop loop, string zoneId)
         {
@@ -102,6 +104,27 @@ namespace WBPlugin.Loop_Tools
             }
 
             ColorManager.ChangeColors(loop.GetCollectionForColor(), color);
+        }
+
+        private static void AddXData(BlockReference block, Tube tube, Transaction tr)
+        {
+            ResultBuffer resultbuf = new ResultBuffer();
+            resultbuf.Add(new TypedValue((int)DxfCode.Handle, tube.Entity.ObjectId.Handle));
+            Xrecord record = new Xrecord();
+            record.Data = resultbuf;
+
+            
+            if(block.ExtensionDictionary == ObjectId.Null)
+            {
+                block.UpgradeOpen();
+                block.CreateExtensionDictionary();
+                
+            }
+            DBDictionary exDict = block.ExtensionDictionary.GetObject(OpenMode.ForWrite, false) as DBDictionary;
+            exDict.SetAt("LoopEnt", record);
+            tr.AddNewlyCreatedDBObject(record, true);
+            
+
         }
     }
 }

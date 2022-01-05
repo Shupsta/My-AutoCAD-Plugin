@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Autodesk.AutoCAD.DatabaseServices;
 using WBPlugin.Utilities;
 
 namespace WBPlugin.Zone_Tools
@@ -29,9 +30,23 @@ namespace WBPlugin.Zone_Tools
 
             manager.Add(zone);
 
+            AddEvent(zone);
+
             return true;
         }
 
-        
+        public static void AddEvent(Zone zone)
+        {
+            ObjectId id = (zone.ObjectId as WBObjectId).GetId();
+
+            using(Transaction tr = Active.Database.TransactionManager.StartTransaction())
+            {
+                Entity ent = id.GetObject(OpenMode.ForWrite, false) as Entity;
+
+                ent.Modified += ZoneModifiedEvent.ZoneModified;
+
+                tr.Commit();
+            }
+        }
     }
 }
